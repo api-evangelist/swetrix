@@ -1,34 +1,64 @@
 aid: swetrix
 name: Swetrix
 description: >-
-  Swetrix is an open source, privacy-focused web analytics platform with cookieless tracking and real-time dashboards.
+  Swetrix is an open source, privacy-focused web analytics platform that
+  provides cookieless tracking, real-time dashboards, and GDPR-compliant
+  analytics without collecting personal data.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - API Analysis
   - Web Analytics
+  - Privacy
+  - Open Source
+  - Cookieless Tracking
+  - GDPR Compliant
+  - Real-Time Analytics
 url: >-
   https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml
 created: '2026-03-26'
 modified: '2026-03-26'
 specificationVersion: '0.19'
 apis:
-  - aid: swetrix:swetrix
-    name: Swetrix
+  - aid: swetrix:swetrix-api
+    name: Swetrix API
     description: >-
-      Swetrix is an open source, privacy-focused web analytics platform with cookieless tracking and real-time dashboards.
+      The Swetrix API enables developers to send analytics events, retrieve
+      traffic statistics, manage projects, and access real-time visitor data
+      programmatically for privacy-focused web analytics.
     humanURL: https://swetrix.com
-    tags:
-      - API Analysis
-      - Web Analytics
     properties:
       - type: Documentation
         url: https://docs.swetrix.com
+      - type: APIDocumentation
+        url: https://docs.swetrix.com/api
       - type: GitHubOrg
         url: https://github.com/Swetrix/swetrix
+      - type: SDKs
+        url: https://docs.swetrix.com/sdk
+    tags:
+      - Web Analytics
+      - Privacy
+      - Open Source
+      - Cookieless Tracking
 common:
   - type: Website
     url: https://swetrix.com
+  - type: Documentation
+    url: https://docs.swetrix.com
+  - type: Blog
+    url: https://swetrix.com/blog
+  - type: Pricing
+    url: https://swetrix.com/pricing
+  - type: GitHub
+    url: https://github.com/Swetrix/swetrix
+  - type: Login
+    url: https://swetrix.com/login
+  - type: Signup
+    url: https://swetrix.com/signup
+  - type: Support
+    url: https://swetrix.com/contact
+  - type: OpenSource
+    url: https://github.com/Swetrix/swetrix-api
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
