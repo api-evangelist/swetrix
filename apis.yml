@@ -7,12 +7,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Web Analytics
-  - Privacy
-  - Open Source
   - Cookieless Tracking
   - GDPR Compliant
+  - Open Source
+  - Privacy
   - Real-Time Analytics
+  - Web Analytics
 url: >-
   https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -36,10 +36,10 @@ apis:
       - type: SDKs
         url: https://docs.swetrix.com/sdk
     tags:
-      - Web Analytics
-      - Privacy
-      - Open Source
       - Cookieless Tracking
+      - Open Source
+      - Privacy
+      - Web Analytics
 common:
   - type: Website
     url: https://swetrix.com
