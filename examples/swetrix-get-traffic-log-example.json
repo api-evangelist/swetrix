@@ -1,0 +1,27 @@
+{
+  "summary": "Get traffic log",
+  "description": "Example of querying 7-day traffic log data grouped by day",
+  "request": {
+    "method": "GET",
+    "url": "https://api.swetrix.com/v1/log?pid=abc123projectid&timeBucket=day&period=7d&timezone=America/New_York",
+    "headers": {
+      "X-Api-Key": "your-api-key-here"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "params": {
+        "pid": "abc123projectid",
+        "timeBucket": "day",
+        "period": "7d"
+      },
+      "chart": {
+        "x": ["2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02", "2026-05-03"],
+        "visits": [142, 198, 231, 87, 67, 312, 289],
+        "uniques": [98, 145, 189, 62, 54, 241, 223]
+      },
+      "appliedFilters": []
+    }
+  }
+}

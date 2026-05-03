@@ -1,0 +1,25 @@
+{
+  "name": "SwetrixProject",
+  "description": "A Swetrix analytics project tracking web traffic and events",
+  "fields": [
+    { "name": "id", "type": "string", "description": "Unique project identifier" },
+    { "name": "name", "type": "string", "description": "Project display name (max 50 chars)" },
+    { "name": "active", "type": "boolean", "description": "Whether tracking is active" },
+    { "name": "public", "type": "boolean", "description": "Whether dashboard is public" },
+    { "name": "origins", "type": "array<string>", "description": "Allowed domain origins" },
+    { "name": "ipBlacklist", "type": "array<string>", "description": "Blocked IP addresses" },
+    { "name": "botsProtectionLevel", "type": "string", "description": "Bot protection: off or basic" },
+    { "name": "isCaptcha", "type": "boolean", "description": "CAPTCHA tracking enabled" },
+    { "name": "isPasswordProtected", "type": "boolean", "description": "Dashboard password required" },
+    { "name": "organisationId", "type": "string|null", "description": "Parent organisation ID" },
+    { "name": "createdAt", "type": "datetime", "description": "Creation timestamp" },
+    { "name": "updatedAt", "type": "datetime", "description": "Last modified timestamp" }
+  ],
+  "relationships": [
+    { "name": "organisation", "type": "Organisation", "cardinality": "many-to-one" },
+    { "name": "funnels", "type": "Funnel", "cardinality": "one-to-many" },
+    { "name": "annotations", "type": "Annotation", "cardinality": "one-to-many" },
+    { "name": "views", "type": "ProjectView", "cardinality": "one-to-many" },
+    { "name": "sessions", "type": "Session", "cardinality": "one-to-many" }
+  ]
+}

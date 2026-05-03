@@ -1,0 +1,297 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Swetrix Events API"
+  description: >-
+    Records pageview events, custom events, heartbeat sessions, error events,
+    and revenue transactions for Swetrix analytics projects.
+  tags:
+    - Analytics
+    - Custom Events
+    - Error Tracking
+    - Events
+    - Pageviews
+    - Revenue Tracking
+    - Swetrix
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      SWETRIX_API_KEY: SWETRIX_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: swetrix-events
+      baseUri: https://api.swetrix.com
+      description: "Records analytics events for Swetrix projects"
+      resources:
+        - name: pageviews
+          path: /log
+          description: Pageview event recording
+          operations:
+            - name: record-pageview
+              method: POST
+              description: "Record Pageview Event"
+              inputParameters:
+                - name: pid
+                  in: body
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: pg
+                  in: body
+                  type: string
+                  required: false
+                  description: "Page path"
+                - name: lc
+                  in: body
+                  type: string
+                  required: false
+                  description: "User locale"
+                - name: ref
+                  in: body
+                  type: string
+                  required: false
+                  description: "Referrer URL"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: custom-events
+          path: /log/custom
+          description: Custom event recording
+          operations:
+            - name: record-custom-event
+              method: POST
+              description: "Record Custom Event"
+              inputParameters:
+                - name: pid
+                  in: body
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: ev
+                  in: body
+                  type: string
+                  required: true
+                  description: "Event identifier"
+                - name: pg
+                  in: body
+                  type: string
+                  required: false
+                  description: "Page path"
+                - name: meta
+                  in: body
+                  type: object
+                  required: false
+                  description: "Custom metadata key-value pairs"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: heartbeat
+          path: /log/hb
+          description: Session heartbeat events
+          operations:
+            - name: record-heartbeat
+              method: POST
+              description: "Record Heartbeat Event"
+              inputParameters:
+                - name: pid
+                  in: body
+                  type: string
+                  required: true
+                  description: "Project ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: errors
+          path: /log/error
+          description: JavaScript error recording
+          operations:
+            - name: record-error
+              method: POST
+              description: "Record Error Event"
+              inputParameters:
+                - name: pid
+                  in: body
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: name
+                  in: body
+                  type: string
+                  required: true
+                  description: "Error name"
+                - name: message
+                  in: body
+                  type: string
+                  required: false
+                  description: "Error message"
+                - name: stackTrace
+                  in: body
+                  type: string
+                  required: false
+                  description: "Stack trace"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: revenue
+          path: /log/revenue
+          description: Revenue transaction recording
+          operations:
+            - name: record-revenue
+              method: POST
+              description: "Record Revenue Transaction"
+              inputParameters:
+                - name: pid
+                  in: body
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: type
+                  in: body
+                  type: string
+                  required: true
+                  description: "Transaction type: sale, refund, subscription"
+                - name: amount
+                  in: body
+                  type: number
+                  required: true
+                  description: "Transaction amount"
+                - name: currency
+                  in: body
+                  type: string
+                  required: true
+                  description: "ISO 4217 currency code"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: swetrix-events-rest
+      resources:
+        - path: /v1/log
+          name: pageviews
+          description: "Record pageview events"
+          operations:
+            - method: POST
+              name: record-pageview
+              description: "Record Pageview Event"
+              call: "swetrix-events.record-pageview"
+              with:
+                pid: "rest.pid"
+                pg: "rest.pg"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/log/custom
+          name: custom-events
+          description: "Record custom events"
+          operations:
+            - method: POST
+              name: record-custom-event
+              description: "Record Custom Event"
+              call: "swetrix-events.record-custom-event"
+              with:
+                pid: "rest.pid"
+                ev: "rest.ev"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/log/errors
+          name: errors
+          description: "Record error events"
+          operations:
+            - method: POST
+              name: record-error
+              description: "Record Error Event"
+              call: "swetrix-events.record-error"
+              with:
+                pid: "rest.pid"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: swetrix-events-mcp
+      transport: http
+      tools:
+        - name: record-pageview
+          description: "Record a pageview event for a Swetrix analytics project"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-pageview"
+          with:
+            pid: "tools.pid"
+            pg: "tools.pg"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: record-custom-event
+          description: "Record a custom named event with optional metadata"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-custom-event"
+          with:
+            pid: "tools.pid"
+            ev: "tools.ev"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: record-error
+          description: "Record a JavaScript error event"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-error"
+          with:
+            pid: "tools.pid"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: record-revenue
+          description: "Record a revenue transaction (sale, refund, or subscription)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-revenue"
+          with:
+            pid: "tools.pid"
+            type: "tools.type"
+            amount: "tools.amount"
+            currency: "tools.currency"
+          outputParameters:
+            - type: object
+              mapping: "$."

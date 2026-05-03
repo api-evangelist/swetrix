@@ -1,0 +1,727 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Statistics API
+  description: >-
+    The Swetrix Statistics API enables querying aggregated analytics data for
+    projects including traffic logs, performance metrics, session details,
+    funnel analysis, user navigation flows, error statistics, keyword data,
+    and feature flag evaluations. All requests require authentication via the
+    X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+externalDocs:
+  description: Swetrix Statistics API Documentation
+  url: https://swetrix.com/docs/statistics-api
+servers:
+  - url: https://api.swetrix.com
+    description: Swetrix Production API
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Traffic
+    description: Aggregated traffic and pageview analytics
+  - name: Performance
+    description: Frontend and backend performance metrics
+  - name: Sessions
+    description: Individual visitor session data
+  - name: Funnels
+    description: Conversion funnel analysis
+  - name: Errors
+    description: JavaScript error statistics
+  - name: Custom Events
+    description: Custom event analytics
+  - name: Goals
+    description: Goal conversion tracking
+  - name: Feature Flags
+    description: Feature flag evaluation statistics
+paths:
+  /v1/log:
+    get:
+      operationId: getTrafficLog
+      summary: Get Traffic Log
+      description: >-
+        Retrieves aggregated traffic data for a project. Returns the same
+        data shown in the Traffic tab of the dashboard, represented as JSON.
+        Supports periodic or cumulative modes and custom metric objects.
+      tags:
+        - Traffic
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/timeBucket'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - $ref: '#/components/parameters/filters'
+        - name: mode
+          in: query
+          schema:
+            type: string
+            enum:
+              - periodic
+              - cumulative
+          description: Data aggregation mode
+        - name: metrics
+          in: query
+          schema:
+            type: string
+          description: Up to 3 custom metric objects (JSON array)
+      responses:
+        '200':
+          description: Traffic log data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficLogResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/performance:
+    get:
+      operationId: getPerformanceLog
+      summary: Get Performance Metrics
+      description: >-
+        Returns performance metrics including DNS lookup, TLS handshake,
+        connection, response, render, DOM load, TTFB, and full page load
+        times. Supports median, average, p95, and quantile aggregations.
+      tags:
+        - Performance
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/timeBucket'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - $ref: '#/components/parameters/filters'
+        - name: measure
+          in: query
+          schema:
+            type: string
+            enum:
+              - median
+              - average
+              - p95
+              - quantiles
+            default: median
+          description: Statistical measure to apply to performance data
+      responses:
+        '200':
+          description: Performance metrics data
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/birdseye:
+    get:
+      operationId: getBirdseyeSummary
+      summary: Get Birdseye Traffic Summary
+      description: >-
+        Returns summary traffic data for one or more projects, comparing
+        the current period against the previous period. Useful for dashboards
+        showing traffic trends.
+      tags:
+        - Traffic
+      parameters:
+        - name: pids
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of project IDs (use pid or pids)
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - $ref: '#/components/parameters/filters'
+      responses:
+        '200':
+          description: Per-project birdseye summaries
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/performance/birdseye:
+    get:
+      operationId: getPerformanceBirdseye
+      summary: Get Birdseye Performance Summary
+      description: >-
+        Returns performance metric summaries comparing current vs previous
+        periods for frontend, backend, and network metrics.
+      tags:
+        - Performance
+      parameters:
+        - name: pids
+          in: query
+          schema:
+            type: string
+          description: Comma-separated project IDs
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Performance birdseye summary
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/live-visitors:
+    get:
+      operationId: getLiveVisitors
+      summary: Get Live Visitors
+      description: >-
+        Returns currently active visitors on a project. Each visitor record
+        includes device type, browser, operating system, country, and
+        session ID.
+      tags:
+        - Traffic
+      parameters:
+        - $ref: '#/components/parameters/pid'
+      responses:
+        '200':
+          description: Array of active visitor objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LiveVisitor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/sessions:
+    get:
+      operationId: listSessions
+      summary: List Sessions
+      description: >-
+        Returns a paginated list of individual visitor sessions for the
+        specified project and time period. Maximum 150 sessions per request.
+      tags:
+        - Sessions
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/take'
+        - $ref: '#/components/parameters/skip'
+      responses:
+        '200':
+          description: Paginated list of sessions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/session:
+    get:
+      operationId: getSession
+      summary: Get Session Details
+      description: >-
+        Returns detailed information for a single visitor session including
+        all pages visited, session metadata, and chart data.
+      tags:
+        - Sessions
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - name: psid
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Session identifier
+        - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Session details with pages visited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/funnel:
+    get:
+      operationId: getFunnelAnalysis
+      summary: Get Funnel Analysis
+      description: >-
+        Returns funnel conversion analysis for a specified sequence of pages.
+        Shows conversion counts, dropoffs, and percentages at each step.
+        Accepts either a saved funnel ID or an inline pages array.
+      tags:
+        - Funnels
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - name: pages
+          in: query
+          schema:
+            type: string
+          description: JSON array of page paths (e.g. ["/","/signup","/dashboard"])
+        - name: funnelId
+          in: query
+          schema:
+            type: string
+          description: Saved funnel ID
+      responses:
+        '200':
+          description: Funnel step analysis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunnelResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/errors:
+    get:
+      operationId: listErrors
+      summary: List Error Events
+      description: >-
+        Returns a paginated list of error event groups for the specified
+        project and time period.
+      tags:
+        - Errors
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/take'
+        - $ref: '#/components/parameters/skip'
+      responses:
+        '200':
+          description: Paginated error list
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/get-error:
+    get:
+      operationId: getError
+      summary: Get Error Details
+      description: Returns detailed information for a specific error group by error ID.
+      tags:
+        - Errors
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - name: eid
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Error group ID
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Error group details
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/error-overview:
+    get:
+      operationId: getErrorOverview
+      summary: Get Error Statistics Overview
+      description: >-
+        Returns aggregated error statistics for chart rendering, showing
+        error counts over the specified time period.
+      tags:
+        - Errors
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/timeBucket'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Error overview chart data
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/custom-events:
+    get:
+      operationId: getCustomEvents
+      summary: Get Custom Events Data
+      description: >-
+        Returns custom event analytics grouped by time bucket for specified
+        event names. Returns counts and trends for each custom event.
+      tags:
+        - Custom Events
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/timeBucket'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - name: customEvents
+          in: query
+          required: true
+          schema:
+            type: string
+          description: JSON array of custom event names to query
+      responses:
+        '200':
+          description: Custom events data grouped by time bucket
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/keywords:
+    get:
+      operationId: getKeywords
+      summary: Get Search Keywords
+      description: >-
+        Returns search keyword data from Google Search Console integration
+        for the specified project and period.
+      tags:
+        - Traffic
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Search keyword data
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/user-flow:
+    get:
+      operationId: getUserFlow
+      summary: Get User Navigation Flow
+      description: >-
+        Returns user navigation flow diagram data showing how visitors move
+        between pages on the site.
+      tags:
+        - Traffic
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/timeBucket'
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+        - $ref: '#/components/parameters/filters'
+      responses:
+        '200':
+          description: User flow diagram data
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/filters:
+    get:
+      operationId: getFilters
+      summary: Get Available Filter Values
+      description: >-
+        Returns available filter values for a specific analytics dimension
+        such as browser, OS, or country code.
+      tags:
+        - Traffic
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - br
+              - os
+              - cc
+              - lc
+              - ref
+              - so
+              - me
+              - ca
+              - pg
+          description: Dimension type to get filter values for
+      responses:
+        '200':
+          description: Available filter values
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/feature-flag/{id}/stats:
+    get:
+      operationId: getFeatureFlagStats
+      summary: Get Feature Flag Statistics
+      description: >-
+        Returns evaluation statistics for a specific feature flag showing
+        how often it was evaluated as true or false.
+      tags:
+        - Feature Flags
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Feature flag ID
+        - $ref: '#/components/parameters/period'
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Feature flag evaluation statistics
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+  parameters:
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    timeBucket:
+      name: timeBucket
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - minute
+          - hour
+          - day
+          - week
+          - month
+          - year
+      description: Time bucket for data aggregation
+    period:
+      name: period
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - 1h
+          - today
+          - yesterday
+          - 1d
+          - 7d
+          - 4w
+          - 3M
+          - 12M
+          - 24M
+          - all
+      description: Time period for the query
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    timezone:
+      name: timezone
+      in: query
+      schema:
+        type: string
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+    filters:
+      name: filters
+      in: query
+      schema:
+        type: string
+      description: JSON array of filter objects
+    take:
+      name: take
+      in: query
+      schema:
+        type: integer
+        default: 30
+        maximum: 150
+      description: Number of results to return (max 150)
+    skip:
+      name: skip
+      in: query
+      schema:
+        type: integer
+        default: 0
+      description: Number of results to skip for pagination
+  schemas:
+    TrafficLogResponse:
+      type: object
+      properties:
+        params:
+          type: object
+          description: Query parameters echo
+        chart:
+          type: object
+          description: Chart data grouped by time bucket
+        customs:
+          type: object
+          description: Custom event data
+        properties:
+          type: object
+          description: Page properties data
+        appliedFilters:
+          type: array
+          items:
+            type: object
+          description: Applied filter objects
+    LiveVisitor:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        device:
+          type: string
+        browser:
+          type: string
+        os:
+          type: string
+        country:
+          type: string
+    SessionListResponse:
+      type: object
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionSummary'
+        total:
+          type: integer
+    SessionSummary:
+      type: object
+      properties:
+        psid:
+          type: string
+          description: Session identifier
+        browser:
+          type: string
+        os:
+          type: string
+        country:
+          type: string
+        device:
+          type: string
+        duration:
+          type: integer
+          description: Session duration in seconds
+        pageviews:
+          type: integer
+        created:
+          type: string
+          format: date-time
+    SessionDetail:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            type: object
+        sessionDetails:
+          type: object
+        chart:
+          type: object
+    FunnelResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunnelStep'
+    FunnelStep:
+      type: object
+      properties:
+        page:
+          type: string
+        count:
+          type: integer
+        dropoff:
+          type: integer
+        conversionRate:
+          type: number
+          format: float
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

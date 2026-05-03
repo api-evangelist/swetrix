@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "swetrix": "https://swetrix.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Project": "swetrix:Project",
+    "Session": "swetrix:Session",
+    "PageviewEvent": "swetrix:PageviewEvent",
+    "CustomEvent": "swetrix:CustomEvent",
+    "ErrorEvent": "swetrix:ErrorEvent",
+    "RevenueTransaction": "swetrix:RevenueTransaction",
+    "Funnel": "swetrix:Funnel",
+    "Organisation": "schema:Organization",
+
+    "id": "@id",
+    "name": "schema:name",
+    "description": "schema:description",
+    "created": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "modified": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "active": "swetrix:active",
+    "public": "swetrix:isPublic",
+    "origins": "swetrix:allowedOrigins",
+    "pid": "swetrix:projectId",
+    "psid": "swetrix:sessionId",
+
+    "browser": "swetrix:browser",
+    "os": "swetrix:operatingSystem",
+    "country": {
+      "@id": "schema:addressCountry",
+      "@type": "schema:Country"
+    },
+    "device": "swetrix:device",
+    "locale": "schema:inLanguage",
+    "referrer": "schema:isBasedOn",
+    "duration": {
+      "@id": "schema:duration",
+      "@type": "xsd:integer"
+    },
+    "pageviews": "swetrix:pageviewCount",
+
+    "ev": "swetrix:eventName",
+    "pg": "swetrix:pagePath",
+    "lc": "schema:inLanguage",
+    "ref": "schema:isBasedOn",
+
+    "type": "schema:additionalType",
+    "amount": {
+      "@id": "schema:price",
+      "@type": "xsd:decimal"
+    },
+    "currency": "schema:priceCurrency",
+    "transactionId": "schema:orderNumber",
+
+    "steps": "swetrix:funnelSteps",
+    "conversionRate": {
+      "@id": "swetrix:conversionRate",
+      "@type": "xsd:decimal"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "summary": "Record a pageview event",
+  "description": "Example of recording a pageview event with UTM parameters and performance metrics",
+  "request": {
+    "method": "POST",
+    "url": "https://api.swetrix.com/log",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+    },
+    "body": {
+      "pid": "abc123projectid",
+      "pg": "/pricing",
+      "lc": "en-US",
+      "ref": "https://google.com",
+      "so": "google",
+      "me": "organic",
+      "ca": "spring_promo",
+      "tz": "America/New_York",
+      "perf": {
+        "dns": 0.05,
+        "tls": 0.12,
+        "conn": 0.08,
+        "response": 0.35,
+        "render": 0.92,
+        "dom_load": 1.1,
+        "page_load": 1.5,
+        "ttfb": 0.42
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

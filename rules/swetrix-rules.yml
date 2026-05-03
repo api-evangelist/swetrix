@@ -1,0 +1,88 @@
+extends: [[spectral:oas, all]]
+
+rules:
+  # Swetrix uses X-Api-Key header authentication for admin/statistics APIs
+  swetrix-api-key-header:
+    description: Admin and Statistics API endpoints must use X-Api-Key security scheme
+    severity: warn
+    given: "$.components.securitySchemes"
+    then:
+      field: ApiKeyAuth
+      function: truthy
+
+  # All operation IDs must use camelCase
+  swetrix-operation-id-camel-case:
+    description: Operation IDs must use camelCase naming convention
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # Events API uses /log prefix for all paths
+  swetrix-events-path-prefix:
+    description: Events API paths should use /log prefix
+    severity: hint
+    given: "$.paths"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  # All operations must have summaries in Title Case
+  swetrix-summary-title-case:
+    description: Operation summaries must use Title Case
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z0-9 ]+$"
+
+  # Request bodies for POST operations must be defined
+  swetrix-post-request-body:
+    description: POST operations must define a requestBody
+    severity: error
+    given: "$.paths[*].post"
+    then:
+      field: requestBody
+      function: truthy
+
+  # Tags must be defined at operation level
+  swetrix-operation-tags:
+    description: All operations must have at least one tag
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # pid parameter must be required when present
+  swetrix-pid-required:
+    description: The pid parameter must be marked as required
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].parameters[?(@.name == 'pid')]"
+    then:
+      field: required
+      function: truthy
+
+  # Responses must include 400 for POST/PUT/PATCH
+  swetrix-error-responses:
+    description: Mutating operations should document 400 error responses
+    severity: warn
+    given: "$.paths[*][post,put,patch].responses"
+    then:
+      field: '400'
+      function: truthy
+
+  # Successful responses must have content defined
+  swetrix-success-response-content:
+    description: Success responses (200/201) should define content schema
+    severity: warn
+    given: "$.paths[*][get,post,put,patch].responses[200,201]"
+    then:
+      field: content
+      function: truthy

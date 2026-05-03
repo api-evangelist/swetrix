@@ -1,0 +1,482 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Events API
+  description: >-
+    The Swetrix Events API provides endpoints for recording pageview events,
+    custom events, heartbeat sessions, error events, and revenue transactions.
+    Used to send analytics data from client or server-side applications to
+    Swetrix analytics projects. Most endpoints are public (project ID only);
+    the revenue endpoint requires an API key.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+externalDocs:
+  description: Swetrix Events API Documentation
+  url: https://swetrix.com/docs/events-api
+servers:
+  - url: https://api.swetrix.com
+    description: Swetrix Production API
+tags:
+  - name: Events
+    description: Record analytics events (pageviews, custom events, heartbeats)
+  - name: Errors
+    description: Record JavaScript error events
+  - name: Revenue
+    description: Record revenue transactions (server-side only, requires API key)
+paths:
+  /log:
+    post:
+      operationId: recordPageview
+      summary: Record Pageview Event
+      description: >-
+        Records a pageview event for the specified project. Tracks page path,
+        locale, referrer, UTM parameters, and optional performance metrics.
+        Should be called when a visitor loads a page.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageviewEvent'
+            example:
+              pid: abc123projectid
+              pg: /home
+              lc: en-US
+              ref: https://google.com
+              so: google
+              me: organic
+              ca: spring_promo
+              tz: America/New_York
+              perf:
+                dns: 0.05
+                tls: 0.12
+                conn: 0.08
+                response: 0.35
+                render: 0.92
+                dom_load: 1.1
+                page_load: 1.5
+                ttfb: 0.42
+      responses:
+        '201':
+          description: Pageview recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /log/custom:
+    post:
+      operationId: recordCustomEvent
+      summary: Record Custom Event
+      description: >-
+        Records a custom named event for the specified project. Custom events
+        can include metadata key-value pairs and are aggregated in the
+        dashboard. Can be configured to track only unique occurrences per
+        session.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomEvent'
+            example:
+              pid: abc123projectid
+              ev: button_clicked
+              pg: /pricing
+              lc: en-US
+              unique: false
+              meta:
+                plan: pro
+                source: header
+      responses:
+        '201':
+          description: Custom event recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /log/hb:
+    post:
+      operationId: recordHeartbeat
+      summary: Record Heartbeat Event
+      description: >-
+        Records a heartbeat event to keep the visitor session alive. Should be
+        called approximately every 30 seconds while the user is active on the
+        page. Used to accurately track session duration.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeartbeatEvent'
+            example:
+              pid: abc123projectid
+      responses:
+        '201':
+          description: Heartbeat recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /log/error:
+    post:
+      operationId: recordError
+      summary: Record Error Event
+      description: >-
+        Records a JavaScript error event for aggregation in the Errors tab of
+        the dashboard. Captures error name, message, stack trace, source file,
+        and location. Errors are grouped by name and message.
+      tags:
+        - Errors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorEvent'
+            example:
+              pid: abc123projectid
+              name: TypeError
+              message: Cannot read property 'foo' of undefined
+              lineno: 42
+              colno: 15
+              filename: https://example.com/app.js
+              pg: /dashboard
+              lc: en-US
+      responses:
+        '201':
+          description: Error recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /log/revenue:
+    post:
+      operationId: recordRevenue
+      summary: Record Revenue Transaction
+      description: >-
+        Records a revenue transaction (sale, refund, or subscription) for
+        the specified project. Server-side only — requires API key
+        authentication via X-Api-Key header. Amounts should always be positive
+        (type field distinguishes refunds).
+      tags:
+        - Revenue
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevenueEvent'
+            example:
+              pid: abc123projectid
+              type: sale
+              amount: 49.99
+              currency: USD
+              productId: plan_pro_monthly
+              productName: Pro Monthly Plan
+      responses:
+        '201':
+          description: Revenue transaction recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  transactionId:
+                    type: string
+                example:
+                  success: true
+                  transactionId: txn_abc123
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key obtained from Swetrix account settings
+  schemas:
+    PageviewEvent:
+      type: object
+      required:
+        - pid
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        pg:
+          type: string
+          description: Page path (e.g. /home)
+        lc:
+          type: string
+          description: User locale (e.g. en-US)
+        ref:
+          type: string
+          description: Referrer URL
+        so:
+          type: string
+          description: UTM source parameter
+        me:
+          type: string
+          description: UTM medium parameter
+        ca:
+          type: string
+          description: UTM campaign parameter
+        tz:
+          type: string
+          description: Visitor timezone (e.g. America/New_York)
+        unique:
+          type: boolean
+          description: Track only unique visits
+        perf:
+          $ref: '#/components/schemas/PerformanceMetrics'
+    CustomEvent:
+      type: object
+      required:
+        - pid
+        - ev
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        ev:
+          type: string
+          maxLength: 256
+          description: Event identifier
+        pg:
+          type: string
+          description: Page path
+        lc:
+          type: string
+          description: User locale
+        ref:
+          type: string
+          description: Referrer URL
+        so:
+          type: string
+          description: UTM source
+        me:
+          type: string
+          description: UTM medium
+        ca:
+          type: string
+          description: UTM campaign
+        unique:
+          type: boolean
+          description: One event per session
+        meta:
+          type: object
+          description: Custom key-value metadata (max 100 keys, 2000 chars total)
+          additionalProperties:
+            type: string
+    HeartbeatEvent:
+      type: object
+      required:
+        - pid
+      properties:
+        pid:
+          type: string
+          description: Project ID
+    ErrorEvent:
+      type: object
+      required:
+        - pid
+        - name
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        name:
+          type: string
+          maxLength: 200
+          description: Error name (e.g. TypeError)
+        message:
+          type: string
+          maxLength: 2000
+          description: Error message
+        lineno:
+          type: integer
+          description: Line number where error occurred
+        colno:
+          type: integer
+          description: Column number where error occurred
+        stackTrace:
+          type: string
+          maxLength: 7500
+          description: Full stack trace
+        filename:
+          type: string
+          maxLength: 1000
+          description: Source file URL
+        tz:
+          type: string
+          description: Visitor timezone
+        pg:
+          type: string
+          description: Page path
+        lc:
+          type: string
+          description: Locale
+        meta:
+          type: object
+          description: Custom metadata (max 100 keys, 2000 chars total)
+          additionalProperties:
+            type: string
+    RevenueEvent:
+      type: object
+      required:
+        - pid
+        - type
+        - amount
+        - currency
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        type:
+          type: string
+          enum:
+            - sale
+            - refund
+            - subscription
+          description: Transaction type
+        amount:
+          type: number
+          description: Transaction amount in major currency units (always positive)
+        currency:
+          type: string
+          description: ISO 4217 currency code (e.g. USD)
+        transactionId:
+          type: string
+          description: Stable unique transaction identifier for deduplication
+        productId:
+          type: string
+          description: SKU or product identifier
+        productName:
+          type: string
+          description: Human-readable product name
+        profileId:
+          type: string
+          description: Swetrix user profile ID
+        sessionId:
+          type: string
+          description: Browsing session ID
+        created:
+          type: string
+          format: date-time
+          description: ISO 8601 transaction date
+        metadata:
+          type: object
+          description: Custom key-value pairs (max 100 keys, 2000 chars)
+          additionalProperties:
+            type: string
+    PerformanceMetrics:
+      type: object
+      description: Frontend performance timings in seconds
+      properties:
+        dns:
+          type: number
+          description: DNS lookup time in seconds
+        tls:
+          type: number
+          description: TLS handshake time in seconds
+        conn:
+          type: number
+          description: Connection time in seconds
+        response:
+          type: number
+          description: Response time in seconds
+        render:
+          type: number
+          description: Page render time in seconds
+        dom_load:
+          type: number
+          description: DOM content loaded time in seconds
+        page_load:
+          type: number
+          description: Full page load time in seconds
+        ttfb:
+          type: number
+          description: Time to first byte in seconds
+  responses:
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    PaymentRequired:
+      description: Payment required - inactive project or quota exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Forbidden:
+      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/json-schema/swetrix-project-schema.json",
+  "title": "Swetrix Project",
+  "description": "Schema for a Swetrix analytics project resource",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique project identifier"
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 50,
+      "description": "Project display name"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether traffic collection is enabled"
+    },
+    "public": {
+      "type": "boolean",
+      "description": "Whether the dashboard is publicly visible"
+    },
+    "origins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Allowed domain origins for data collection"
+    },
+    "ipBlacklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IP addresses blocked from analytics tracking"
+    },
+    "botsProtectionLevel": {
+      "type": "string",
+      "enum": ["off", "basic"],
+      "description": "Level of bot traffic filtering"
+    },
+    "isCaptcha": {
+      "type": "boolean",
+      "description": "Whether CAPTCHA analytics tracking is enabled"
+    },
+    "isPasswordProtected": {
+      "type": "boolean",
+      "description": "Whether dashboard requires a password"
+    },
+    "organisationId": {
+      "type": ["string", "null"],
+      "description": "Organisation the project belongs to"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Project creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp"
+    }
+  },
+  "required": ["id", "name", "active", "public"]
+}

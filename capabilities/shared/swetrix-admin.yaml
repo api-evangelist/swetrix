@@ -1,0 +1,305 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Swetrix Admin API"
+  description: >-
+    Manages Swetrix analytics projects, conversion funnels, chart annotations,
+    saved dashboard views, and organisations with full CRUD operations.
+  tags:
+    - Administration
+    - Analytics
+    - Organisations
+    - Project Management
+    - Projects
+    - Swetrix
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      SWETRIX_API_KEY: SWETRIX_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: swetrix-admin
+      baseUri: https://api.swetrix.com
+      description: "Manages Swetrix analytics projects and resources"
+      authentication:
+        type: apikey
+        key: X-Api-Key
+        value: "{{SWETRIX_API_KEY}}"
+        placement: header
+      resources:
+        - name: projects
+          path: /v1/project
+          description: Analytics project management
+          operations:
+            - name: list-projects
+              method: GET
+              description: "List Projects"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-project
+              method: POST
+              description: "Create Project"
+              inputParameters:
+                - name: name
+                  in: body
+                  type: string
+                  required: true
+                  description: "Project display name (max 50 chars)"
+                - name: isCaptcha
+                  in: body
+                  type: boolean
+                  required: false
+                  description: "Enable CAPTCHA tracking"
+                - name: isPasswordProtected
+                  in: body
+                  type: boolean
+                  required: false
+                  description: "Require dashboard password"
+                - name: organisationId
+                  in: body
+                  type: string
+                  required: false
+                  description: "Organisation to assign project to"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: project-detail
+          path: /v1/project/{id}
+          description: Single project operations
+          operations:
+            - name: get-project
+              method: GET
+              description: "Get Project"
+              inputParameters:
+                - name: id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-project
+              method: PUT
+              description: "Update Project"
+              inputParameters:
+                - name: id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: name
+                  in: body
+                  type: string
+                  required: false
+                  description: "New project name"
+                - name: active
+                  in: body
+                  type: boolean
+                  required: false
+                  description: "Enable/disable tracking"
+                - name: public
+                  in: body
+                  type: boolean
+                  required: false
+                  description: "Public dashboard visibility"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-project
+              method: DELETE
+              description: "Delete Project"
+              inputParameters:
+                - name: id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: organisations
+          path: /v1/organisation
+          description: Organisation management
+          operations:
+            - name: list-organisations
+              method: GET
+              description: "List Organisations"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-organisation
+              method: POST
+              description: "Create Organisation"
+              inputParameters:
+                - name: name
+                  in: body
+                  type: string
+                  required: true
+                  description: "Organisation name (max 50 chars)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: swetrix-admin-rest
+      resources:
+        - path: /v1/projects
+          name: projects
+          description: "Manage analytics projects"
+          operations:
+            - method: GET
+              name: list-projects
+              description: "List Projects"
+              call: "swetrix-admin.list-projects"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-project
+              description: "Create Project"
+              call: "swetrix-admin.create-project"
+              with:
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/projects/{id}
+          name: project-detail
+          description: "Single project management"
+          operations:
+            - method: GET
+              name: get-project
+              description: "Get Project"
+              call: "swetrix-admin.get-project"
+              with:
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-project
+              description: "Delete Project"
+              call: "swetrix-admin.delete-project"
+              with:
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/organisations
+          name: organisations
+          description: "Manage organisations"
+          operations:
+            - method: GET
+              name: list-organisations
+              description: "List Organisations"
+              call: "swetrix-admin.list-organisations"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9102
+      namespace: swetrix-admin-mcp
+      transport: http
+      tools:
+        - name: list-projects
+          description: "List all Swetrix analytics projects"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-admin.list-projects"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-project
+          description: "Create a new Swetrix analytics project"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-admin.create-project"
+          with:
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-project
+          description: "Get details for a specific Swetrix project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-admin.get-project"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-project
+          description: "Update project settings (name, active status, visibility)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "swetrix-admin.update-project"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: delete-project
+          description: "Permanently delete a Swetrix project and all its data"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "swetrix-admin.delete-project"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-organisations
+          description: "List all organisations the user belongs to"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-admin.list-organisations"
+          outputParameters:
+            - type: object
+              mapping: "$."

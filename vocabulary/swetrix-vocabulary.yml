@@ -1,0 +1,213 @@
+name: Swetrix Vocabulary
+description: >-
+  Domain vocabulary for Swetrix, a privacy-focused open source web analytics
+  platform. Covers analytics concepts, tracking methods, and GDPR-compliant
+  data collection terminology.
+version: '1.0'
+created: '2026-05-03'
+modified: '2026-05-03'
+provider: Swetrix
+url: https://swetrix.com
+
+terms:
+  - term: Project
+    definition: >-
+      An analytics tracking unit identified by a project ID (pid). Each project
+      collects events independently and has its own dashboard, settings, and
+      data retention.
+    tags:
+      - Core
+      - Management
+
+  - term: Project ID (pid)
+    definition: >-
+      A unique identifier assigned to each Swetrix project, used in all API
+      calls to associate events, queries, and reports with the correct project.
+    tags:
+      - Core
+      - Authentication
+
+  - term: Session
+    definition: >-
+      A continuous visit by a single user to a website, tracked by session ID
+      (psid). Sessions expire after inactivity. Duration is measured using
+      heartbeat events.
+    tags:
+      - Core
+      - Sessions
+
+  - term: Session ID (psid)
+    definition: >-
+      A unique identifier for an individual visitor session, used to retrieve
+      detailed session data and associate events with a single browsing visit.
+    tags:
+      - Sessions
+
+  - term: Pageview
+    definition: >-
+      An event recorded when a visitor loads a page. Tracked via POST /log with
+      the page path (pg), locale, referrer, UTM parameters, and optional
+      performance metrics.
+    tags:
+      - Events
+      - Tracking
+
+  - term: Custom Event
+    definition: >-
+      A developer-defined named event (ev) recorded via POST /log/custom. Can
+      carry arbitrary metadata key-value pairs. Used to track actions like
+      button clicks, form submissions, and feature usage.
+    tags:
+      - Events
+      - Tracking
+
+  - term: Heartbeat
+    definition: >-
+      A periodic signal sent approximately every 30 seconds to indicate the
+      visitor is still active. Used to accurately compute session duration.
+      Sent via POST /log/hb.
+    tags:
+      - Sessions
+      - Events
+
+  - term: Error Event
+    definition: >-
+      A JavaScript error recorded via POST /log/error. Captures error name,
+      message, stack trace, source file, line/column numbers. Errors are
+      grouped by name and message in the dashboard Errors tab.
+    tags:
+      - Error Tracking
+      - Events
+
+  - term: Revenue Transaction
+    definition: >-
+      A sale, refund, or subscription event recorded server-side via POST
+      /log/revenue. Requires API key authentication. Supports deduplication
+      via transactionId.
+    tags:
+      - Revenue Tracking
+      - Events
+
+  - term: Time Bucket
+    definition: >-
+      The granularity for aggregating time-series data: minute, hour, day,
+      week, month, or year. Passed as the timeBucket parameter in statistics
+      API queries.
+    tags:
+      - Statistics
+      - Querying
+
+  - term: Period
+    definition: >-
+      The time window for a statistics query: 1h (last hour), today, yesterday,
+      1d, 7d, 4w, 3M, 12M, 24M, or all. Can also use custom from/to dates.
+    tags:
+      - Statistics
+      - Querying
+
+  - term: Funnel
+    definition: >-
+      A sequence of pages that tracks conversion rates between steps. Shows
+      how many visitors progress from one page to the next, with dropoff rates
+      and conversion percentages.
+    tags:
+      - Funnels
+      - Conversion
+
+  - term: Annotation
+    definition: >-
+      A text note attached to a specific date on a project's analytics chart.
+      Used to mark events like deployments, campaigns, or incidents. Max 120
+      characters.
+    tags:
+      - Management
+
+  - term: Project View (Segment)
+    definition: >-
+      A saved filter configuration for a project dashboard, of type traffic
+      or performance. Enables analysts to quickly switch between different
+      filtered views of their data.
+    tags:
+      - Management
+      - Filtering
+
+  - term: Organisation
+    definition: >-
+      A group that can own multiple projects and manage team member access.
+      Members can have owner, admin, or viewer roles.
+    tags:
+      - Management
+      - Teams
+
+  - term: Birdseye View
+    definition: >-
+      A summary comparing current period metrics against the previous period
+      for one or more projects. Used for dashboard KPI cards showing traffic
+      and performance trends.
+    tags:
+      - Statistics
+      - Dashboard
+
+  - term: Cookieless Tracking
+    definition: >-
+      Swetrix's method of visitor identification that does not use browser
+      cookies. Uses a hashed combination of IP address, user agent, and other
+      signals to identify unique visitors without storing personal data.
+    tags:
+      - Privacy
+      - GDPR
+      - Core
+
+  - term: Live Visitors
+    definition: >-
+      The count of visitors currently active on a project, queried via
+      GET /v1/log/live-visitors. Returns device, browser, OS, and country
+      for each active session.
+    tags:
+      - Real-Time
+      - Statistics
+
+  - term: UTM Parameters
+    definition: >-
+      Campaign tracking parameters appended to URLs: source (so), medium (me),
+      and campaign (ca). Captured on pageview events to attribute traffic to
+      marketing campaigns.
+    tags:
+      - Marketing
+      - Tracking
+
+  - term: Performance Metrics
+    definition: >-
+      Frontend timing measurements captured on pageview events: DNS lookup,
+      TLS handshake, connection, response, render, DOM load, page load, and
+      Time to First Byte (TTFB). All values in seconds.
+    tags:
+      - Performance
+      - Statistics
+
+  - term: API Key
+    definition: >-
+      An authentication credential obtained from Swetrix account settings.
+      Passed in the X-Api-Key header for all Statistics and Admin API requests.
+      Rate limited to 600 requests per hour.
+    tags:
+      - Authentication
+      - Security
+
+  - term: Feature Flag
+    definition: >-
+      A configurable toggle in Swetrix that can be associated with analytics.
+      Feature flag evaluation statistics are available via the Statistics API
+      to measure adoption and impact of feature releases.
+    tags:
+      - Feature Management
+      - Statistics
+
+  - term: User Flow
+    definition: >-
+      A visual representation of how visitors navigate between pages on a site,
+      showing entry points, common paths, and exit pages. Queried via
+      GET /v1/log/user-flow.
+    tags:
+      - Statistics
+      - Navigation

@@ -1,0 +1,434 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Swetrix Web Analytics"
+  description: >-
+    Unified web analytics capability combining Swetrix Events, Statistics, and
+    Admin APIs. Enables product teams and developers to track user behavior,
+    analyze traffic patterns, manage analytics projects, and monitor errors
+    in a privacy-first, cookieless analytics environment.
+  tags:
+    - Analytics
+    - Custom Events
+    - Error Tracking
+    - GDPR Compliant
+    - Open Source
+    - Privacy
+    - Project Management
+    - Swetrix
+    - Traffic
+    - Web Analytics
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      SWETRIX_API_KEY: SWETRIX_API_KEY
+
+capability:
+  consumes:
+    - import: swetrix-events
+      location: ./shared/swetrix-events.yaml
+    - import: swetrix-statistics
+      location: ./shared/swetrix-statistics.yaml
+    - import: swetrix-admin
+      location: ./shared/swetrix-admin.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: swetrix-analytics-api
+      description: "Unified REST API for Swetrix web analytics management and querying."
+      resources:
+        # Event Tracking
+        - path: /v1/events/pageviews
+          name: pageviews
+          description: "Record pageview events"
+          operations:
+            - method: POST
+              name: record-pageview
+              description: "Record Pageview Event"
+              call: "swetrix-events.record-pageview"
+              with:
+                pid: "rest.pid"
+                pg: "rest.pg"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/events/custom
+          name: custom-events
+          description: "Record custom events"
+          operations:
+            - method: POST
+              name: record-custom-event
+              description: "Record Custom Event"
+              call: "swetrix-events.record-custom-event"
+              with:
+                pid: "rest.pid"
+                ev: "rest.ev"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/events/errors
+          name: error-events
+          description: "Record JavaScript error events"
+          operations:
+            - method: POST
+              name: record-error
+              description: "Record Error Event"
+              call: "swetrix-events.record-error"
+              with:
+                pid: "rest.pid"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        # Statistics & Analytics
+        - path: /v1/analytics/traffic
+          name: traffic
+          description: "Query traffic analytics"
+          operations:
+            - method: GET
+              name: get-traffic-log
+              description: "Get Traffic Log"
+              call: "swetrix-statistics.get-traffic-log"
+              with:
+                pid: "rest.pid"
+                timeBucket: "rest.timeBucket"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/analytics/performance
+          name: performance
+          description: "Query performance metrics"
+          operations:
+            - method: GET
+              name: get-performance-metrics
+              description: "Get Performance Metrics"
+              call: "swetrix-statistics.get-performance-metrics"
+              with:
+                pid: "rest.pid"
+                timeBucket: "rest.timeBucket"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/analytics/live-visitors
+          name: live-visitors
+          description: "Get currently active visitors"
+          operations:
+            - method: GET
+              name: get-live-visitors
+              description: "Get Live Visitors"
+              call: "swetrix-statistics.get-live-visitors"
+              with:
+                pid: "rest.pid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/analytics/sessions
+          name: sessions
+          description: "List visitor sessions"
+          operations:
+            - method: GET
+              name: list-sessions
+              description: "List Sessions"
+              call: "swetrix-statistics.list-sessions"
+              with:
+                pid: "rest.pid"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/analytics/funnels
+          name: funnels
+          description: "Analyze conversion funnels"
+          operations:
+            - method: GET
+              name: get-funnel-analysis
+              description: "Get Funnel Analysis"
+              call: "swetrix-statistics.get-funnel-analysis"
+              with:
+                pid: "rest.pid"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/analytics/errors
+          name: errors
+          description: "Query error statistics"
+          operations:
+            - method: GET
+              name: list-errors
+              description: "List Error Events"
+              call: "swetrix-statistics.list-errors"
+              with:
+                pid: "rest.pid"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        # Project Management
+        - path: /v1/projects
+          name: projects
+          description: "Manage analytics projects"
+          operations:
+            - method: GET
+              name: list-projects
+              description: "List Projects"
+              call: "swetrix-admin.list-projects"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-project
+              description: "Create Project"
+              call: "swetrix-admin.create-project"
+              with:
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/projects/{id}
+          name: project-detail
+          description: "Single project operations"
+          operations:
+            - method: GET
+              name: get-project
+              description: "Get Project"
+              call: "swetrix-admin.get-project"
+              with:
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-project
+              description: "Delete Project"
+              call: "swetrix-admin.delete-project"
+              with:
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: swetrix-analytics-mcp
+      transport: http
+      description: "MCP server for AI-assisted web analytics with Swetrix."
+      tools:
+        # Event Tracking
+        - name: record-pageview
+          description: "Record a pageview event to Swetrix analytics"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-pageview"
+          with:
+            pid: "tools.pid"
+            pg: "tools.pg"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: record-custom-event
+          description: "Record a custom analytics event with optional metadata"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-custom-event"
+          with:
+            pid: "tools.pid"
+            ev: "tools.ev"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: record-error
+          description: "Record a JavaScript error event for dashboard aggregation"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-error"
+          with:
+            pid: "tools.pid"
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: record-revenue
+          description: "Record a revenue transaction (sale, refund, subscription)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-events.record-revenue"
+          with:
+            pid: "tools.pid"
+            type: "tools.type"
+            amount: "tools.amount"
+            currency: "tools.currency"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Statistics
+        - name: get-traffic-log
+          description: "Query aggregated traffic data for a project by time bucket and period"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-traffic-log"
+          with:
+            pid: "tools.pid"
+            timeBucket: "tools.timeBucket"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-performance-metrics
+          description: "Query frontend performance metrics including DNS, TLS, TTFB, and page load times"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-performance-metrics"
+          with:
+            pid: "tools.pid"
+            timeBucket: "tools.timeBucket"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-live-visitors
+          description: "Get currently active visitors with device, browser, OS, and country details"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-live-visitors"
+          with:
+            pid: "tools.pid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-sessions
+          description: "List individual visitor sessions with device and page details"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.list-sessions"
+          with:
+            pid: "tools.pid"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-funnel-analysis
+          description: "Analyze conversion rates across a sequence of pages in a funnel"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-funnel-analysis"
+          with:
+            pid: "tools.pid"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-errors
+          description: "List JavaScript error groups with occurrence counts and affected sessions"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.list-errors"
+          with:
+            pid: "tools.pid"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-custom-events
+          description: "Query custom event analytics grouped by time for named events"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-custom-events"
+          with:
+            pid: "tools.pid"
+            timeBucket: "tools.timeBucket"
+            period: "tools.period"
+            customEvents: "tools.customEvents"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        # Project Management
+        - name: list-projects
+          description: "List all Swetrix analytics projects for the account"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-admin.list-projects"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-project
+          description: "Create a new Swetrix analytics project"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "swetrix-admin.create-project"
+          with:
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-project
+          description: "Get configuration and settings for a specific project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-admin.get-project"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: delete-project
+          description: "Permanently delete a project and all associated analytics data"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "swetrix-admin.delete-project"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."

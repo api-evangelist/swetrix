@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/json-schema/swetrix-session-schema.json",
+  "title": "Swetrix Session",
+  "description": "Schema for a Swetrix visitor session record",
+  "type": "object",
+  "properties": {
+    "psid": {
+      "type": "string",
+      "description": "Unique session identifier"
+    },
+    "pid": {
+      "type": "string",
+      "description": "Project ID the session belongs to"
+    },
+    "browser": {
+      "type": "string",
+      "description": "Visitor browser name"
+    },
+    "browserVersion": {
+      "type": "string",
+      "description": "Visitor browser version"
+    },
+    "os": {
+      "type": "string",
+      "description": "Visitor operating system"
+    },
+    "osVersion": {
+      "type": "string",
+      "description": "Visitor OS version"
+    },
+    "country": {
+      "type": "string",
+      "description": "Two-letter ISO 3166-1 country code"
+    },
+    "device": {
+      "type": "string",
+      "description": "Device type (desktop, mobile, tablet)"
+    },
+    "locale": {
+      "type": "string",
+      "description": "Visitor locale (e.g. en-US)"
+    },
+    "referrer": {
+      "type": "string",
+      "description": "HTTP referrer URL"
+    },
+    "utmSource": {
+      "type": "string",
+      "description": "UTM source parameter"
+    },
+    "utmMedium": {
+      "type": "string",
+      "description": "UTM medium parameter"
+    },
+    "utmCampaign": {
+      "type": "string",
+      "description": "UTM campaign parameter"
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Session duration in seconds"
+    },
+    "pageviews": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of pages viewed in the session"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session start timestamp"
+    }
+  },
+  "required": ["psid", "pid"]
+}

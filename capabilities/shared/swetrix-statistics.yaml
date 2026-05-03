@@ -1,0 +1,441 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Swetrix Statistics API"
+  description: >-
+    Queries aggregated analytics data for Swetrix projects including traffic
+    logs, performance metrics, session details, funnel analysis, user flows,
+    error statistics, and feature flag evaluations.
+  tags:
+    - Analytics
+    - Funnels
+    - Performance
+    - Sessions
+    - Statistics
+    - Swetrix
+    - Traffic
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      SWETRIX_API_KEY: SWETRIX_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: swetrix-statistics
+      baseUri: https://api.swetrix.com
+      description: "Queries Swetrix analytics statistics"
+      authentication:
+        type: apikey
+        key: X-Api-Key
+        value: "{{SWETRIX_API_KEY}}"
+        placement: header
+      resources:
+        - name: traffic-log
+          path: /v1/log
+          description: Aggregated traffic log data
+          operations:
+            - name: get-traffic-log
+              method: GET
+              description: "Get Traffic Log"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: timeBucket
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time bucket: minute, hour, day, week, month, year"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Period: 1h, today, 7d, 4w, 3M, 12M, all"
+                - name: from
+                  in: query
+                  type: string
+                  required: false
+                  description: "Custom range start date YYYY-MM-DD"
+                - name: to
+                  in: query
+                  type: string
+                  required: false
+                  description: "Custom range end date YYYY-MM-DD"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: performance
+          path: /v1/log/performance
+          description: Frontend performance metrics
+          operations:
+            - name: get-performance-metrics
+              method: GET
+              description: "Get Performance Metrics"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: timeBucket
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time bucket"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Period"
+                - name: measure
+                  in: query
+                  type: string
+                  required: false
+                  description: "Aggregation: median, average, p95, quantiles"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: birdseye
+          path: /v1/log/birdseye
+          description: Traffic summary across projects
+          operations:
+            - name: get-birdseye-summary
+              method: GET
+              description: "Get Birdseye Traffic Summary"
+              inputParameters:
+                - name: pids
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated project IDs"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time period"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: live-visitors
+          path: /v1/log/live-visitors
+          description: Currently active visitors
+          operations:
+            - name: get-live-visitors
+              method: GET
+              description: "Get Live Visitors"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: sessions
+          path: /v1/log/sessions
+          description: Individual visitor sessions
+          operations:
+            - name: list-sessions
+              method: GET
+              description: "List Sessions"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time period"
+                - name: take
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Results per page (max 150)"
+                - name: skip
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: funnels
+          path: /v1/log/funnel
+          description: Conversion funnel analysis
+          operations:
+            - name: get-funnel-analysis
+              method: GET
+              description: "Get Funnel Analysis"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time period"
+                - name: pages
+                  in: query
+                  type: string
+                  required: false
+                  description: "JSON array of page paths"
+                - name: funnelId
+                  in: query
+                  type: string
+                  required: false
+                  description: "Saved funnel ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: errors-list
+          path: /v1/log/errors
+          description: Error event groups
+          operations:
+            - name: list-errors
+              method: GET
+              description: "List Error Events"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time period"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: custom-events-data
+          path: /v1/log/custom-events
+          description: Custom event analytics
+          operations:
+            - name: get-custom-events
+              method: GET
+              description: "Get Custom Events Data"
+              inputParameters:
+                - name: pid
+                  in: query
+                  type: string
+                  required: true
+                  description: "Project ID"
+                - name: timeBucket
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time bucket"
+                - name: period
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time period"
+                - name: customEvents
+                  in: query
+                  type: string
+                  required: true
+                  description: "JSON array of event names"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: swetrix-statistics-rest
+      resources:
+        - path: /v1/traffic-log
+          name: traffic-log
+          description: "Query traffic log data"
+          operations:
+            - method: GET
+              name: get-traffic-log
+              description: "Get Traffic Log"
+              call: "swetrix-statistics.get-traffic-log"
+              with:
+                pid: "rest.pid"
+                timeBucket: "rest.timeBucket"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/live-visitors
+          name: live-visitors
+          description: "Get currently active visitors"
+          operations:
+            - method: GET
+              name: get-live-visitors
+              description: "Get Live Visitors"
+              call: "swetrix-statistics.get-live-visitors"
+              with:
+                pid: "rest.pid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/sessions
+          name: sessions
+          description: "List visitor sessions"
+          operations:
+            - method: GET
+              name: list-sessions
+              description: "List Sessions"
+              call: "swetrix-statistics.list-sessions"
+              with:
+                pid: "rest.pid"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/funnels
+          name: funnels
+          description: "Get funnel conversion analysis"
+          operations:
+            - method: GET
+              name: get-funnel-analysis
+              description: "Get Funnel Analysis"
+              call: "swetrix-statistics.get-funnel-analysis"
+              with:
+                pid: "rest.pid"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: swetrix-statistics-mcp
+      transport: http
+      tools:
+        - name: get-traffic-log
+          description: "Query aggregated traffic log data for a Swetrix project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-traffic-log"
+          with:
+            pid: "tools.pid"
+            timeBucket: "tools.timeBucket"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-performance-metrics
+          description: "Query frontend performance metrics for a project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-performance-metrics"
+          with:
+            pid: "tools.pid"
+            timeBucket: "tools.timeBucket"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-live-visitors
+          description: "Get currently active visitors on a project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-live-visitors"
+          with:
+            pid: "tools.pid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-sessions
+          description: "List individual visitor sessions with pagination"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.list-sessions"
+          with:
+            pid: "tools.pid"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-funnel-analysis
+          description: "Analyze conversion funnel by page sequence"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-funnel-analysis"
+          with:
+            pid: "tools.pid"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-errors
+          description: "List JavaScript error groups for a project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.list-errors"
+          with:
+            pid: "tools.pid"
+            period: "tools.period"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-custom-events
+          description: "Query custom event analytics grouped by time bucket"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "swetrix-statistics.get-custom-events"
+          with:
+            pid: "tools.pid"
+            timeBucket: "tools.timeBucket"
+            period: "tools.period"
+            customEvents: "tools.customEvents"
+          outputParameters:
+            - type: object
+              mapping: "$."
