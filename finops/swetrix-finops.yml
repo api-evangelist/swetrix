@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,151 +9,72 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Swetrix
 providerId: swetrix
-publisherName: Swetrix
-serviceCategory: API
+publisherName: Swetrix Ltd.
+serviceCategory: Web Analytics
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Analytics
-  - Cookieless Tracking
-  - GDPR Compliant
-  - Open Source
-  - Privacy
-  - Real-Time Analytics
-  - Web Analytics
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Swetrix API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+  - Analytics
+  - Web Analytics
+description: FOCUS-aligned FinOps definition for Swetrix. Pricing is a pure tiered subscription differentiated
+  by the included monthly event quota (10 published tiers from 100k to 20M events plus a Custom tier).
+  All tiers ship the same feature set, so the only variable cost driver is monthly event volume.
+sources:
+  - https://swetrix.com/#pricing
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Tiered Subscription
+  billingFrequency: Monthly or Annual
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
   ServiceName: Swetrix
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: Web Analytics
   ProviderName: Swetrix
-  PublisherName: Swetrix
-  InvoiceIssuerName: Swetrix
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: Swetrix Ltd.
+  InvoiceIssuerName: Swetrix Ltd.
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: base_subscription
+    description: Monthly or annual base plan fee, tier determined by included monthly event quota
+    unit: month
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - plan
+  - name: monthly_events
+    description: Tracked analytics events ingested per month (counted against plan quota)
+    unit: event
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
+      - project
+      - event_type
+  - name: tracked_websites
+    description: Websites under one account, capped at 50 per account
+    unit: website
+    aggregation: max
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Swetrix Events API
-    baseURL: https://api.swetrix.com
-    tags:
-      - Analytics
-      - Cookieless Tracking
-      - Custom Events
-      - Error Tracking
-      - Events
-      - Pageviews
-      - Revenue Tracking
-    serviceName: Swetrix Events API
-    serviceCategory: API
-  - name: Swetrix Statistics API
-    baseURL: https://api.swetrix.com
-    tags:
-      - Analytics
-      - Funnels
-      - Performance
-      - Statistics
-      - Traffic
-    serviceName: Swetrix Statistics API
-    serviceCategory: API
-  - name: Swetrix Admin API
-    baseURL: https://api.swetrix.com
-    tags:
-      - Administration
-      - Analytics
-      - Organisations
-      - Project Management
-      - Projects
-    serviceName: Swetrix Admin API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - project
+principles:
+  - name: Visibility
+    description: Use the Swetrix dashboard project usage view to track monthly event volume relative
+      to the subscribed plan quota; alert as you approach the next tier threshold.
+  - name: Allocation
+    description: Allocate Swetrix cost to the product or marketing site whose tracked events drive volume;
+      one Swetrix account aggregates up to 50 sites which can be split per business unit.
+  - name: Optimization
+    description: Reduce event volume by sampling high-volume events, disabling tracking on noisy paths,
+      and choosing annual billing for the ~17% discount; right-size to the smallest tier that covers
+      typical monthly volume rather than the peak.
+  - name: Accountability
+    description: Assign a Swetrix account owner per workspace; review monthly event consumption against
+      the subscribed tier and forecast tier upgrades 1-2 months ahead.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

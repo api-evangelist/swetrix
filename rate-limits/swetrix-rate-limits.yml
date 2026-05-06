@@ -4,98 +4,34 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Swetrix
 providerId: swetrix
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Analytics
-  - Cookieless Tracking
-  - GDPR Compliant
-  - Open Source
-  - Privacy
-  - Real-Time Analytics
   - Web Analytics
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Swetrix API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Swetrix's pricing page does not publish per-second rate limits for the API. The primary
+  consumption ceiling is the monthly event quota tied to the subscribed plan. This artifact captures
+  the quota-based throttling envelope; per-second numbers should be sourced from the live API documentation
+  if/when published.
+sources:
+  - https://swetrix.com/#pricing
+  - https://swetrix.com/docs/api/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Swetrix Events API
-      - Swetrix Statistics API
-      - Swetrix Admin API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Swetrix Events API
-      - Swetrix Statistics API
-      - Swetrix Admin API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Swetrix Events API
-      - Swetrix Statistics API
-      - Swetrix Admin API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Swetrix Events API
-      - Swetrix Statistics API
-      - Swetrix Admin API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Swetrix Events API
-      - Swetrix Statistics API
-      - Swetrix Admin API
+  - name: Monthly Event Quota (Plan-Bound)
+    scope: account
+    metric: events_per_month
+    limit: see plans/swetrix-plans-pricing.yml for the subscribed tier (100k Starter through 20M Mega)
+    notes: Swetrix's primary throttle is the monthly event volume tied to the subscribed plan; events
+      beyond the included quota require upgrading to a higher tier or to the Custom plan.
 policies:
+  - name: Quota-Based Throttling
+    description: Swetrix differentiates plans by monthly event quota rather than per-second request
+      limits. Customers approaching the quota should upgrade or contact sales for the Custom tier.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Clients receiving HTTP 429 should pause and retry with exponential backoff and jitter.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
