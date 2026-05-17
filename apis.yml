@@ -104,7 +104,7 @@ common:
     url: https://github.com/Swetrix
   - type: Login
     url: https://swetrix.com/login
-  - type: Signup
+  - type: SignUp
     url: https://swetrix.com/signup
   - type: Support
     url: https://swetrix.com/contact
@@ -118,7 +118,7 @@ common:
     url: https://github.com/Swetrix/swetrix-browser
   - type: SDK
     url: https://github.com/Swetrix/django-plugin
-  - type: Status
+  - type: StatusPage
     url: https://swetrix.com/status
   - type: TermsOfService
     url: https://swetrix.com/privacy
