@@ -1,0 +1,166 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Events API — Events
+  description: 'Swetrix Events API — Events. 3 operations. Lead operation: Record Pageview Event. Self-contained Naftiko capability
+    covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: events-events
+    baseUri: https://api.swetrix.com
+    description: Swetrix Events API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: log
+      path: /log
+      operations:
+      - name: recordpageview
+        method: POST
+        description: Record Pageview Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: log-custom
+      path: /log/custom
+      operations:
+      - name: recordcustomevent
+        method: POST
+        description: Record Custom Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: log-hb
+      path: /log/hb
+      operations:
+      - name: recordheartbeat
+        method: POST
+        description: Record Heartbeat Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: events-events-rest
+    port: 8080
+    description: REST adapter for Swetrix Events API — Events. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/log
+      name: log
+      description: REST surface for log.
+      operations:
+      - method: POST
+        name: recordpageview
+        description: Record Pageview Event
+        call: events-events.recordpageview
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/log/custom
+      name: log-custom
+      description: REST surface for log-custom.
+      operations:
+      - method: POST
+        name: recordcustomevent
+        description: Record Custom Event
+        call: events-events.recordcustomevent
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/log/hb
+      name: log-hb
+      description: REST surface for log-hb.
+      operations:
+      - method: POST
+        name: recordheartbeat
+        description: Record Heartbeat Event
+        call: events-events.recordheartbeat
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: events-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Events API — Events. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: record-pageview-event
+      description: Record Pageview Event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: events-events.recordpageview
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: record-custom-event
+      description: Record Custom Event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: events-events.recordcustomevent
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: record-heartbeat-event
+      description: Record Heartbeat Event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: events-events.recordheartbeat
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Statistics API — Funnels
+  description: 'Swetrix Statistics API — Funnels. 1 operations. Lead operation: Get Funnel Analysis. Self-contained Naftiko
+    capability covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Funnels
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: statistics-funnels
+    baseUri: https://api.swetrix.com
+    description: Swetrix Statistics API — Funnels business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-log-funnel
+      path: /v1/log/funnel
+      operations:
+      - name: getfunnelanalysis
+        method: GET
+        description: Get Funnel Analysis
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pages
+          in: query
+          type: string
+          description: JSON array of page paths (e.g. ["/","/signup","/dashboard"])
+        - name: funnelId
+          in: query
+          type: string
+          description: Saved funnel ID
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: statistics-funnels-rest
+    port: 8080
+    description: REST adapter for Swetrix Statistics API — Funnels. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/log/funnel
+      name: v1-log-funnel
+      description: REST surface for v1-log-funnel.
+      operations:
+      - method: GET
+        name: getfunnelanalysis
+        description: Get Funnel Analysis
+        call: statistics-funnels.getfunnelanalysis
+        with:
+          pages: rest.pages
+          funnelId: rest.funnelId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: statistics-funnels-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Statistics API — Funnels. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-funnel-analysis
+      description: Get Funnel Analysis
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: statistics-funnels.getfunnelanalysis
+      with:
+        pages: tools.pages
+        funnelId: tools.funnelId
+      outputParameters:
+      - type: object
+        mapping: $.

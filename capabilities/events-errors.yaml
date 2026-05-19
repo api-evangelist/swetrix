@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Events API — Errors
+  description: 'Swetrix Events API — Errors. 1 operations. Lead operation: Record Error Event. Self-contained Naftiko capability
+    covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Errors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: events-errors
+    baseUri: https://api.swetrix.com
+    description: Swetrix Events API — Errors business capability. Self-contained, no shared references.
+    resources:
+    - name: log-error
+      path: /log/error
+      operations:
+      - name: recorderror
+        method: POST
+        description: Record Error Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: events-errors-rest
+    port: 8080
+    description: REST adapter for Swetrix Events API — Errors. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/log/error
+      name: log-error
+      description: REST surface for log-error.
+      operations:
+      - method: POST
+        name: recorderror
+        description: Record Error Event
+        call: events-errors.recorderror
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: events-errors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Events API — Errors. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: record-error-event
+      description: Record Error Event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: events-errors.recorderror
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

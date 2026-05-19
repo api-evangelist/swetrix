@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Statistics API — Feature Flags
+  description: 'Swetrix Statistics API — Feature Flags. 1 operations. Lead operation: Get Feature Flag Statistics. Self-contained
+    Naftiko capability covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Feature Flags
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: statistics-feature-flags
+    baseUri: https://api.swetrix.com
+    description: Swetrix Statistics API — Feature Flags business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-feature-flag-id-stats
+      path: /v1/feature-flag/{id}/stats
+      operations:
+      - name: getfeatureflagstats
+        method: GET
+        description: Get Feature Flag Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Feature flag ID
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: statistics-feature-flags-rest
+    port: 8080
+    description: REST adapter for Swetrix Statistics API — Feature Flags. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/feature-flag/{id}/stats
+      name: v1-feature-flag-id-stats
+      description: REST surface for v1-feature-flag-id-stats.
+      operations:
+      - method: GET
+        name: getfeatureflagstats
+        description: Get Feature Flag Statistics
+        call: statistics-feature-flags.getfeatureflagstats
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: statistics-feature-flags-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Statistics API — Feature Flags. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-feature-flag-statistics
+      description: Get Feature Flag Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: statistics-feature-flags.getfeatureflagstats
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

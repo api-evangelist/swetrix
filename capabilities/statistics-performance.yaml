@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Statistics API — Performance
+  description: 'Swetrix Statistics API — Performance. 2 operations. Lead operation: Get Performance Metrics. Self-contained
+    Naftiko capability covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Performance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: statistics-performance
+    baseUri: https://api.swetrix.com
+    description: Swetrix Statistics API — Performance business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-log-performance
+      path: /v1/log/performance
+      operations:
+      - name: getperformancelog
+        method: GET
+        description: Get Performance Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: measure
+          in: query
+          type: string
+          description: Statistical measure to apply to performance data
+    - name: v1-log-performance-birdseye
+      path: /v1/log/performance/birdseye
+      operations:
+      - name: getperformancebirdseye
+        method: GET
+        description: Get Birdseye Performance Summary
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pids
+          in: query
+          type: string
+          description: Comma-separated project IDs
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: statistics-performance-rest
+    port: 8080
+    description: REST adapter for Swetrix Statistics API — Performance. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/log/performance
+      name: v1-log-performance
+      description: REST surface for v1-log-performance.
+      operations:
+      - method: GET
+        name: getperformancelog
+        description: Get Performance Metrics
+        call: statistics-performance.getperformancelog
+        with:
+          measure: rest.measure
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/log/performance/birdseye
+      name: v1-log-performance-birdseye
+      description: REST surface for v1-log-performance-birdseye.
+      operations:
+      - method: GET
+        name: getperformancebirdseye
+        description: Get Birdseye Performance Summary
+        call: statistics-performance.getperformancebirdseye
+        with:
+          pids: rest.pids
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: statistics-performance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Statistics API — Performance. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-performance-metrics
+      description: Get Performance Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: statistics-performance.getperformancelog
+      with:
+        measure: tools.measure
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-birdseye-performance-summary
+      description: Get Birdseye Performance Summary
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: statistics-performance.getperformancebirdseye
+      with:
+        pids: tools.pids
+      outputParameters:
+      - type: object
+        mapping: $.

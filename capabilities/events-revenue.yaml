@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Events API — Revenue
+  description: 'Swetrix Events API — Revenue. 1 operations. Lead operation: Record Revenue Transaction. Self-contained Naftiko
+    capability covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Revenue
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: events-revenue
+    baseUri: https://api.swetrix.com
+    description: Swetrix Events API — Revenue business capability. Self-contained, no shared references.
+    resources:
+    - name: log-revenue
+      path: /log/revenue
+      operations:
+      - name: recordrevenue
+        method: POST
+        description: Record Revenue Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: events-revenue-rest
+    port: 8080
+    description: REST adapter for Swetrix Events API — Revenue. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/log/revenue
+      name: log-revenue
+      description: REST surface for log-revenue.
+      operations:
+      - method: POST
+        name: recordrevenue
+        description: Record Revenue Transaction
+        call: events-revenue.recordrevenue
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: events-revenue-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Events API — Revenue. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: record-revenue-transaction
+      description: Record Revenue Transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: events-revenue.recordrevenue
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

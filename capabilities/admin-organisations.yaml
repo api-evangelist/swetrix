@@ -1,0 +1,325 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Admin API — Organisations
+  description: 'Swetrix Admin API — Organisations. 8 operations. Lead operation: List Organisations. Self-contained Naftiko
+    capability covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Organisations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-organisations
+    baseUri: https://api.swetrix.com
+    description: Swetrix Admin API — Organisations business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-organisation
+      path: /v1/organisation
+      operations:
+      - name: listorganisations
+        method: GET
+        description: List Organisations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorganisation
+        method: POST
+        description: Create Organisation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-organisation-member-memberId
+      path: /v1/organisation/member/{memberId}
+      operations:
+      - name: updateorganisationmember
+        method: PATCH
+        description: Update Member Role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: memberId
+          in: path
+          type: string
+          description: Member ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: removeorganisationmember
+        method: DELETE
+        description: Remove Organisation Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: memberId
+          in: path
+          type: string
+          description: Member ID
+          required: true
+    - name: v1-organisation-orgId
+      path: /v1/organisation/{orgId}
+      operations:
+      - name: getorganisation
+        method: GET
+        description: Get Organisation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateorganisation
+        method: PATCH
+        description: Update Organisation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteorganisation
+        method: DELETE
+        description: Delete Organisation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-organisation-orgId-invite
+      path: /v1/organisation/{orgId}/invite
+      operations:
+      - name: inviteorganisationmember
+        method: POST
+        description: Invite Organisation Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: admin-organisations-rest
+    port: 8080
+    description: REST adapter for Swetrix Admin API — Organisations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/organisation
+      name: v1-organisation
+      description: REST surface for v1-organisation.
+      operations:
+      - method: GET
+        name: listorganisations
+        description: List Organisations
+        call: admin-organisations.listorganisations
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorganisation
+        description: Create Organisation
+        call: admin-organisations.createorganisation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/organisation/member/{memberid}
+      name: v1-organisation-member-memberid
+      description: REST surface for v1-organisation-member-memberId.
+      operations:
+      - method: PATCH
+        name: updateorganisationmember
+        description: Update Member Role
+        call: admin-organisations.updateorganisationmember
+        with:
+          memberId: rest.memberId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removeorganisationmember
+        description: Remove Organisation Member
+        call: admin-organisations.removeorganisationmember
+        with:
+          memberId: rest.memberId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/organisation/{orgid}
+      name: v1-organisation-orgid
+      description: REST surface for v1-organisation-orgId.
+      operations:
+      - method: GET
+        name: getorganisation
+        description: Get Organisation
+        call: admin-organisations.getorganisation
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateorganisation
+        description: Update Organisation
+        call: admin-organisations.updateorganisation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteorganisation
+        description: Delete Organisation
+        call: admin-organisations.deleteorganisation
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/organisation/{orgid}/invite
+      name: v1-organisation-orgid-invite
+      description: REST surface for v1-organisation-orgId-invite.
+      operations:
+      - method: POST
+        name: inviteorganisationmember
+        description: Invite Organisation Member
+        call: admin-organisations.inviteorganisationmember
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-organisations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Admin API — Organisations. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-organisations
+      description: List Organisations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-organisations.listorganisations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-organisation
+      description: Create Organisation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-organisations.createorganisation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-member-role
+      description: Update Member Role
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: admin-organisations.updateorganisationmember
+      with:
+        memberId: tools.memberId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-organisation-member
+      description: Remove Organisation Member
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: admin-organisations.removeorganisationmember
+      with:
+        memberId: tools.memberId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-organisation
+      description: Get Organisation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-organisations.getorganisation
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-organisation
+      description: Update Organisation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: admin-organisations.updateorganisation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-organisation
+      description: Delete Organisation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: admin-organisations.deleteorganisation
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invite-organisation-member
+      description: Invite Organisation Member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-organisations.inviteorganisationmember
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

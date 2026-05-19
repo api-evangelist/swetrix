@@ -1,0 +1,208 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Swetrix Admin API — Annotations
+  description: 'Swetrix Admin API — Annotations. 4 operations. Lead operation: Create Annotation. Self-contained Naftiko capability
+    covering one Swetrix business surface.'
+  tags:
+  - Swetrix
+  - Annotations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SWETRIX_API_KEY: SWETRIX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-annotations
+    baseUri: https://api.swetrix.com
+    description: Swetrix Admin API — Annotations business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-project-annotation
+      path: /v1/project/annotation
+      operations:
+      - name: createannotation
+        method: POST
+        description: Create Annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateannotation
+        method: PATCH
+        description: Update Annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-project-annotation-id-pid
+      path: /v1/project/annotation/{id}/{pid}
+      operations:
+      - name: deleteannotation
+        method: DELETE
+        description: Delete Annotation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Annotation ID
+          required: true
+        - name: pid
+          in: path
+          type: string
+          description: Project ID
+          required: true
+    - name: v1-project-annotations-pid
+      path: /v1/project/annotations/{pid}
+      operations:
+      - name: listannotations
+        method: GET
+        description: List Annotations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pid
+          in: path
+          type: string
+          description: Project ID
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.SWETRIX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: admin-annotations-rest
+    port: 8080
+    description: REST adapter for Swetrix Admin API — Annotations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/project/annotation
+      name: v1-project-annotation
+      description: REST surface for v1-project-annotation.
+      operations:
+      - method: POST
+        name: createannotation
+        description: Create Annotation
+        call: admin-annotations.createannotation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateannotation
+        description: Update Annotation
+        call: admin-annotations.updateannotation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/project/annotation/{id}/{pid}
+      name: v1-project-annotation-id-pid
+      description: REST surface for v1-project-annotation-id-pid.
+      operations:
+      - method: DELETE
+        name: deleteannotation
+        description: Delete Annotation
+        call: admin-annotations.deleteannotation
+        with:
+          id: rest.id
+          pid: rest.pid
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/project/annotations/{pid}
+      name: v1-project-annotations-pid
+      description: REST surface for v1-project-annotations-pid.
+      operations:
+      - method: GET
+        name: listannotations
+        description: List Annotations
+        call: admin-annotations.listannotations
+        with:
+          pid: rest.pid
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-annotations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Swetrix Admin API — Annotations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-annotation
+      description: Create Annotation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-annotations.createannotation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-annotation
+      description: Update Annotation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: admin-annotations.updateannotation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-annotation
+      description: Delete Annotation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: admin-annotations.deleteannotation
+      with:
+        id: tools.id
+        pid: tools.pid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-annotations
+      description: List Annotations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-annotations.listannotations
+      with:
+        pid: tools.pid
+      outputParameters:
+      - type: object
+        mapping: $.
