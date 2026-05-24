@@ -140,6 +140,8 @@ common:
   url: https://swetrix.com/privacy
 - type: PrivacyPolicy
   url: https://swetrix.com/privacy
+- type: LLMsTxt
+  url: https://swetrix.com/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
