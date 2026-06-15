@@ -1,62 +1,133 @@
-# Swetrix
+# Swetrix (swetrix)
 
-Swetrix is an open source, privacy-focused web analytics platform providing cookieless tracking, real-time dashboards, and GDPR-compliant analytics without collecting personal data. It offers a fully-featured REST API for tracking events, querying statistics, managing projects, and integrating analytics into custom applications.
+Swetrix is an open source, privacy-focused web analytics platform that provides cookieless tracking, real-time dashboards, and GDPR-compliant analytics without collecting personal data. It offers a fully-featured REST API for tracking events, querying statistics, managing projects, and integrating analytics into custom applications.
 
-- **Website:** https://swetrix.com
-- **Documentation:** https://docs.swetrix.com
-- **GitHub:** https://github.com/Swetrix/swetrix
-- **Pricing:** https://swetrix.com/pricing
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+
+## Tags
+
+- Analytics
+- Cookieless Tracking
+- GDPR Compliant
+- Open Source
+- Privacy
+- Real-Time Analytics
+- Web Analytics
+
+## Timestamps
+
+- **Created:** 2026-03-26
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Swetrix Events API
-Records pageview events, custom events, heartbeat sessions, JavaScript errors, and revenue transactions. Most endpoints are public (project ID only); the revenue endpoint requires an API key.
 
-- **Documentation:** https://swetrix.com/docs/events-api
-- **OpenAPI:** [openapi/swetrix-events-api-openapi.yml](openapi/swetrix-events-api-openapi.yml)
+The Swetrix Events API provides endpoints for recording pageview events, custom events, heartbeat events, error events, and revenue transactions. Used for sending analytics data from client or server-side applications to Swetrix analytics projects.
+
+- **Human URL:** [https://swetrix.com/docs/events-api](https://swetrix.com/docs/events-api)
+- **Base URL:** `https://api.swetrix.com`
+
+#### Tags
+
+- Analytics
+- Cookieless Tracking
+- Custom Events
+- Error Tracking
+- Events
+- Pageviews
+- Revenue Tracking
+
+#### Properties
+
+- [Documentation](https://swetrix.com/docs/events-api)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-events-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/swetrix-admin-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-admin-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/swetrix-events-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-events-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/swetrix-statistics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-statistics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Swetrix Statistics API
-Queries aggregated analytics data including traffic logs, performance metrics, session details, funnel analysis, user navigation flows, error statistics, and feature flag evaluations. Requires API key.
 
-- **Documentation:** https://swetrix.com/docs/statistics-api
-- **OpenAPI:** [openapi/swetrix-statistics-api-openapi.yml](openapi/swetrix-statistics-api-openapi.yml)
+The Swetrix Statistics API enables querying aggregated analytics data including traffic logs, performance metrics, session details, funnel analysis, user flows, error overviews, and feature flag statistics. Authenticated with an X-Api-Key header.
+
+- **Human URL:** [https://swetrix.com/docs/statistics-api](https://swetrix.com/docs/statistics-api)
+- **Base URL:** `https://api.swetrix.com`
+
+#### Tags
+
+- Analytics
+- Funnels
+- Performance
+- Statistics
+- Traffic
+
+#### Properties
+
+- [Documentation](https://swetrix.com/docs/statistics-api)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-statistics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/swetrix-admin-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-admin-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/swetrix-events-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-events-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/swetrix-statistics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-statistics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Swetrix Admin API
-Manages projects, funnels, annotations, project views (segments), and organisations with full CRUD operations. Requires API key.
 
-- **Documentation:** https://swetrix.com/docs/admin-api
-- **OpenAPI:** [openapi/swetrix-admin-api-openapi.yml](openapi/swetrix-admin-api-openapi.yml)
+The Swetrix Admin API manages projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for analytics project management. Authenticated with an X-Api-Key header.
 
-## Artifacts
+- **Human URL:** [https://swetrix.com/docs/admin-api](https://swetrix.com/docs/admin-api)
+- **Base URL:** `https://api.swetrix.com`
 
-| Type | Path |
-|---|---|
-| OpenAPI Specs | [openapi/](openapi/) |
-| Spectral Rules | [rules/swetrix-rules.yml](rules/swetrix-rules.yml) |
-| Naftiko Capabilities | [capabilities/](capabilities/) |
-| JSON Schema | [json-schema/](json-schema/) |
-| JSON Structure | [json-structure/](json-structure/) |
-| JSON-LD Context | [json-ld/swetrix-context.jsonld](json-ld/swetrix-context.jsonld) |
-| Examples | [examples/](examples/) |
-| Vocabulary | [vocabulary/swetrix-vocabulary.yml](vocabulary/swetrix-vocabulary.yml) |
+#### Tags
 
-## Naftiko Capabilities
+- Administration
+- Analytics
+- Organisations
+- Project Management
+- Projects
 
-### Shared Definitions
-- [capabilities/shared/swetrix-events.yaml](capabilities/shared/swetrix-events.yaml) — Events API consumer
-- [capabilities/shared/swetrix-statistics.yaml](capabilities/shared/swetrix-statistics.yaml) — Statistics API consumer
-- [capabilities/shared/swetrix-admin.yaml](capabilities/shared/swetrix-admin.yaml) — Admin API consumer
+#### Properties
 
-### Workflow Capabilities
-- [capabilities/web-analytics.yaml](capabilities/web-analytics.yaml) — Unified web analytics workflow (Events + Statistics + Admin, REST port 8080, MCP port 9090, 14 tools)
+- [Documentation](https://swetrix.com/docs/admin-api)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-admin-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/swetrix-admin-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-admin-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/swetrix-events-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-events-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/swetrix-statistics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/swetrix-statistics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-## Authentication
+## Common Properties
 
-- **Events API:** Public (project ID only); Revenue endpoint requires `X-Api-Key` header
-- **Statistics API:** `X-Api-Key` header required
-- **Admin API:** `X-Api-Key` header required
-- Rate limit: 600 requests/hour (free and paid plans)
+- [LinkedIn](https://www.linkedin.com/company/swetrix)
+- [Website](https://swetrix.com)
+- [Documentation](https://docs.swetrix.com)
+- [Blog](https://swetrix.com/blog)
+- [Pricing](https://swetrix.com/pricing)
+- [Git Hub](https://github.com/Swetrix/swetrix)
+- [GitHub Organization](https://github.com/Swetrix)
+- [Login](https://swetrix.com/login)
+- [Sign Up](https://swetrix.com/signup)
+- [Support](https://swetrix.com/contact)
+- [Open Source](https://github.com/Swetrix/swetrix-api)
+- [SDK](https://github.com/Swetrix/swetrix-js)
+- [SDK](https://github.com/Swetrix/swetrix-nextjs)
+- [SDK](https://github.com/Swetrix/swetrix-browser)
+- [SDK](https://github.com/Swetrix/django-plugin)
+- [Status Page](https://swetrix.com/status)
+- [Terms of Service](https://swetrix.com/privacy)
+- [Privacy Policy](https://swetrix.com/privacy)
+- [L L Ms Txt](https://swetrix.com/llms.txt)
 
 ## Maintainers
 
-- Kin Lane (kin@apievangelist.com)
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com

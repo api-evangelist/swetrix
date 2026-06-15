@@ -1,0 +1,846 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swetrix Statistics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Traffic",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Traffic Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "timeBucket",
+                "value": "",
+                "type": "query",
+                "description": "Time bucket for data aggregation"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "Data aggregation mode"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Up to 3 custom metric objects (JSON array)"
+              }
+            ]
+          },
+          "docs": "Retrieves aggregated traffic data for a project. Returns the same data shown in the Traffic tab of the dashboard, represented as JSON. Supports periodic or cumulative modes and custom metric objects."
+        },
+        {
+          "info": {
+            "name": "Get Birdseye Traffic Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/birdseye",
+            "params": [
+              {
+                "name": "pids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of project IDs (use pid or pids)"
+              },
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              }
+            ]
+          },
+          "docs": "Returns summary traffic data for one or more projects, comparing the current period against the previous period. Useful for dashboards showing traffic trends."
+        },
+        {
+          "info": {
+            "name": "Get Live Visitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/live-visitors",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Returns currently active visitors on a project. Each visitor record includes device type, browser, operating system, country, and session ID."
+        },
+        {
+          "info": {
+            "name": "Get Search Keywords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/keywords",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns search keyword data from Google Search Console integration for the specified project and period."
+        },
+        {
+          "info": {
+            "name": "Get User Navigation Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/user-flow",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "timeBucket",
+                "value": "",
+                "type": "query",
+                "description": "Time bucket for data aggregation"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              }
+            ]
+          },
+          "docs": "Returns user navigation flow diagram data showing how visitors move between pages on the site."
+        },
+        {
+          "info": {
+            "name": "Get Available Filter Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/filters",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Dimension type to get filter values for"
+              }
+            ]
+          },
+          "docs": "Returns available filter values for a specific analytics dimension such as browser, OS, or country code."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Performance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Performance Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/performance",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "timeBucket",
+                "value": "",
+                "type": "query",
+                "description": "Time bucket for data aggregation"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              },
+              {
+                "name": "measure",
+                "value": "",
+                "type": "query",
+                "description": "Statistical measure to apply to performance data"
+              }
+            ]
+          },
+          "docs": "Returns performance metrics including DNS lookup, TLS handshake, connection, response, render, DOM load, TTFB, and full page load times. Supports median, average, p95, and quantile aggregations."
+        },
+        {
+          "info": {
+            "name": "Get Birdseye Performance Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/performance/birdseye",
+            "params": [
+              {
+                "name": "pids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated project IDs"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns performance metric summaries comparing current vs previous periods for frontend, backend, and network metrics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/sessions",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (max 150)"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of individual visitor sessions for the specified project and time period. Maximum 150 sessions per request."
+        },
+        {
+          "info": {
+            "name": "Get Session Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/session",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "psid",
+                "value": "",
+                "type": "query",
+                "description": "Session identifier"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a single visitor session including all pages visited, session metadata, and chart data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Funnels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Funnel Analysis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/funnel",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of page paths (e.g. [\"/\",\"/signup\",\"/dashboard\"])"
+              },
+              {
+                "name": "funnelId",
+                "value": "",
+                "type": "query",
+                "description": "Saved funnel ID"
+              }
+            ]
+          },
+          "docs": "Returns funnel conversion analysis for a specified sequence of pages. Shows conversion counts, dropoffs, and percentages at each step. Accepts either a saved funnel ID or an inline pages array."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Errors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Error Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/errors",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (max 150)"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of error event groups for the specified project and time period."
+        },
+        {
+          "info": {
+            "name": "Get Error Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/get-error",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "eid",
+                "value": "",
+                "type": "query",
+                "description": "Error group ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a specific error group by error ID."
+        },
+        {
+          "info": {
+            "name": "Get Error Statistics Overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/error-overview",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "timeBucket",
+                "value": "",
+                "type": "query",
+                "description": "Time bucket for data aggregation"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns aggregated error statistics for chart rendering, showing error counts over the specified time period."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Custom Events Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/custom-events",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "timeBucket",
+                "value": "",
+                "type": "query",
+                "description": "Time bucket for data aggregation"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "customEvents",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of custom event names to query"
+              }
+            ]
+          },
+          "docs": "Returns custom event analytics grouped by time bucket for specified event names. Returns counts and trends for each custom event."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Feature Flags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Feature Flag Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/feature-flag/:id/stats",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Feature flag ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns evaluation statistics for a specific feature flag showing how often it was evaluated as true or false."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

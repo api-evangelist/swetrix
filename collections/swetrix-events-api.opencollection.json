@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swetrix Events API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Record Pageview Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/log",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a pageview event for the specified project. Tracks page path, locale, referrer, UTM parameters, and optional performance metrics. Should be called when a visitor loads a page."
+        },
+        {
+          "info": {
+            "name": "Record Custom Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/log/custom",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a custom named event for the specified project. Custom events can include metadata key-value pairs and are aggregated in the dashboard. Can be configured to track only unique occurrences per session."
+        },
+        {
+          "info": {
+            "name": "Record Heartbeat Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/log/hb",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a heartbeat event to keep the visitor session alive. Should be called approximately every 30 seconds while the user is active on the page. Used to accurately track session duration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Errors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Record Error Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/log/error",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a JavaScript error event for aggregation in the Errors tab of the dashboard. Captures error name, message, stack trace, source file, and location. Errors are grouped by name and message."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Revenue",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Record Revenue Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/log/revenue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Records a revenue transaction (sale, refund, or subscription) for the specified project. Server-side only — requires API key authentication via X-Api-Key header. Amounts should always be positive (type field distinguishes refunds)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,598 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swetrix Admin API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project"
+          },
+          "docs": "Retrieves all analytics projects for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new analytics project. Returns 201 with the project object."
+        },
+        {
+          "info": {
+            "name": "Get Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific analytics project."
+        },
+        {
+          "info": {
+            "name": "Update Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.swetrix.com/v1/project/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies settings for an existing project including name, active status, public visibility, allowed origins, IP blocklist, and bot protection level."
+        },
+        {
+          "info": {
+            "name": "Delete Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Permanently removes a project and all its data."
+        },
+        {
+          "info": {
+            "name": "Pin Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project/:id/pin",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Pins a project to the top of the dashboard."
+        },
+        {
+          "info": {
+            "name": "Unpin Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/:id/pin",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Removes a project from the pinned section."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Funnels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Funnels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/funnels/:pid",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Retrieves all saved funnels for a project."
+        },
+        {
+          "info": {
+            "name": "Create Funnel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project/funnel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new conversion funnel for a project."
+        },
+        {
+          "info": {
+            "name": "Update Funnel",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/project/funnel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing funnel's name or page steps."
+        },
+        {
+          "info": {
+            "name": "Delete Funnel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/funnel/:id/:pid",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Funnel ID"
+              },
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Removes a funnel from a project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Annotations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/annotations/:pid",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Retrieves all chart annotations for a project."
+        },
+        {
+          "info": {
+            "name": "Create Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project/annotation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new chart annotation for a project on a specific date."
+        },
+        {
+          "info": {
+            "name": "Update Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/project/annotation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing annotation's date or text."
+        },
+        {
+          "info": {
+            "name": "Delete Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/annotation/:id/:pid",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Annotation ID"
+              },
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Removes an annotation from a project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Views",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Project Views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/:pid/views",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Returns all saved dashboard views (segments) for a project. Optional X-Password header for password-protected projects."
+        },
+        {
+          "info": {
+            "name": "Create Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project/:pid/views",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new saved dashboard view (segment) for a project."
+        },
+        {
+          "info": {
+            "name": "Get Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/:pid/views/:viewId",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single saved dashboard view configuration."
+        },
+        {
+          "info": {
+            "name": "Update Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/project/:pid/views/:viewId",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing saved view's name, filters, or custom events."
+        },
+        {
+          "info": {
+            "name": "Delete Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/:pid/views/:viewId",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a saved dashboard view."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organisations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Organisations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/organisation"
+          },
+          "docs": "Retrieves all organisations the user is a member of."
+        },
+        {
+          "info": {
+            "name": "Create Organisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/organisation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new organisation."
+        },
+        {
+          "info": {
+            "name": "Get Organisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/organisation/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Organisation ID"
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific organisation."
+        },
+        {
+          "info": {
+            "name": "Update Organisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/organisation/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Organisation ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an organisation's name."
+        },
+        {
+          "info": {
+            "name": "Delete Organisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/organisation/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Organisation ID"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an organisation. Requires owner permission."
+        },
+        {
+          "info": {
+            "name": "Invite Organisation Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/organisation/:orgId/invite",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "Organisation ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites a user to join the organisation with a specified role."
+        },
+        {
+          "info": {
+            "name": "Update Member Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/organisation/member/:memberId",
+            "params": [
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "Member ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the role of an existing organisation member."
+        },
+        {
+          "info": {
+            "name": "Remove Organisation Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/organisation/member/:memberId",
+            "params": [
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "Member ID"
+              }
+            ]
+          },
+          "docs": "Removes a member from the organisation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
