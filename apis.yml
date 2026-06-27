@@ -96,19 +96,19 @@ common:
     url: https://github.com/Swetrix
   - type: Login
     url: https://swetrix.com/login
-  - type: SignUp
+  - type: Signup
     url: https://swetrix.com/signup
   - type: Support
     url: https://swetrix.com/contact
   - type: OpenSource
     url: https://github.com/Swetrix/swetrix-api
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Swetrix/swetrix-js
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Swetrix/swetrix-nextjs
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Swetrix/swetrix-browser
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Swetrix/django-plugin
   - type: StatusPage
     url: https://swetrix.com/status
@@ -116,7 +116,7 @@ common:
     url: https://swetrix.com/privacy
   - type: PrivacyPolicy
     url: https://swetrix.com/privacy
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://swetrix.com/llms.txt
 maintainers:
   - FN: Kin Lane
