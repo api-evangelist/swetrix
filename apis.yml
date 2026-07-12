@@ -80,6 +80,12 @@ apis:
       - Project Management
       - Projects
 common:
+  - type: VulnerabilityDisclosure
+    url: security/swetrix-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/swetrix-domain-security.yml
+  - type: Authentication
+    url: authentication/swetrix-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/swetrix
   - type: Website

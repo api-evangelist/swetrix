@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/swetrix-admin-api-openapi.yml, openapi/swetrix-events-api-openapi.yml, openapi/swetrix-statistics-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+  sources:
+  - openapi/swetrix-admin-api-openapi.yml
+  - openapi/swetrix-events-api-openapi.yml
+  - openapi/swetrix-statistics-api-openapi.yml
