@@ -80,6 +80,8 @@ apis:
       - Project Management
       - Projects
 common:
+  - type: AgenticAccess
+    url: agentic-access/swetrix-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/swetrix-vulnerability-disclosure.yml
   - type: DomainSecurity
