@@ -1,0 +1,299 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Funnels API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Funnels
+  description: Manage conversion funnels
+paths:
+  /v1/project/funnels/{pid}:
+    get:
+      operationId: listFunnels
+      summary: List Funnels
+      description: Retrieves all saved funnels for a project.
+      tags:
+      - Funnels
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Project ID
+      responses:
+        '200':
+          description: Array of funnels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Funnel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/funnel:
+    post:
+      operationId: createFunnel
+      summary: Create Funnel
+      description: Creates a new conversion funnel for a project.
+      tags:
+      - Funnels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFunnelRequest'
+            example:
+              name: Signup Funnel
+              pid: abc123projectid
+              steps:
+              - /
+              - /pricing
+              - /signup
+              - /dashboard
+      responses:
+        '201':
+          description: Funnel created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Funnel'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateFunnel
+      summary: Update Funnel
+      description: Updates an existing funnel's name or page steps.
+      tags:
+      - Funnels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFunnelRequest'
+      responses:
+        '200':
+          description: Updated funnel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Funnel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/funnel/{id}/{pid}:
+    delete:
+      operationId: deleteFunnel
+      summary: Delete Funnel
+      description: Removes a funnel from a project.
+      tags:
+      - Funnels
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Funnel ID
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Project ID
+      responses:
+        '204':
+          description: Funnel deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/funnel:
+    get:
+      operationId: getFunnelAnalysis
+      summary: Get Funnel Analysis
+      description: Returns funnel conversion analysis for a specified sequence of pages. Shows conversion counts, dropoffs, and percentages at each step. Accepts either a saved funnel ID or an inline pages array.
+      tags:
+      - Funnels
+      parameters:
+      - $ref: '#/components/parameters/pid'
+      - $ref: '#/components/parameters/period'
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      - $ref: '#/components/parameters/timezone'
+      - name: pages
+        in: query
+        schema:
+          type: string
+        description: JSON array of page paths (e.g. ["/","/signup","/dashboard"])
+      - name: funnelId
+        in: query
+        schema:
+          type: string
+        description: Saved funnel ID
+      responses:
+        '200':
+          description: Funnel step analysis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunnelResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    period:
+      name: period
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - 1h
+        - today
+        - yesterday
+        - 1d
+        - 7d
+        - 4w
+        - 3M
+        - 12M
+        - 24M
+        - all
+      description: Time period for the query
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    timezone:
+      name: timezone
+      in: query
+      schema:
+        type: string
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+  schemas:
+    FunnelResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunnelStep'
+    FunnelStep:
+      type: object
+      properties:
+        page:
+          type: string
+        count:
+          type: integer
+        dropoff:
+          type: integer
+        conversionRate:
+          type: number
+          format: float
+    UpdateFunnelRequest:
+      type: object
+      required:
+      - id
+      - pid
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        name:
+          type: string
+          maxLength: 50
+        steps:
+          type: array
+          items:
+            type: string
+    Funnel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        pid:
+          type: string
+        steps:
+          type: array
+          items:
+            type: string
+    CreateFunnelRequest:
+      type: object
+      required:
+      - name
+      - pid
+      - steps
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        pid:
+          type: string
+        steps:
+          type: array
+          items:
+            type: string
+          description: Array of page paths defining funnel sequence
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Annotations
+  description: Manage chart annotations
+paths:
+  /v1/project/annotations/{pid}:
+    get:
+      operationId: listAnnotations
+      summary: List Annotations
+      description: Retrieves all chart annotations for a project.
+      tags:
+      - Annotations
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Project ID
+      responses:
+        '200':
+          description: Array of annotations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annotation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/annotation:
+    post:
+      operationId: createAnnotation
+      summary: Create Annotation
+      description: Creates a new chart annotation for a project on a specific date.
+      tags:
+      - Annotations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnnotationRequest'
+            example:
+              pid: abc123projectid
+              date: '2026-05-01'
+              text: Launched v2.0
+      responses:
+        '201':
+          description: Annotation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateAnnotation
+      summary: Update Annotation
+      description: Updates an existing annotation's date or text.
+      tags:
+      - Annotations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnnotationRequest'
+      responses:
+        '200':
+          description: Updated annotation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/annotation/{id}/{pid}:
+    delete:
+      operationId: deleteAnnotation
+      summary: Delete Annotation
+      description: Removes an annotation from a project.
+      tags:
+      - Annotations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Annotation ID
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Project ID
+      responses:
+        '204':
+          description: Annotation deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  schemas:
+    Annotation:
+      type: object
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+        text:
+          type: string
+    UpdateAnnotationRequest:
+      type: object
+      required:
+      - id
+      - pid
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+        text:
+          type: string
+          maxLength: 120
+    CreateAnnotationRequest:
+      type: object
+      required:
+      - pid
+      - date
+      - text
+      properties:
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+          description: Date for the annotation (YYYY-MM-DD)
+        text:
+          type: string
+          maxLength: 120
+          description: Annotation text
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

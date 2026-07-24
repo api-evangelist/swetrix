@@ -1,0 +1,282 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Organisations API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Organisations
+  description: Manage organisations and member access
+paths:
+  /v1/organisation:
+    get:
+      operationId: listOrganisations
+      summary: List Organisations
+      description: Retrieves all organisations the user is a member of.
+      tags:
+      - Organisations
+      responses:
+        '200':
+          description: Array of organisations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organisation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createOrganisation
+      summary: Create Organisation
+      description: Creates a new organisation.
+      tags:
+      - Organisations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+                  description: Organisation name
+      responses:
+        '201':
+          description: Organisation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organisation/{orgId}:
+    get:
+      operationId: getOrganisation
+      summary: Get Organisation
+      description: Retrieves details for a specific organisation.
+      tags:
+      - Organisations
+      parameters:
+      - $ref: '#/components/parameters/orgId'
+      responses:
+        '200':
+          description: Organisation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateOrganisation
+      summary: Update Organisation
+      description: Updates an organisation's name.
+      tags:
+      - Organisations
+      parameters:
+      - $ref: '#/components/parameters/orgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+      responses:
+        '200':
+          description: Updated organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteOrganisation
+      summary: Delete Organisation
+      description: Permanently deletes an organisation. Requires owner permission.
+      tags:
+      - Organisations
+      parameters:
+      - $ref: '#/components/parameters/orgId'
+      responses:
+        '204':
+          description: Organisation deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/organisation/{orgId}/invite:
+    post:
+      operationId: inviteOrganisationMember
+      summary: Invite Organisation Member
+      description: Invites a user to join the organisation with a specified role.
+      tags:
+      - Organisations
+      parameters:
+      - $ref: '#/components/parameters/orgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - role
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email address of user to invite
+                role:
+                  type: string
+                  enum:
+                  - owner
+                  - admin
+                  - viewer
+                  description: Role to assign to the new member
+      responses:
+        '201':
+          description: Invitation sent
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organisation/member/{memberId}:
+    patch:
+      operationId: updateOrganisationMember
+      summary: Update Member Role
+      description: Updates the role of an existing organisation member.
+      tags:
+      - Organisations
+      parameters:
+      - name: memberId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Member ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - role
+              properties:
+                role:
+                  type: string
+                  enum:
+                  - owner
+                  - admin
+                  - viewer
+      responses:
+        '200':
+          description: Member role updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: removeOrganisationMember
+      summary: Remove Organisation Member
+      description: Removes a member from the organisation.
+      tags:
+      - Organisations
+      parameters:
+      - name: memberId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Member ID
+      responses:
+        '204':
+          description: Member removed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Forbidden:
+      description: Forbidden - insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  parameters:
+    orgId:
+      name: orgId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Organisation ID
+  schemas:
+    Organisation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum:
+          - owner
+          - admin
+          - viewer
+        members:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Revenue API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Revenue
+  description: Record revenue transactions (server-side only, requires API key)
+paths:
+  /log/revenue:
+    post:
+      operationId: recordRevenue
+      summary: Record Revenue Transaction
+      description: Records a revenue transaction (sale, refund, or subscription) for the specified project. Server-side only — requires API key authentication via X-Api-Key header. Amounts should always be positive (type field distinguishes refunds).
+      tags:
+      - Revenue
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevenueEvent'
+            example:
+              pid: abc123projectid
+              type: sale
+              amount: 49.99
+              currency: USD
+              productId: plan_pro_monthly
+              productName: Pro Monthly Plan
+      responses:
+        '201':
+          description: Revenue transaction recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  transactionId:
+                    type: string
+                example:
+                  success: true
+                  transactionId: txn_abc123
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    Forbidden:
+      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  schemas:
+    RevenueEvent:
+      type: object
+      required:
+      - pid
+      - type
+      - amount
+      - currency
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        type:
+          type: string
+          enum:
+          - sale
+          - refund
+          - subscription
+          description: Transaction type
+        amount:
+          type: number
+          description: Transaction amount in major currency units (always positive)
+        currency:
+          type: string
+          description: ISO 4217 currency code (e.g. USD)
+        transactionId:
+          type: string
+          description: Stable unique transaction identifier for deduplication
+        productId:
+          type: string
+          description: SKU or product identifier
+        productName:
+          type: string
+          description: Human-readable product name
+        profileId:
+          type: string
+          description: Swetrix user profile ID
+        sessionId:
+          type: string
+          description: Browsing session ID
+        created:
+          type: string
+          format: date-time
+          description: ISO 8601 transaction date
+        metadata:
+          type: object
+          description: Custom key-value pairs (max 100 keys, 2000 chars)
+          additionalProperties:
+            type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

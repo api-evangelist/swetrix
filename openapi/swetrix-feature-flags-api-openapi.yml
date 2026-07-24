@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Feature Flags API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Feature Flags
+  description: Feature flag evaluation statistics
+paths:
+  /v1/feature-flag/{id}/stats:
+    get:
+      operationId: getFeatureFlagStats
+      summary: Get Feature Flag Statistics
+      description: Returns evaluation statistics for a specific feature flag showing how often it was evaluated as true or false.
+      tags:
+      - Feature Flags
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Feature flag ID
+      - $ref: '#/components/parameters/period'
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Feature flag evaluation statistics
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  parameters:
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    period:
+      name: period
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - 1h
+        - today
+        - yesterday
+        - 1d
+        - 7d
+        - 4w
+        - 3M
+        - 12M
+        - 24M
+        - all
+      description: Time period for the query
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    timezone:
+      name: timezone
+      in: query
+      schema:
+        type: string
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

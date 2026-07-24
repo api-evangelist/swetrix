@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Errors API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Errors
+  description: Record JavaScript error events
+paths:
+  /log/error:
+    post:
+      operationId: recordError
+      summary: Record Error Event
+      description: Records a JavaScript error event for aggregation in the Errors tab of the dashboard. Captures error name, message, stack trace, source file, and location. Errors are grouped by name and message.
+      tags:
+      - Errors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorEvent'
+            example:
+              pid: abc123projectid
+              name: TypeError
+              message: Cannot read property 'foo' of undefined
+              lineno: 42
+              colno: 15
+              filename: https://example.com/app.js
+              pg: /dashboard
+              lc: en-US
+      responses:
+        '201':
+          description: Error recorded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v1/log/errors:
+    get:
+      operationId: listErrors
+      summary: List Error Events
+      description: Returns a paginated list of error event groups for the specified project and time period.
+      tags:
+      - Errors
+      parameters:
+      - $ref: '#/components/parameters/pid'
+      - $ref: '#/components/parameters/period'
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      - $ref: '#/components/parameters/timezone'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/take'
+      - $ref: '#/components/parameters/skip'
+      responses:
+        '200':
+          description: Paginated error list
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/get-error:
+    get:
+      operationId: getError
+      summary: Get Error Details
+      description: Returns detailed information for a specific error group by error ID.
+      tags:
+      - Errors
+      parameters:
+      - $ref: '#/components/parameters/pid'
+      - name: eid
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Error group ID
+      - $ref: '#/components/parameters/period'
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Error group details
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/log/error-overview:
+    get:
+      operationId: getErrorOverview
+      summary: Get Error Statistics Overview
+      description: Returns aggregated error statistics for chart rendering, showing error counts over the specified time period.
+      tags:
+      - Errors
+      parameters:
+      - $ref: '#/components/parameters/pid'
+      - $ref: '#/components/parameters/timeBucket'
+      - $ref: '#/components/parameters/period'
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      - $ref: '#/components/parameters/timezone'
+      responses:
+        '200':
+          description: Error overview chart data
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    filters:
+      name: filters
+      in: query
+      schema:
+        type: string
+      description: JSON array of filter objects
+    timeBucket:
+      name: timeBucket
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - minute
+        - hour
+        - day
+        - week
+        - month
+        - year
+      description: Time bucket for data aggregation
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    take:
+      name: take
+      in: query
+      schema:
+        type: integer
+        default: 30
+        maximum: 150
+      description: Number of results to return (max 150)
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    period:
+      name: period
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - 1h
+        - today
+        - yesterday
+        - 1d
+        - 7d
+        - 4w
+        - 3M
+        - 12M
+        - 24M
+        - all
+      description: Time period for the query
+    skip:
+      name: skip
+      in: query
+      schema:
+        type: integer
+        default: 0
+      description: Number of results to skip for pagination
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    timezone:
+      name: timezone
+      in: query
+      schema:
+        type: string
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  schemas:
+    ErrorEvent:
+      type: object
+      required:
+      - pid
+      - name
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        name:
+          type: string
+          maxLength: 200
+          description: Error name (e.g. TypeError)
+        message:
+          type: string
+          maxLength: 2000
+          description: Error message
+        lineno:
+          type: integer
+          description: Line number where error occurred
+        colno:
+          type: integer
+          description: Column number where error occurred
+        stackTrace:
+          type: string
+          maxLength: 7500
+          description: Full stack trace
+        filename:
+          type: string
+          maxLength: 1000
+          description: Source file URL
+        tz:
+          type: string
+          description: Visitor timezone
+        pg:
+          type: string
+          description: Page path
+        lc:
+          type: string
+          description: Locale
+        meta:
+          type: object
+          description: Custom metadata (max 100 keys, 2000 chars total)
+          additionalProperties:
+            type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

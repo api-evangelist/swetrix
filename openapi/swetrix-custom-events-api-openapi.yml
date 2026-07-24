@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Custom Events API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Custom Events
+  description: Custom event analytics
+paths:
+  /v1/log/custom-events:
+    get:
+      operationId: getCustomEvents
+      summary: Get Custom Events Data
+      description: Returns custom event analytics grouped by time bucket for specified event names. Returns counts and trends for each custom event.
+      tags:
+      - Custom Events
+      parameters:
+      - $ref: '#/components/parameters/pid'
+      - $ref: '#/components/parameters/timeBucket'
+      - $ref: '#/components/parameters/period'
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      - $ref: '#/components/parameters/timezone'
+      - name: customEvents
+        in: query
+        required: true
+        schema:
+          type: string
+        description: JSON array of custom event names to query
+      responses:
+        '200':
+          description: Custom events data grouped by time bucket
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    timeBucket:
+      name: timeBucket
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - minute
+        - hour
+        - day
+        - week
+        - month
+        - year
+      description: Time bucket for data aggregation
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    period:
+      name: period
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - 1h
+        - today
+        - yesterday
+        - 1d
+        - 7d
+        - 4w
+        - 3M
+        - 12M
+        - 24M
+        - all
+      description: Time period for the query
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    timezone:
+      name: timezone
+      in: query
+      schema:
+        type: string
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api

@@ -1,0 +1,285 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin Annotations Projects API
+  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+servers:
+- url: https://api.swetrix.com
+  description: Swetrix Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Projects
+  description: Manage analytics projects
+paths:
+  /v1/project:
+    get:
+      operationId: listProjects
+      summary: List Projects
+      description: Retrieves all analytics projects for the authenticated user.
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: Array of project objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProject
+      summary: Create Project
+      description: Creates a new analytics project. Returns 201 with the project object.
+      tags:
+      - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+            example:
+              name: My Website
+              isCaptcha: false
+              isPasswordProtected: false
+      responses:
+        '201':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/{id}:
+    get:
+      operationId: getProject
+      summary: Get Project
+      description: Retrieves details for a specific analytics project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Project object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update Project
+      description: Modifies settings for an existing project including name, active status, public visibility, allowed origins, IP blocklist, and bot protection level.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProject
+      summary: Delete Project
+      description: Permanently removes a project and all its data.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '204':
+          description: Project deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/project/{id}/pin:
+    post:
+      operationId: pinProject
+      summary: Pin Project
+      description: Pins a project to the top of the dashboard.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Project pinned
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: unpinProject
+      summary: Unpin Project
+      description: Removes a project from the pinned section.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Project unpinned
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  schemas:
+    CreateProjectRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+          description: Project display name
+        isCaptcha:
+          type: boolean
+          default: false
+          description: Enable CAPTCHA analytics tracking
+        isPasswordProtected:
+          type: boolean
+          default: false
+          description: Require password to view dashboard
+        password:
+          type: string
+          description: Dashboard password (required if isPasswordProtected is true)
+        organisationId:
+          type: string
+          description: Organisation to assign project to
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+          description: Whether traffic collection is enabled
+        public:
+          type: boolean
+          description: Whether the dashboard is publicly visible
+        origins:
+          type: array
+          items:
+            type: string
+          description: Allowed domain origins
+        ipBlacklist:
+          type: array
+          items:
+            type: string
+          description: Blocked IP addresses
+        botsProtectionLevel:
+          type: string
+          enum:
+          - 'off'
+          - basic
+        organisationId:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    UpdateProjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        active:
+          type: boolean
+        public:
+          type: boolean
+        origins:
+          type: array
+          items:
+            type: string
+        ipBlacklist:
+          type: array
+          items:
+            type: string
+        botsProtectionLevel:
+          type: string
+          enum:
+          - 'off'
+          - basic
+  parameters:
+    projectId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Project ID
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api
