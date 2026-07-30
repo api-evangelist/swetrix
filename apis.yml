@@ -5,7 +5,20 @@ description: >-
   dashboards, and GDPR-compliant analytics without collecting personal data. It offers a fully-featured REST API for
   tracking events, querying statistics, managing projects, and integrating analytics into custom applications.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Paid (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/swetrix.png
 tags:
   - Analytics
   - Cookieless Tracking
@@ -19,67 +32,199 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: swetrix:swetrix-events-api
-    name: Swetrix Events API
-    description: >-
-      The Swetrix Events API provides endpoints for recording pageview events, custom events, heartbeat events, error
-      events, and revenue transactions. Used for sending analytics data from client or server-side applications to
-      Swetrix analytics projects.
-    humanURL: https://swetrix.com/docs/events-api
-    baseURL: https://api.swetrix.com
-    properties:
-      - type: Documentation
-        url: https://swetrix.com/docs/events-api
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-events-api-openapi.yml
-    tags:
-      - Analytics
-      - Cookieless Tracking
-      - Custom Events
-      - Error Tracking
-      - Events
-      - Pageviews
-      - Revenue Tracking
-  - aid: swetrix:swetrix-statistics-api
-    name: Swetrix Statistics API
-    description: >-
-      The Swetrix Statistics API enables querying aggregated analytics data including traffic logs, performance metrics,
-      session details, funnel analysis, user flows, error overviews, and feature flag statistics. Authenticated with an
-      X-Api-Key header.
-    humanURL: https://swetrix.com/docs/statistics-api
-    baseURL: https://api.swetrix.com
-    properties:
-      - type: Documentation
-        url: https://swetrix.com/docs/statistics-api
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-statistics-api-openapi.yml
-    tags:
-      - Analytics
-      - Funnels
-      - Performance
-      - Statistics
-      - Traffic
-  - aid: swetrix:swetrix-admin-api
-    name: Swetrix Admin API
-    description: >-
-      The Swetrix Admin API manages projects, funnels, annotations, project views (segments), and organisations.
-      Supports full CRUD operations for analytics project management. Authenticated with an X-Api-Key header.
-    humanURL: https://swetrix.com/docs/admin-api
-    baseURL: https://api.swetrix.com
-    properties:
-      - type: Documentation
-        url: https://swetrix.com/docs/admin-api
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-admin-api-openapi.yml
-    tags:
-      - Administration
-      - Analytics
-      - Organisations
-      - Project Management
-      - Projects
+- aid: swetrix:swetrix-events-api
+  name: Swetrix Events API
+  description: >-
+    The Swetrix Events API provides endpoints for recording pageview events, custom events, heartbeat
+    events, error events, and revenue transactions. Used for sending analytics data from client or server-side
+    applications to Swetrix analytics projects.
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  properties:
+  - type: Documentation
+    url: https://swetrix.com/docs/events-api
+  - type: OpenAPI
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-events-api-openapi.yml
+  tags:
+  - Analytics
+  - Cookieless Tracking
+  - Custom Events
+  - Error Tracking
+  - Events
+  - Pageviews
+  - Revenue Tracking
+- aid: swetrix:swetrix-annotations-api
+  name: Swetrix Annotations API
+  description: Manage chart annotations
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-annotations-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-custom-events-api
+  name: Swetrix Custom Events API
+  description: Custom event analytics
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Custom Events
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-custom-events-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-errors-api
+  name: Swetrix Errors API
+  description: Record JavaScript error events
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Errors
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-errors-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-feature-flags-api
+  name: Swetrix Feature Flags API
+  description: Feature flag evaluation statistics
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Feature Flags
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-feature-flags-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-funnels-api
+  name: Swetrix Funnels API
+  description: Manage conversion funnels
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Funnels
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-funnels-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-organisations-api
+  name: Swetrix Organisations API
+  description: Manage organisations and member access
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Organisations
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-organisations-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-performance-api
+  name: Swetrix Performance API
+  description: Frontend and backend performance metrics
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Performance
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-performance-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-projects-api
+  name: Swetrix Projects API
+  description: Manage analytics projects
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-projects-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-revenue-api
+  name: Swetrix Revenue API
+  description: Record revenue transactions (server-side only, requires API key)
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Revenue
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-revenue-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-sessions-api
+  name: Swetrix Sessions API
+  description: Individual visitor session data
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-traffic-api
+  name: Swetrix Traffic API
+  description: Aggregated traffic and pageview analytics
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Traffic
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-traffic-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
+- aid: swetrix:swetrix-views-api
+  name: Swetrix Views API
+  description: Manage saved dashboard views (segments)
+  humanURL: https://swetrix.com/docs/events-api
+  baseURL: https://api.swetrix.com
+  tags:
+  - Views
+  properties:
+  - type: OpenAPI
+    url: openapi/swetrix-views-api-openapi.yml
+  - type: Documentation
+    url: https://swetrix.com/docs/statistics-api
+  - type: Documentation
+    url: https://swetrix.com/docs/admin-api
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/swetrix/overview
   - type: AgenticAccess
     url: agentic-access/swetrix-agentic-access.yml
   - type: VulnerabilityDisclosure
