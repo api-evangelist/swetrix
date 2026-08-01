@@ -1,0 +1,1027 @@
+{
+  "info": {
+    "_postman_id": "cab1240c-e729-4d22-82b8-515e429fcce5",
+    "name": "Swetrix Admin Annotations Funnels API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:38.000Z",
+    "updatedAt": "2026-07-28T03:06:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cab1240c-e729-4d22-82b8-515e429fcce5"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "project",
+          "item": [
+            {
+              "name": "funnels",
+              "item": [
+                {
+                  "name": "{pid}",
+                  "item": [
+                    {
+                      "name": "List Funnels",
+                      "id": "0eedca4f-7ef7-4665-90d0-6ce0ce9b4399",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/funnels/:pid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "funnels",
+                            ":pid"
+                          ],
+                          "variable": [
+                            {
+                              "id": "972f7df0-4ebc-4a23-a3f5-e397f5921894",
+                              "key": "pid",
+                              "value": "<string>",
+                              "description": "(Required) Project ID"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves all saved funnels for a project."
+                      },
+                      "response": [
+                        {
+                          "id": "5d6a1586-5165-473b-9ba2-50d42d7d7432",
+                          "name": "Array of funnels",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/funnels/:pid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                "funnels",
+                                ":pid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"pid\": \"<string>\",\n    \"steps\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"pid\": \"<string>\",\n    \"steps\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                          "createdAt": "2026-07-28T03:06:39.000Z",
+                          "updatedAt": "2026-07-28T03:06:39.000Z",
+                          "uid": "35240-5d6a1586-5165-473b-9ba2-50d42d7d7432"
+                        },
+                        {
+                          "id": "1b07dc8f-4fc6-4e37-9e91-af848fc2df81",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/funnels/:pid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                "funnels",
+                                ":pid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:39.000Z",
+                          "updatedAt": "2026-07-28T03:06:39.000Z",
+                          "uid": "35240-1b07dc8f-4fc6-4e37-9e91-af848fc2df81"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-0eedca4f-7ef7-4665-90d0-6ce0ce9b4399"
+                    }
+                  ],
+                  "id": "f91e3991-3dfb-4522-af7c-c54eb659d4a8",
+                  "createdAt": "2026-07-28T03:06:39.000Z",
+                  "updatedAt": "2026-07-28T03:06:39.000Z",
+                  "uid": "35240-f91e3991-3dfb-4522-af7c-c54eb659d4a8"
+                }
+              ],
+              "id": "3e42d362-2f7c-40c1-82d5-883057112f49",
+              "createdAt": "2026-07-28T03:06:39.000Z",
+              "updatedAt": "2026-07-28T03:06:39.000Z",
+              "uid": "35240-3e42d362-2f7c-40c1-82d5-883057112f49"
+            },
+            {
+              "name": "funnel",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "{pid}",
+                      "item": [
+                        {
+                          "name": "Delete Funnel",
+                          "id": "eae2a1ca-e95f-41a6-98f6-bf25ddf335f3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/funnel/:id/:pid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                "funnel",
+                                ":id",
+                                ":pid"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f8beda70-211b-4d61-9c45-33962e10a55e",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) Funnel ID"
+                                },
+                                {
+                                  "id": "8e4d29f9-9afe-4f1a-b2f2-2151240b5cf4",
+                                  "key": "pid",
+                                  "value": "<string>",
+                                  "description": "(Required) Project ID"
+                                }
+                              ]
+                            },
+                            "description": "Removes a funnel from a project."
+                          },
+                          "response": [
+                            {
+                              "id": "ff674f19-50a3-4cd3-9e19-fc9afafd0bc3",
+                              "name": "Funnel deleted",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/funnel/:id/:pid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    "funnel",
+                                    ":id",
+                                    ":pid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "pid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:06:39.000Z",
+                              "updatedAt": "2026-07-28T03:06:39.000Z",
+                              "uid": "35240-ff674f19-50a3-4cd3-9e19-fc9afafd0bc3"
+                            },
+                            {
+                              "id": "fbada22a-5c54-42b1-88e6-1ddce21ea6b7",
+                              "name": "Unauthorized - missing or invalid API key",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/funnel/:id/:pid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    "funnel",
+                                    ":id",
+                                    ":pid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "pid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:06:39.000Z",
+                              "updatedAt": "2026-07-28T03:06:39.000Z",
+                              "uid": "35240-fbada22a-5c54-42b1-88e6-1ddce21ea6b7"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:06:39.000Z",
+                          "updatedAt": "2026-07-28T03:06:39.000Z",
+                          "uid": "35240-eae2a1ca-e95f-41a6-98f6-bf25ddf335f3"
+                        }
+                      ],
+                      "id": "95561e11-99a4-428d-a21f-e601987ed08f",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-95561e11-99a4-428d-a21f-e601987ed08f"
+                    }
+                  ],
+                  "id": "323c3b82-f2f6-4424-8837-313b676d4d9f",
+                  "createdAt": "2026-07-28T03:06:39.000Z",
+                  "updatedAt": "2026-07-28T03:06:39.000Z",
+                  "uid": "35240-323c3b82-f2f6-4424-8837-313b676d4d9f"
+                },
+                {
+                  "name": "Create Funnel",
+                  "id": "9013f7d7-51cf-47e2-a2dc-86193898e83a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/funnel",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        "funnel"
+                      ]
+                    },
+                    "description": "Creates a new conversion funnel for a project."
+                  },
+                  "response": [
+                    {
+                      "id": "8644c840-7ac9-4a0d-8c67-5c2d94464122",
+                      "name": "Funnel created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/funnel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "funnel"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-8644c840-7ac9-4a0d-8c67-5c2d94464122"
+                    },
+                    {
+                      "id": "a8c2ced1-7bb0-4f3f-94ec-f8bd3118924e",
+                      "name": "Bad request - malformed body or missing required fields",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/funnel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "funnel"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-a8c2ced1-7bb0-4f3f-94ec-f8bd3118924e"
+                    },
+                    {
+                      "id": "b067b2ec-046b-4e10-ba5d-f905200edaf0",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/funnel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "funnel"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-b067b2ec-046b-4e10-ba5d-f905200edaf0"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:39.000Z",
+                  "updatedAt": "2026-07-28T03:06:39.000Z",
+                  "uid": "35240-9013f7d7-51cf-47e2-a2dc-86193898e83a"
+                },
+                {
+                  "name": "Update Funnel",
+                  "id": "495a978c-2023-4947-b65e-6c2b86f32e98",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/funnel",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        "funnel"
+                      ]
+                    },
+                    "description": "Updates an existing funnel's name or page steps."
+                  },
+                  "response": [
+                    {
+                      "id": "bd309746-ae52-4859-ba7e-8faa698ad3cd",
+                      "name": "Updated funnel",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/funnel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "funnel"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-bd309746-ae52-4859-ba7e-8faa698ad3cd"
+                    },
+                    {
+                      "id": "a0d0ce1d-f20e-4ea6-a100-a362be0f12e9",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"steps\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/funnel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "funnel"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-a0d0ce1d-f20e-4ea6-a100-a362be0f12e9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:39.000Z",
+                  "updatedAt": "2026-07-28T03:06:39.000Z",
+                  "uid": "35240-495a978c-2023-4947-b65e-6c2b86f32e98"
+                }
+              ],
+              "id": "79570466-f720-44d6-8a0d-ca93c6049143",
+              "createdAt": "2026-07-28T03:06:39.000Z",
+              "updatedAt": "2026-07-28T03:06:39.000Z",
+              "uid": "35240-79570466-f720-44d6-8a0d-ca93c6049143"
+            }
+          ],
+          "id": "c6b0acc3-a758-40ea-9d55-aec828536ae1",
+          "createdAt": "2026-07-28T03:06:39.000Z",
+          "updatedAt": "2026-07-28T03:06:39.000Z",
+          "uid": "35240-c6b0acc3-a758-40ea-9d55-aec828536ae1"
+        },
+        {
+          "name": "log",
+          "item": [
+            {
+              "name": "funnel",
+              "item": [
+                {
+                  "name": "Get Funnel Analysis",
+                  "id": "e7968e98-064e-4f0e-b9c4-abd2476fae44",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/funnel?pid=<string>&period=24M&from=<date>&to=<date>&timezone=Etc/GMT&pages=<string>&funnelId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "funnel"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Time period for the query",
+                          "key": "period",
+                          "value": "24M"
+                        },
+                        {
+                          "description": "Custom range start date (YYYY-MM-DD)",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Custom range end date (YYYY-MM-DD)",
+                          "key": "to",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        },
+                        {
+                          "description": "JSON array of page paths (e.g. [\"/\",\"/signup\",\"/dashboard\"])",
+                          "key": "pages",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Saved funnel ID",
+                          "key": "funnelId",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Returns funnel conversion analysis for a specified sequence of pages. Shows conversion counts, dropoffs, and percentages at each step. Accepts either a saved funnel ID or an inline pages array."
+                  },
+                  "response": [
+                    {
+                      "id": "94c86493-d477-46f0-acd0-25a669305045",
+                      "name": "Funnel step analysis",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/funnel?pid=<string>&period=24M&from=<date>&to=<date>&timezone=Etc/GMT&pages=<string>&funnelId=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "funnel"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "24M"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of page paths (e.g. [\"/\",\"/signup\",\"/dashboard\"])",
+                              "key": "pages",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Saved funnel ID",
+                              "key": "funnelId",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"steps\": [\n    {\n      \"page\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"dropoff\": \"<integer>\",\n      \"conversionRate\": \"<float>\"\n    },\n    {\n      \"page\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"dropoff\": \"<integer>\",\n      \"conversionRate\": \"<float>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-94c86493-d477-46f0-acd0-25a669305045"
+                    },
+                    {
+                      "id": "a45f86b4-b358-446c-85d8-09bb05046a4b",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/funnel?pid=<string>&period=24M&from=<date>&to=<date>&timezone=Etc/GMT&pages=<string>&funnelId=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "funnel"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "24M"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of page paths (e.g. [\"/\",\"/signup\",\"/dashboard\"])",
+                              "key": "pages",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Saved funnel ID",
+                              "key": "funnelId",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:39.000Z",
+                      "updatedAt": "2026-07-28T03:06:39.000Z",
+                      "uid": "35240-a45f86b4-b358-446c-85d8-09bb05046a4b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:39.000Z",
+                  "updatedAt": "2026-07-28T03:06:39.000Z",
+                  "uid": "35240-e7968e98-064e-4f0e-b9c4-abd2476fae44"
+                }
+              ],
+              "id": "ff1ab532-54d4-4bec-bbca-1c5f169a06ff",
+              "createdAt": "2026-07-28T03:06:39.000Z",
+              "updatedAt": "2026-07-28T03:06:39.000Z",
+              "uid": "35240-ff1ab532-54d4-4bec-bbca-1c5f169a06ff"
+            }
+          ],
+          "id": "86155a74-3a17-4226-b146-b232183ef6d9",
+          "createdAt": "2026-07-28T03:06:39.000Z",
+          "updatedAt": "2026-07-28T03:06:39.000Z",
+          "uid": "35240-86155a74-3a17-4226-b146-b232183ef6d9"
+        }
+      ],
+      "id": "a4df2a6c-a23e-4a80-a70a-c2f12222de75",
+      "createdAt": "2026-07-28T03:06:39.000Z",
+      "updatedAt": "2026-07-28T03:06:39.000Z",
+      "uid": "35240-a4df2a6c-a23e-4a80-a70a-c2f12222de75"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

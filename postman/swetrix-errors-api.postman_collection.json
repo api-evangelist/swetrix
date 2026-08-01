@@ -1,0 +1,1001 @@
+{
+  "info": {
+    "_postman_id": "6713c132-e203-4670-9b4a-6403cc820512",
+    "name": "Swetrix Admin Annotations Errors API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:35.000Z",
+    "updatedAt": "2026-07-28T03:06:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6713c132-e203-4670-9b4a-6403cc820512"
+  },
+  "item": [
+    {
+      "name": "log",
+      "item": [
+        {
+          "name": "error",
+          "item": [
+            {
+              "name": "Record Error Event",
+              "id": "f5f05fd4-958b-48bc-a20c-dcdea300a2ec",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lineno\": \"<integer>\",\n  \"colno\": \"<integer>\",\n  \"stackTrace\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"tz\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"meta\": {\n    \"in4\": \"<string>\",\n    \"aute42f\": \"<string>\",\n    \"ipsum_c9f\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/log/error",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "log",
+                    "error"
+                  ]
+                },
+                "description": "Records a JavaScript error event for aggregation in the Errors tab of the dashboard. Captures error name, message, stack trace, source file, and location. Errors are grouped by name and message."
+              },
+              "response": [
+                {
+                  "id": "5e65b5a2-afc9-4d4a-84f0-dbcf1ea16f7b",
+                  "name": "Error recorded successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lineno\": \"<integer>\",\n  \"colno\": \"<integer>\",\n  \"stackTrace\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"tz\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"meta\": {\n    \"in4\": \"<string>\",\n    \"aute42f\": \"<string>\",\n    \"ipsum_c9f\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/error",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "error"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T03:06:35.000Z",
+                  "updatedAt": "2026-07-28T03:06:35.000Z",
+                  "uid": "35240-5e65b5a2-afc9-4d4a-84f0-dbcf1ea16f7b"
+                },
+                {
+                  "id": "0b0637c8-4529-4de4-adc8-4d42b0793257",
+                  "name": "Bad request - malformed body, missing required fields, or disabled project",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lineno\": \"<integer>\",\n  \"colno\": \"<integer>\",\n  \"stackTrace\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"tz\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"meta\": {\n    \"in4\": \"<string>\",\n    \"aute42f\": \"<string>\",\n    \"ipsum_c9f\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/error",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "error"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:35.000Z",
+                  "updatedAt": "2026-07-28T03:06:35.000Z",
+                  "uid": "35240-0b0637c8-4529-4de4-adc8-4d42b0793257"
+                },
+                {
+                  "id": "0c515bd3-92ac-4b6a-b79f-bbeb5fd8966b",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lineno\": \"<integer>\",\n  \"colno\": \"<integer>\",\n  \"stackTrace\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"tz\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"meta\": {\n    \"in4\": \"<string>\",\n    \"aute42f\": \"<string>\",\n    \"ipsum_c9f\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/error",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "error"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:35.000Z",
+                  "updatedAt": "2026-07-28T03:06:35.000Z",
+                  "uid": "35240-0c515bd3-92ac-4b6a-b79f-bbeb5fd8966b"
+                }
+              ],
+              "createdAt": "2026-07-28T03:06:35.000Z",
+              "updatedAt": "2026-07-28T03:06:35.000Z",
+              "uid": "35240-f5f05fd4-958b-48bc-a20c-dcdea300a2ec"
+            }
+          ],
+          "id": "505302e3-6ada-4b31-9330-47d4e40094e5",
+          "createdAt": "2026-07-28T03:06:35.000Z",
+          "updatedAt": "2026-07-28T03:06:35.000Z",
+          "uid": "35240-505302e3-6ada-4b31-9330-47d4e40094e5"
+        }
+      ],
+      "id": "4a0d831f-853b-412e-aa56-0b7fe58d0aea",
+      "createdAt": "2026-07-28T03:06:35.000Z",
+      "updatedAt": "2026-07-28T03:06:35.000Z",
+      "uid": "35240-4a0d831f-853b-412e-aa56-0b7fe58d0aea"
+    },
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "log",
+          "item": [
+            {
+              "name": "errors",
+              "item": [
+                {
+                  "name": "List Error Events",
+                  "id": "ed1b0e85-5ba8-431d-9f3b-a5d289939510",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/errors?pid=<string>&period=1d&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&take=30&skip=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "errors"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Time period for the query",
+                          "key": "period",
+                          "value": "1d"
+                        },
+                        {
+                          "description": "Custom range start date (YYYY-MM-DD)",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Custom range end date (YYYY-MM-DD)",
+                          "key": "to",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        },
+                        {
+                          "description": "JSON array of filter objects",
+                          "key": "filters",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of results to return (max 150)",
+                          "key": "take",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Number of results to skip for pagination",
+                          "key": "skip",
+                          "value": "0"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of error event groups for the specified project and time period."
+                  },
+                  "response": [
+                    {
+                      "id": "a518f1cf-1412-4bc0-b6ef-9e2d1a18da42",
+                      "name": "Paginated error list",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/errors?pid=<string>&period=1d&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&take=30&skip=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "errors"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of results to return (max 150)",
+                              "key": "take",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Number of results to skip for pagination",
+                              "key": "skip",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T03:06:35.000Z",
+                      "updatedAt": "2026-07-28T03:06:35.000Z",
+                      "uid": "35240-a518f1cf-1412-4bc0-b6ef-9e2d1a18da42"
+                    },
+                    {
+                      "id": "722a0450-8a92-4098-aa87-a6f318b1f78f",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/errors?pid=<string>&period=1d&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&take=30&skip=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "errors"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of results to return (max 150)",
+                              "key": "take",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Number of results to skip for pagination",
+                              "key": "skip",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:35.000Z",
+                      "updatedAt": "2026-07-28T03:06:35.000Z",
+                      "uid": "35240-722a0450-8a92-4098-aa87-a6f318b1f78f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:35.000Z",
+                  "updatedAt": "2026-07-28T03:06:35.000Z",
+                  "uid": "35240-ed1b0e85-5ba8-431d-9f3b-a5d289939510"
+                }
+              ],
+              "id": "b337c775-7934-4e1c-ab0c-9e486b47df88",
+              "createdAt": "2026-07-28T03:06:35.000Z",
+              "updatedAt": "2026-07-28T03:06:35.000Z",
+              "uid": "35240-b337c775-7934-4e1c-ab0c-9e486b47df88"
+            },
+            {
+              "name": "get-error",
+              "item": [
+                {
+                  "name": "Get Error Details",
+                  "id": "5ef3c3bc-e3fb-4074-b1e1-eb804e3066f5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/get-error?pid=<string>&eid=<string>&period=1d&from=<date>&to=<date>&timezone=Etc/GMT",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "get-error"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Error group ID",
+                          "key": "eid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Time period for the query",
+                          "key": "period",
+                          "value": "1d"
+                        },
+                        {
+                          "description": "Custom range start date (YYYY-MM-DD)",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Custom range end date (YYYY-MM-DD)",
+                          "key": "to",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        }
+                      ]
+                    },
+                    "description": "Returns detailed information for a specific error group by error ID."
+                  },
+                  "response": [
+                    {
+                      "id": "3326f4d4-d663-46bf-9010-aae4e46ff189",
+                      "name": "Error group details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/get-error?pid=<string>&eid=<string>&period=1d&from=<date>&to=<date>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "get-error"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Error group ID",
+                              "key": "eid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T03:06:35.000Z",
+                      "updatedAt": "2026-07-28T03:06:35.000Z",
+                      "uid": "35240-3326f4d4-d663-46bf-9010-aae4e46ff189"
+                    },
+                    {
+                      "id": "e625c26f-56d8-42be-a1c3-fd23c978863e",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/get-error?pid=<string>&eid=<string>&period=1d&from=<date>&to=<date>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "get-error"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Error group ID",
+                              "key": "eid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:35.000Z",
+                      "updatedAt": "2026-07-28T03:06:35.000Z",
+                      "uid": "35240-e625c26f-56d8-42be-a1c3-fd23c978863e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:35.000Z",
+                  "updatedAt": "2026-07-28T03:06:35.000Z",
+                  "uid": "35240-5ef3c3bc-e3fb-4074-b1e1-eb804e3066f5"
+                }
+              ],
+              "id": "874b51d2-ab60-421e-a32b-d25e7f4013b2",
+              "createdAt": "2026-07-28T03:06:35.000Z",
+              "updatedAt": "2026-07-28T03:06:35.000Z",
+              "uid": "35240-874b51d2-ab60-421e-a32b-d25e7f4013b2"
+            },
+            {
+              "name": "error-overview",
+              "item": [
+                {
+                  "name": "Get Error Statistics Overview",
+                  "id": "beb3c996-8de6-4a27-82ad-c25951330a65",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/error-overview?pid=<string>&timeBucket=year&period=1d&from=<date>&to=<date>&timezone=Etc/GMT",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "error-overview"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Time bucket for data aggregation",
+                          "key": "timeBucket",
+                          "value": "year"
+                        },
+                        {
+                          "description": "(Required) Time period for the query",
+                          "key": "period",
+                          "value": "1d"
+                        },
+                        {
+                          "description": "Custom range start date (YYYY-MM-DD)",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Custom range end date (YYYY-MM-DD)",
+                          "key": "to",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        }
+                      ]
+                    },
+                    "description": "Returns aggregated error statistics for chart rendering, showing error counts over the specified time period."
+                  },
+                  "response": [
+                    {
+                      "id": "eaa1fd78-de42-4778-a3b0-6fb54cc60c1b",
+                      "name": "Error overview chart data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/error-overview?pid=<string>&timeBucket=year&period=1d&from=<date>&to=<date>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "error-overview"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time bucket for data aggregation",
+                              "key": "timeBucket",
+                              "value": "year"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T03:06:35.000Z",
+                      "updatedAt": "2026-07-28T03:06:35.000Z",
+                      "uid": "35240-eaa1fd78-de42-4778-a3b0-6fb54cc60c1b"
+                    },
+                    {
+                      "id": "b44e904e-a9da-4ed8-971a-df4f0c49ba4b",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/error-overview?pid=<string>&timeBucket=year&period=1d&from=<date>&to=<date>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "error-overview"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time bucket for data aggregation",
+                              "key": "timeBucket",
+                              "value": "year"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:35.000Z",
+                      "updatedAt": "2026-07-28T03:06:35.000Z",
+                      "uid": "35240-b44e904e-a9da-4ed8-971a-df4f0c49ba4b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:35.000Z",
+                  "updatedAt": "2026-07-28T03:06:35.000Z",
+                  "uid": "35240-beb3c996-8de6-4a27-82ad-c25951330a65"
+                }
+              ],
+              "id": "ea246434-e839-4dd1-8328-4f9b2ee1f468",
+              "createdAt": "2026-07-28T03:06:35.000Z",
+              "updatedAt": "2026-07-28T03:06:35.000Z",
+              "uid": "35240-ea246434-e839-4dd1-8328-4f9b2ee1f468"
+            }
+          ],
+          "id": "8915f366-ee5f-446a-b25b-3aa2c64946c5",
+          "createdAt": "2026-07-28T03:06:35.000Z",
+          "updatedAt": "2026-07-28T03:06:35.000Z",
+          "uid": "35240-8915f366-ee5f-446a-b25b-3aa2c64946c5"
+        }
+      ],
+      "id": "51f83d99-ce79-4849-a9c3-c1378113089f",
+      "createdAt": "2026-07-28T03:06:35.000Z",
+      "updatedAt": "2026-07-28T03:06:35.000Z",
+      "uid": "35240-51f83d99-ce79-4849-a9c3-c1378113089f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "info": {
+    "_postman_id": "8932c6a3-6241-463b-8314-8684de7f3442",
+    "name": "Swetrix Admin Annotations Performance API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:40.000Z",
+    "updatedAt": "2026-07-28T03:06:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8932c6a3-6241-463b-8314-8684de7f3442"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "log",
+          "item": [
+            {
+              "name": "performance",
+              "item": [
+                {
+                  "name": "birdseye",
+                  "item": [
+                    {
+                      "name": "Get Birdseye Performance Summary",
+                      "id": "e208847a-1969-4a0d-8e7c-3dc9ef953076",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/performance/birdseye?pids=<string>&period=today&from=<date>&to=<date>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "performance",
+                            "birdseye"
+                          ],
+                          "query": [
+                            {
+                              "description": "Comma-separated project IDs",
+                              "key": "pids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "today"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        },
+                        "description": "Returns performance metric summaries comparing current vs previous periods for frontend, backend, and network metrics."
+                      },
+                      "response": [
+                        {
+                          "id": "3e5bbfd8-a42e-4b9a-a5f2-8e93db25e5df",
+                          "name": "Performance birdseye summary",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/log/performance/birdseye?pids=<string>&period=today&from=<date>&to=<date>&timezone=Etc/GMT",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "log",
+                                "performance",
+                                "birdseye"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Comma-separated project IDs",
+                                  "key": "pids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) Time period for the query",
+                                  "key": "period",
+                                  "value": "today"
+                                },
+                                {
+                                  "description": "Custom range start date (YYYY-MM-DD)",
+                                  "key": "from",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Custom range end date (YYYY-MM-DD)",
+                                  "key": "to",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "IANA timezone name (default Etc/GMT)",
+                                  "key": "timezone",
+                                  "value": "Etc/GMT"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T03:06:41.000Z",
+                          "updatedAt": "2026-07-28T03:06:41.000Z",
+                          "uid": "35240-3e5bbfd8-a42e-4b9a-a5f2-8e93db25e5df"
+                        },
+                        {
+                          "id": "a8c11705-1288-4111-9e02-60884b791035",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/log/performance/birdseye?pids=<string>&period=today&from=<date>&to=<date>&timezone=Etc/GMT",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "log",
+                                "performance",
+                                "birdseye"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Comma-separated project IDs",
+                                  "key": "pids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) Time period for the query",
+                                  "key": "period",
+                                  "value": "today"
+                                },
+                                {
+                                  "description": "Custom range start date (YYYY-MM-DD)",
+                                  "key": "from",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Custom range end date (YYYY-MM-DD)",
+                                  "key": "to",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "IANA timezone name (default Etc/GMT)",
+                                  "key": "timezone",
+                                  "value": "Etc/GMT"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:41.000Z",
+                          "updatedAt": "2026-07-28T03:06:41.000Z",
+                          "uid": "35240-a8c11705-1288-4111-9e02-60884b791035"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:41.000Z",
+                      "updatedAt": "2026-07-28T03:06:41.000Z",
+                      "uid": "35240-e208847a-1969-4a0d-8e7c-3dc9ef953076"
+                    }
+                  ],
+                  "id": "97cae795-e8f2-42a0-84af-5a4bebfdce99",
+                  "createdAt": "2026-07-28T03:06:41.000Z",
+                  "updatedAt": "2026-07-28T03:06:41.000Z",
+                  "uid": "35240-97cae795-e8f2-42a0-84af-5a4bebfdce99"
+                },
+                {
+                  "name": "Get Performance Metrics",
+                  "id": "48fb7cd5-2041-4fb7-8737-bd2b9ffc64ed",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/performance?pid=<string>&timeBucket=minute&period=today&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&measure=median",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "performance"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Time bucket for data aggregation",
+                          "key": "timeBucket",
+                          "value": "minute"
+                        },
+                        {
+                          "description": "(Required) Time period for the query",
+                          "key": "period",
+                          "value": "today"
+                        },
+                        {
+                          "description": "Custom range start date (YYYY-MM-DD)",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Custom range end date (YYYY-MM-DD)",
+                          "key": "to",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        },
+                        {
+                          "description": "JSON array of filter objects",
+                          "key": "filters",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Statistical measure to apply to performance data",
+                          "key": "measure",
+                          "value": "median"
+                        }
+                      ]
+                    },
+                    "description": "Returns performance metrics including DNS lookup, TLS handshake, connection, response, render, DOM load, TTFB, and full page load times. Supports median, average, p95, and quantile aggregations."
+                  },
+                  "response": [
+                    {
+                      "id": "2a418423-c355-4735-9185-e8dc7348942d",
+                      "name": "Performance metrics data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/performance?pid=<string>&timeBucket=minute&period=today&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&measure=median",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "performance"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time bucket for data aggregation",
+                              "key": "timeBucket",
+                              "value": "minute"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "today"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Statistical measure to apply to performance data",
+                              "key": "measure",
+                              "value": "median"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T03:06:41.000Z",
+                      "updatedAt": "2026-07-28T03:06:41.000Z",
+                      "uid": "35240-2a418423-c355-4735-9185-e8dc7348942d"
+                    },
+                    {
+                      "id": "ad7b489b-b2d8-4f63-9c62-46889239d44f",
+                      "name": "Bad request - invalid parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/performance?pid=<string>&timeBucket=minute&period=today&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&measure=median",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "performance"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time bucket for data aggregation",
+                              "key": "timeBucket",
+                              "value": "minute"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "today"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Statistical measure to apply to performance data",
+                              "key": "measure",
+                              "value": "median"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:41.000Z",
+                      "updatedAt": "2026-07-28T03:06:41.000Z",
+                      "uid": "35240-ad7b489b-b2d8-4f63-9c62-46889239d44f"
+                    },
+                    {
+                      "id": "e4203cfe-b901-4848-a4a7-a742a6a5ddbe",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/performance?pid=<string>&timeBucket=minute&period=today&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&measure=median",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "performance"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time bucket for data aggregation",
+                              "key": "timeBucket",
+                              "value": "minute"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "today"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Statistical measure to apply to performance data",
+                              "key": "measure",
+                              "value": "median"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:41.000Z",
+                      "updatedAt": "2026-07-28T03:06:41.000Z",
+                      "uid": "35240-e4203cfe-b901-4848-a4a7-a742a6a5ddbe"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:41.000Z",
+                  "updatedAt": "2026-07-28T03:06:41.000Z",
+                  "uid": "35240-48fb7cd5-2041-4fb7-8737-bd2b9ffc64ed"
+                }
+              ],
+              "id": "715f2bc8-d67b-42a2-8eec-dab2ec229279",
+              "createdAt": "2026-07-28T03:06:41.000Z",
+              "updatedAt": "2026-07-28T03:06:41.000Z",
+              "uid": "35240-715f2bc8-d67b-42a2-8eec-dab2ec229279"
+            }
+          ],
+          "id": "7787cff6-f0bf-45bc-9779-36dc493443b8",
+          "createdAt": "2026-07-28T03:06:41.000Z",
+          "updatedAt": "2026-07-28T03:06:41.000Z",
+          "uid": "35240-7787cff6-f0bf-45bc-9779-36dc493443b8"
+        }
+      ],
+      "id": "8f0a9349-fec9-443c-b50f-6a365712b034",
+      "createdAt": "2026-07-28T03:06:41.000Z",
+      "updatedAt": "2026-07-28T03:06:41.000Z",
+      "uid": "35240-8f0a9349-fec9-443c-b50f-6a365712b034"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

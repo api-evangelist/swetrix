@@ -1,0 +1,1475 @@
+{
+  "info": {
+    "_postman_id": "0c9085cf-fd58-45e7-8140-3630ad7af7de",
+    "name": "Swetrix Admin Annotations Organisations API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:39.000Z",
+    "updatedAt": "2026-07-28T03:06:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0c9085cf-fd58-45e7-8140-3630ad7af7de"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "organisation",
+          "item": [
+            {
+              "name": "{orgId}",
+              "item": [
+                {
+                  "name": "invite",
+                  "item": [
+                    {
+                      "name": "Invite Organisation Member",
+                      "id": "d35c74fa-a6a8-4088-9d2f-cdf961ef1af1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"viewer\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId/invite",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId",
+                            "invite"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bad24325-4147-466d-b09a-ed23bc06e679",
+                              "key": "orgId",
+                              "value": "<string>",
+                              "description": "(Required) Organisation ID"
+                            }
+                          ]
+                        },
+                        "description": "Invites a user to join the organisation with a specified role."
+                      },
+                      "response": [
+                        {
+                          "id": "f3cc9066-0631-47b4-97a0-b14536c68dfe",
+                          "name": "Invitation sent",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"viewer\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/:orgId/invite",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                ":orgId",
+                                "invite"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "orgId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-f3cc9066-0631-47b4-97a0-b14536c68dfe"
+                        },
+                        {
+                          "id": "75946fa1-f9bd-412c-9bf0-b5d87786eb1d",
+                          "name": "Bad request - malformed body or missing required fields",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"viewer\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/:orgId/invite",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                ":orgId",
+                                "invite"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "orgId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-75946fa1-f9bd-412c-9bf0-b5d87786eb1d"
+                        },
+                        {
+                          "id": "86e02347-ebde-47fc-a210-489eaea4be76",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"viewer\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/:orgId/invite",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                ":orgId",
+                                "invite"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "orgId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-86e02347-ebde-47fc-a210-489eaea4be76"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-d35c74fa-a6a8-4088-9d2f-cdf961ef1af1"
+                    }
+                  ],
+                  "id": "cd7667ad-bcd5-4b0c-9e79-8edf79cee746",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-cd7667ad-bcd5-4b0c-9e79-8edf79cee746"
+                },
+                {
+                  "name": "Get Organisation",
+                  "id": "157828d1-146a-46dc-9860-1506b1e31ac9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation",
+                        ":orgId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fe0460d1-45bc-4e14-a1bd-5ac14181dfb1",
+                          "key": "orgId",
+                          "value": "<string>",
+                          "description": "(Required) Organisation ID"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves details for a specific organisation."
+                  },
+                  "response": [
+                    {
+                      "id": "a74d80a7-8abf-4af5-8047-8e1d29117564",
+                      "name": "Organisation details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"owner\"\n}",
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-a74d80a7-8abf-4af5-8047-8e1d29117564"
+                    },
+                    {
+                      "id": "05c27faf-8f72-4df5-9175-ff676e511f7f",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-05c27faf-8f72-4df5-9175-ff676e511f7f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-157828d1-146a-46dc-9860-1506b1e31ac9"
+                },
+                {
+                  "name": "Update Organisation",
+                  "id": "cfca8241-fdb3-43a2-ac00-dfe93cb80b33",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation",
+                        ":orgId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "030f8149-8208-4016-af7a-cab02ccbc827",
+                          "key": "orgId",
+                          "value": "<string>",
+                          "description": "(Required) Organisation ID"
+                        }
+                      ]
+                    },
+                    "description": "Updates an organisation's name."
+                  },
+                  "response": [
+                    {
+                      "id": "52fd895b-18d1-49db-83ce-750e9c073f29",
+                      "name": "Updated organisation",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"owner\"\n}",
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-52fd895b-18d1-49db-83ce-750e9c073f29"
+                    },
+                    {
+                      "id": "5d412db0-f7bd-41f7-8337-5022ac699941",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-5d412db0-f7bd-41f7-8337-5022ac699941"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-cfca8241-fdb3-43a2-ac00-dfe93cb80b33"
+                },
+                {
+                  "name": "Delete Organisation",
+                  "id": "1670d458-ed8e-4833-bd7b-3ac90bb2d54f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation",
+                        ":orgId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "afa2c94d-e766-4e64-8471-feaadb5e4a24",
+                          "key": "orgId",
+                          "value": "<string>",
+                          "description": "(Required) Organisation ID"
+                        }
+                      ]
+                    },
+                    "description": "Permanently deletes an organisation. Requires owner permission."
+                  },
+                  "response": [
+                    {
+                      "id": "cff6a40d-83e3-4381-90cf-3b5374f017a4",
+                      "name": "Organisation deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-cff6a40d-83e3-4381-90cf-3b5374f017a4"
+                    },
+                    {
+                      "id": "20c8fc36-19af-4d6b-b593-ebfe86be93c4",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-20c8fc36-19af-4d6b-b593-ebfe86be93c4"
+                    },
+                    {
+                      "id": "d16a67c9-aca9-412a-b06a-36c95c35d405",
+                      "name": "Forbidden - insufficient permissions",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/:orgId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            ":orgId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "orgId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-d16a67c9-aca9-412a-b06a-36c95c35d405"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-1670d458-ed8e-4833-bd7b-3ac90bb2d54f"
+                }
+              ],
+              "id": "b214cd15-9882-4862-aead-9b680bfce12f",
+              "createdAt": "2026-07-28T03:06:40.000Z",
+              "updatedAt": "2026-07-28T03:06:40.000Z",
+              "uid": "35240-b214cd15-9882-4862-aead-9b680bfce12f"
+            },
+            {
+              "name": "member",
+              "item": [
+                {
+                  "name": "{memberId}",
+                  "item": [
+                    {
+                      "name": "Update Member Role",
+                      "id": "398febc2-5781-4c91-a1e6-3cfadfe0f156",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"role\": \"viewer\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/member/:memberId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            "member",
+                            ":memberId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3625e3c9-9eab-4a34-8e0e-691338ae3411",
+                              "key": "memberId",
+                              "value": "<string>",
+                              "description": "(Required) Member ID"
+                            }
+                          ]
+                        },
+                        "description": "Updates the role of an existing organisation member."
+                      },
+                      "response": [
+                        {
+                          "id": "66b2fce9-f8cf-43a7-9ea1-a408d7aae5b5",
+                          "name": "Member role updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"viewer\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/member/:memberId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                "member",
+                                ":memberId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "memberId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-66b2fce9-f8cf-43a7-9ea1-a408d7aae5b5"
+                        },
+                        {
+                          "id": "4e186991-3254-46a7-bb36-6871329fe1b9",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role\": \"viewer\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/member/:memberId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                "member",
+                                ":memberId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "memberId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-4e186991-3254-46a7-bb36-6871329fe1b9"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-398febc2-5781-4c91-a1e6-3cfadfe0f156"
+                    },
+                    {
+                      "name": "Remove Organisation Member",
+                      "id": "89e5bcab-c294-4371-a573-781d4091fabf",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/organisation/member/:memberId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "organisation",
+                            "member",
+                            ":memberId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2dd4adaf-6ca2-4100-972e-fd4077349c8b",
+                              "key": "memberId",
+                              "value": "<string>",
+                              "description": "(Required) Member ID"
+                            }
+                          ]
+                        },
+                        "description": "Removes a member from the organisation."
+                      },
+                      "response": [
+                        {
+                          "id": "9ea3e983-df19-4db1-8823-b2a54de27765",
+                          "name": "Member removed",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/member/:memberId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                "member",
+                                ":memberId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "memberId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-9ea3e983-df19-4db1-8823-b2a54de27765"
+                        },
+                        {
+                          "id": "26c6298b-3770-4455-92be-e192e00910bc",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/organisation/member/:memberId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "organisation",
+                                "member",
+                                ":memberId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "memberId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:40.000Z",
+                          "updatedAt": "2026-07-28T03:06:40.000Z",
+                          "uid": "35240-26c6298b-3770-4455-92be-e192e00910bc"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:40.000Z",
+                      "updatedAt": "2026-07-28T03:06:40.000Z",
+                      "uid": "35240-89e5bcab-c294-4371-a573-781d4091fabf"
+                    }
+                  ],
+                  "id": "4a2b84f2-d460-449f-b68c-5b9d64a355df",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-4a2b84f2-d460-449f-b68c-5b9d64a355df"
+                }
+              ],
+              "id": "f00ff974-ebad-4e3b-bf4d-44661097bbc1",
+              "createdAt": "2026-07-28T03:06:40.000Z",
+              "updatedAt": "2026-07-28T03:06:40.000Z",
+              "uid": "35240-f00ff974-ebad-4e3b-bf4d-44661097bbc1"
+            },
+            {
+              "name": "List Organisations",
+              "id": "49224334-ea30-4e3c-aa6e-aee3431670cb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/organisation",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "organisation"
+                  ]
+                },
+                "description": "Retrieves all organisations the user is a member of."
+              },
+              "response": [
+                {
+                  "id": "f720c61c-6f3f-40e3-bc19-7ceb7b5fb760",
+                  "name": "Array of organisations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"role\": \"owner\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"role\": \"owner\"\n  }\n]",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-f720c61c-6f3f-40e3-bc19-7ceb7b5fb760"
+                },
+                {
+                  "id": "993add0f-5f42-4c0a-8807-e439db14ad21",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-993add0f-5f42-4c0a-8807-e439db14ad21"
+                }
+              ],
+              "createdAt": "2026-07-28T03:06:40.000Z",
+              "updatedAt": "2026-07-28T03:06:40.000Z",
+              "uid": "35240-49224334-ea30-4e3c-aa6e-aee3431670cb"
+            },
+            {
+              "name": "Create Organisation",
+              "id": "fbb6665e-601a-4d7a-b4cc-1425d8e92343",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/organisation",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "organisation"
+                  ]
+                },
+                "description": "Creates a new organisation."
+              },
+              "response": [
+                {
+                  "id": "667df0ff-c46b-431a-9170-ae05cfa1dede",
+                  "name": "Organisation created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"role\": \"owner\"\n}",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-667df0ff-c46b-431a-9170-ae05cfa1dede"
+                },
+                {
+                  "id": "7229e31d-3f1e-4638-9d16-db7cce0a3861",
+                  "name": "Bad request - malformed body or missing required fields",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-7229e31d-3f1e-4638-9d16-db7cce0a3861"
+                },
+                {
+                  "id": "95a6077f-3be1-4cab-a1a8-a7f14f1cec22",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/organisation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "organisation"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:40.000Z",
+                  "updatedAt": "2026-07-28T03:06:40.000Z",
+                  "uid": "35240-95a6077f-3be1-4cab-a1a8-a7f14f1cec22"
+                }
+              ],
+              "createdAt": "2026-07-28T03:06:40.000Z",
+              "updatedAt": "2026-07-28T03:06:40.000Z",
+              "uid": "35240-fbb6665e-601a-4d7a-b4cc-1425d8e92343"
+            }
+          ],
+          "id": "4c287791-4d3f-4634-a847-b7474266cb0c",
+          "createdAt": "2026-07-28T03:06:40.000Z",
+          "updatedAt": "2026-07-28T03:06:40.000Z",
+          "uid": "35240-4c287791-4d3f-4634-a847-b7474266cb0c"
+        }
+      ],
+      "id": "98d87bb0-ce41-4722-b2f8-485d741b4398",
+      "createdAt": "2026-07-28T03:06:40.000Z",
+      "updatedAt": "2026-07-28T03:06:40.000Z",
+      "uid": "35240-98d87bb0-ce41-4722-b2f8-485d741b4398"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

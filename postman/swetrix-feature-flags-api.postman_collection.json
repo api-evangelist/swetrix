@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "ebcb57b3-4c78-47ee-b64c-6df6a1649a13",
+    "name": "Swetrix Admin Annotations Feature Flags API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:36.000Z",
+    "updatedAt": "2026-07-28T03:06:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ebcb57b3-4c78-47ee-b64c-6df6a1649a13"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "feature-flag",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "stats",
+                  "item": [
+                    {
+                      "name": "Get Feature Flag Statistics",
+                      "id": "3c14a774-022b-45cf-9d5b-df26c13e5d38",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/feature-flag/:id/stats?period=12M&from=<date>&to=<date>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "feature-flag",
+                            ":id",
+                            "stats"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "12M"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "8577c7cc-83ec-43d5-bfd2-3f63e8616daa",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) Feature flag ID"
+                            }
+                          ]
+                        },
+                        "description": "Returns evaluation statistics for a specific feature flag showing how often it was evaluated as true or false."
+                      },
+                      "response": [
+                        {
+                          "id": "92c7ccbb-57f7-4792-bbfb-4b34ae0a7210",
+                          "name": "Feature flag evaluation statistics",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/feature-flag/:id/stats?period=12M&from=<date>&to=<date>&timezone=Etc/GMT",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "feature-flag",
+                                ":id",
+                                "stats"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Time period for the query",
+                                  "key": "period",
+                                  "value": "12M"
+                                },
+                                {
+                                  "description": "Custom range start date (YYYY-MM-DD)",
+                                  "key": "from",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Custom range end date (YYYY-MM-DD)",
+                                  "key": "to",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "IANA timezone name (default Etc/GMT)",
+                                  "key": "timezone",
+                                  "value": "Etc/GMT"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T03:06:36.000Z",
+                          "updatedAt": "2026-07-28T03:06:36.000Z",
+                          "uid": "35240-92c7ccbb-57f7-4792-bbfb-4b34ae0a7210"
+                        },
+                        {
+                          "id": "6c4bd669-ede7-4b72-8c10-6b0ba9e00fc5",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/feature-flag/:id/stats?period=12M&from=<date>&to=<date>&timezone=Etc/GMT",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "feature-flag",
+                                ":id",
+                                "stats"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Time period for the query",
+                                  "key": "period",
+                                  "value": "12M"
+                                },
+                                {
+                                  "description": "Custom range start date (YYYY-MM-DD)",
+                                  "key": "from",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Custom range end date (YYYY-MM-DD)",
+                                  "key": "to",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "IANA timezone name (default Etc/GMT)",
+                                  "key": "timezone",
+                                  "value": "Etc/GMT"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:36.000Z",
+                          "updatedAt": "2026-07-28T03:06:36.000Z",
+                          "uid": "35240-6c4bd669-ede7-4b72-8c10-6b0ba9e00fc5"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:36.000Z",
+                      "updatedAt": "2026-07-28T03:06:36.000Z",
+                      "uid": "35240-3c14a774-022b-45cf-9d5b-df26c13e5d38"
+                    }
+                  ],
+                  "id": "ae791565-8b39-401f-8778-00f037b6aaa0",
+                  "createdAt": "2026-07-28T03:06:36.000Z",
+                  "updatedAt": "2026-07-28T03:06:36.000Z",
+                  "uid": "35240-ae791565-8b39-401f-8778-00f037b6aaa0"
+                }
+              ],
+              "id": "6af6564d-af22-45ec-8f90-017589fcc020",
+              "createdAt": "2026-07-28T03:06:36.000Z",
+              "updatedAt": "2026-07-28T03:06:36.000Z",
+              "uid": "35240-6af6564d-af22-45ec-8f90-017589fcc020"
+            }
+          ],
+          "id": "08c1b265-6ec5-4450-9ba1-93814c59f429",
+          "createdAt": "2026-07-28T03:06:36.000Z",
+          "updatedAt": "2026-07-28T03:06:36.000Z",
+          "uid": "35240-08c1b265-6ec5-4450-9ba1-93814c59f429"
+        }
+      ],
+      "id": "b27b6089-25f9-4075-aa18-c3c91679e2cd",
+      "createdAt": "2026-07-28T03:06:36.000Z",
+      "updatedAt": "2026-07-28T03:06:36.000Z",
+      "uid": "35240-b27b6089-25f9-4075-aa18-c3c91679e2cd"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

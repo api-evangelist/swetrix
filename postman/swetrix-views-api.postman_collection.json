@@ -1,0 +1,979 @@
+{
+  "info": {
+    "_postman_id": "5ad31a9c-37db-4af2-83e3-bc75a1abaeaa",
+    "name": "Swetrix Admin Annotations Views API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:57.000Z",
+    "updatedAt": "2026-07-28T03:06:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5ad31a9c-37db-4af2-83e3-bc75a1abaeaa"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "project",
+          "item": [
+            {
+              "name": "{pid}",
+              "item": [
+                {
+                  "name": "views",
+                  "item": [
+                    {
+                      "name": "{viewId}",
+                      "item": [
+                        {
+                          "name": "Get Project View",
+                          "id": "71f719f5-3ff0-4aa5-80f4-ab40221be25d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views",
+                                ":viewId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "50a8e184-1a73-44d6-9c33-fc450ffef7b6",
+                                  "key": "pid",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "7de27061-c682-4a93-99ce-63f5562e3393",
+                                  "key": "viewId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a single saved dashboard view configuration."
+                          },
+                          "response": [
+                            {
+                              "id": "13088f9c-b602-4a82-a1f8-a8e5760fc406",
+                              "name": "View configuration",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    ":pid",
+                                    "views",
+                                    ":viewId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pid"
+                                    },
+                                    {
+                                      "key": "viewId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-07-28T03:06:57.000Z",
+                              "updatedAt": "2026-07-28T03:06:57.000Z",
+                              "uid": "35240-13088f9c-b602-4a82-a1f8-a8e5760fc406"
+                            },
+                            {
+                              "id": "2feda499-ee8e-4aa2-bfaa-6b9a2e7a817d",
+                              "name": "Unauthorized - missing or invalid API key",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    ":pid",
+                                    "views",
+                                    ":viewId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pid"
+                                    },
+                                    {
+                                      "key": "viewId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:06:57.000Z",
+                              "updatedAt": "2026-07-28T03:06:57.000Z",
+                              "uid": "35240-2feda499-ee8e-4aa2-bfaa-6b9a2e7a817d"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-71f719f5-3ff0-4aa5-80f4-ab40221be25d"
+                        },
+                        {
+                          "name": "Update Project View",
+                          "id": "2dca74e0-8f40-471e-850d-be69dd58f024",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views",
+                                ":viewId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "971bac55-3a3a-46e6-b112-7f324d71a489",
+                                  "key": "pid",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "100c63cb-bab0-4676-8c31-54c9c0d43031",
+                                  "key": "viewId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Updates an existing saved view's name, filters, or custom events."
+                          },
+                          "response": [
+                            {
+                              "id": "fdee2918-49a5-492c-a674-c19b2b628135",
+                              "name": "Updated view",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    ":pid",
+                                    "views",
+                                    ":viewId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pid"
+                                    },
+                                    {
+                                      "key": "viewId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-07-28T03:06:57.000Z",
+                              "updatedAt": "2026-07-28T03:06:57.000Z",
+                              "uid": "35240-fdee2918-49a5-492c-a674-c19b2b628135"
+                            },
+                            {
+                              "id": "a9542d71-cad2-4503-a3f2-9a8f8f1af6da",
+                              "name": "Unauthorized - missing or invalid API key",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    ":pid",
+                                    "views",
+                                    ":viewId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pid"
+                                    },
+                                    {
+                                      "key": "viewId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:06:57.000Z",
+                              "updatedAt": "2026-07-28T03:06:57.000Z",
+                              "uid": "35240-a9542d71-cad2-4503-a3f2-9a8f8f1af6da"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-2dca74e0-8f40-471e-850d-be69dd58f024"
+                        },
+                        {
+                          "name": "Delete Project View",
+                          "id": "df8d405e-2b50-4c0d-8689-d11e7b3b0d51",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views",
+                                ":viewId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6c56153a-8c8a-43f5-a6d9-ae2a714a07f7",
+                                  "key": "pid",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "577a5e63-1199-41d0-bcbe-01f27445a2e5",
+                                  "key": "viewId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Removes a saved dashboard view."
+                          },
+                          "response": [
+                            {
+                              "id": "a5b2fbf7-3e7e-4310-bdd1-ba9b8e83f904",
+                              "name": "View deleted",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    ":pid",
+                                    "views",
+                                    ":viewId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pid"
+                                    },
+                                    {
+                                      "key": "viewId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:06:57.000Z",
+                              "updatedAt": "2026-07-28T03:06:57.000Z",
+                              "uid": "35240-a5b2fbf7-3e7e-4310-bdd1-ba9b8e83f904"
+                            },
+                            {
+                              "id": "e8f4da80-18a6-4ca8-a559-f0b6faecf793",
+                              "name": "Unauthorized - missing or invalid API key",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/:pid/views/:viewId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    ":pid",
+                                    "views",
+                                    ":viewId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pid"
+                                    },
+                                    {
+                                      "key": "viewId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:06:57.000Z",
+                              "updatedAt": "2026-07-28T03:06:57.000Z",
+                              "uid": "35240-e8f4da80-18a6-4ca8-a559-f0b6faecf793"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-df8d405e-2b50-4c0d-8689-d11e7b3b0d51"
+                        }
+                      ],
+                      "id": "856b5f4e-3444-453a-8dca-d70585326cbd",
+                      "createdAt": "2026-07-28T03:06:57.000Z",
+                      "updatedAt": "2026-07-28T03:06:57.000Z",
+                      "uid": "35240-856b5f4e-3444-453a-8dca-d70585326cbd"
+                    },
+                    {
+                      "name": "List Project Views",
+                      "id": "e3dd6ae5-f617-45d7-9cc8-9dd12203ae3e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:pid/views",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":pid",
+                            "views"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7113fd62-218e-4145-ac0c-3477ef71b6da",
+                              "key": "pid",
+                              "value": "<string>",
+                              "description": "(Required) Project ID"
+                            }
+                          ]
+                        },
+                        "description": "Returns all saved dashboard views (segments) for a project. Optional X-Password header for password-protected projects."
+                      },
+                      "response": [
+                        {
+                          "id": "c4e629a1-142b-4448-ba7c-a091d1efa90a",
+                          "name": "Array of saved views",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"traffic\",\n    \"customEvents\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"performance\",\n    \"customEvents\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-c4e629a1-142b-4448-ba7c-a091d1efa90a"
+                        },
+                        {
+                          "id": "01e1cdd2-5fa1-42f6-b4f6-e66166e65864",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-01e1cdd2-5fa1-42f6-b4f6-e66166e65864"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:57.000Z",
+                      "updatedAt": "2026-07-28T03:06:57.000Z",
+                      "uid": "35240-e3dd6ae5-f617-45d7-9cc8-9dd12203ae3e"
+                    },
+                    {
+                      "name": "Create Project View",
+                      "id": "ff5cc751-3815-4f79-8a90-ba0186fa3115",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:pid/views",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":pid",
+                            "views"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c1e51d07-3a5b-4412-b938-639244c04a52",
+                              "key": "pid",
+                              "value": "<string>",
+                              "description": "(Required) Project ID"
+                            }
+                          ]
+                        },
+                        "description": "Creates a new saved dashboard view (segment) for a project."
+                      },
+                      "response": [
+                        {
+                          "id": "542a0c6e-a16f-46dd-9acd-c743baa02a9e",
+                          "name": "View created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-542a0c6e-a16f-46dd-9acd-c743baa02a9e"
+                        },
+                        {
+                          "id": "bae49bbf-6a64-42e2-b3a3-32c346a315a2",
+                          "name": "Bad request - malformed body or missing required fields",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-bae49bbf-6a64-42e2-b3a3-32c346a315a2"
+                        },
+                        {
+                          "id": "1d33cb87-b47f-4b3d-9ad9-aa45c3f5ad0b",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"traffic\",\n  \"customEvents\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:pid/views",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":pid",
+                                "views"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:57.000Z",
+                          "updatedAt": "2026-07-28T03:06:57.000Z",
+                          "uid": "35240-1d33cb87-b47f-4b3d-9ad9-aa45c3f5ad0b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:57.000Z",
+                      "updatedAt": "2026-07-28T03:06:57.000Z",
+                      "uid": "35240-ff5cc751-3815-4f79-8a90-ba0186fa3115"
+                    }
+                  ],
+                  "id": "bc5f3cea-d821-4a17-bbbb-09e0f2ab1896",
+                  "createdAt": "2026-07-28T03:06:57.000Z",
+                  "updatedAt": "2026-07-28T03:06:57.000Z",
+                  "uid": "35240-bc5f3cea-d821-4a17-bbbb-09e0f2ab1896"
+                }
+              ],
+              "id": "bf282d85-62bb-4e22-a0ea-0c1b0d935696",
+              "createdAt": "2026-07-28T03:06:57.000Z",
+              "updatedAt": "2026-07-28T03:06:57.000Z",
+              "uid": "35240-bf282d85-62bb-4e22-a0ea-0c1b0d935696"
+            }
+          ],
+          "id": "46d29c05-6164-4fca-9795-21ab3fa1dee3",
+          "createdAt": "2026-07-28T03:06:57.000Z",
+          "updatedAt": "2026-07-28T03:06:57.000Z",
+          "uid": "35240-46d29c05-6164-4fca-9795-21ab3fa1dee3"
+        }
+      ],
+      "id": "9c0a29e2-d6f5-4620-a39e-3c5dde816e87",
+      "createdAt": "2026-07-28T03:06:57.000Z",
+      "updatedAt": "2026-07-28T03:06:57.000Z",
+      "uid": "35240-9c0a29e2-d6f5-4620-a39e-3c5dde816e87"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

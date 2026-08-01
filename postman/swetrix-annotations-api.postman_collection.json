@@ -1,0 +1,777 @@
+{
+  "info": {
+    "_postman_id": "de0ec578-0224-45bf-942f-90fdadd6a8db",
+    "name": "Swetrix Admin Annotations API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:33.000Z",
+    "updatedAt": "2026-07-28T03:06:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-de0ec578-0224-45bf-942f-90fdadd6a8db"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "project",
+          "item": [
+            {
+              "name": "annotations",
+              "item": [
+                {
+                  "name": "{pid}",
+                  "item": [
+                    {
+                      "name": "List Annotations",
+                      "id": "dc8446d1-6671-40b9-b059-53f069f95079",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/annotations/:pid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "annotations",
+                            ":pid"
+                          ],
+                          "variable": [
+                            {
+                              "id": "62260fa3-3739-4fd1-8b92-5b80e10f29b9",
+                              "key": "pid",
+                              "value": "<string>",
+                              "description": "(Required) Project ID"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves all chart annotations for a project."
+                      },
+                      "response": [
+                        {
+                          "id": "3702d115-2aea-432b-a4ca-c8efa55159a3",
+                          "name": "Array of annotations",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/annotations/:pid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                "annotations",
+                                ":pid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<string>\",\n    \"pid\": \"<string>\",\n    \"date\": \"<date>\",\n    \"text\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"pid\": \"<string>\",\n    \"date\": \"<date>\",\n    \"text\": \"<string>\"\n  }\n]",
+                          "createdAt": "2026-07-28T03:06:33.000Z",
+                          "updatedAt": "2026-07-28T03:06:33.000Z",
+                          "uid": "35240-3702d115-2aea-432b-a4ca-c8efa55159a3"
+                        },
+                        {
+                          "id": "d744b437-8822-4d27-8403-1caee482a755",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/annotations/:pid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                "annotations",
+                                ":pid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "pid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:33.000Z",
+                          "updatedAt": "2026-07-28T03:06:33.000Z",
+                          "uid": "35240-d744b437-8822-4d27-8403-1caee482a755"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-dc8446d1-6671-40b9-b059-53f069f95079"
+                    }
+                  ],
+                  "id": "c41f5dca-26df-4206-a465-c26ac85710d1",
+                  "createdAt": "2026-07-28T03:06:33.000Z",
+                  "updatedAt": "2026-07-28T03:06:33.000Z",
+                  "uid": "35240-c41f5dca-26df-4206-a465-c26ac85710d1"
+                }
+              ],
+              "id": "ba83931e-a2a7-4d25-953b-dceb3b8a62ef",
+              "createdAt": "2026-07-28T03:06:33.000Z",
+              "updatedAt": "2026-07-28T03:06:33.000Z",
+              "uid": "35240-ba83931e-a2a7-4d25-953b-dceb3b8a62ef"
+            },
+            {
+              "name": "annotation",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "{pid}",
+                      "item": [
+                        {
+                          "name": "Delete Annotation",
+                          "id": "a800944d-eae4-4117-884e-7584e5525eee",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/annotation/:id/:pid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                "annotation",
+                                ":id",
+                                ":pid"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c7e6f70f-fba3-451c-b3dd-efe2046010c7",
+                                  "key": "id",
+                                  "value": "<string>",
+                                  "description": "(Required) Annotation ID"
+                                },
+                                {
+                                  "id": "3d9a3c46-8b20-42c4-8828-94931b47ee67",
+                                  "key": "pid",
+                                  "value": "<string>",
+                                  "description": "(Required) Project ID"
+                                }
+                              ]
+                            },
+                            "description": "Removes an annotation from a project."
+                          },
+                          "response": [
+                            {
+                              "id": "0a84ea36-7f1c-494e-b00d-4a43fe8caa53",
+                              "name": "Annotation deleted",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/annotation/:id/:pid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    "annotation",
+                                    ":id",
+                                    ":pid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "pid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:06:33.000Z",
+                              "updatedAt": "2026-07-28T03:06:33.000Z",
+                              "uid": "35240-0a84ea36-7f1c-494e-b00d-4a43fe8caa53"
+                            },
+                            {
+                              "id": "4be5d6cb-f5c4-43f7-a861-7e0915d35298",
+                              "name": "Unauthorized - missing or invalid API key",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/project/annotation/:id/:pid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "project",
+                                    "annotation",
+                                    ":id",
+                                    ":pid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "id"
+                                    },
+                                    {
+                                      "key": "pid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:06:33.000Z",
+                              "updatedAt": "2026-07-28T03:06:33.000Z",
+                              "uid": "35240-4be5d6cb-f5c4-43f7-a861-7e0915d35298"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:06:33.000Z",
+                          "updatedAt": "2026-07-28T03:06:33.000Z",
+                          "uid": "35240-a800944d-eae4-4117-884e-7584e5525eee"
+                        }
+                      ],
+                      "id": "6399806a-fc4f-46d6-830d-29ac37ce472c",
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-6399806a-fc4f-46d6-830d-29ac37ce472c"
+                    }
+                  ],
+                  "id": "cec50330-7b53-4e0f-9712-277fc27507f6",
+                  "createdAt": "2026-07-28T03:06:33.000Z",
+                  "updatedAt": "2026-07-28T03:06:33.000Z",
+                  "uid": "35240-cec50330-7b53-4e0f-9712-277fc27507f6"
+                },
+                {
+                  "name": "Create Annotation",
+                  "id": "009ae8e1-e848-439b-84f6-6199d0238f36",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/annotation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        "annotation"
+                      ]
+                    },
+                    "description": "Creates a new chart annotation for a project on a specific date."
+                  },
+                  "response": [
+                    {
+                      "id": "4d2b7c9b-ce4b-40ce-a2d7-b7f26325f53a",
+                      "name": "Annotation created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/annotation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "annotation"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-4d2b7c9b-ce4b-40ce-a2d7-b7f26325f53a"
+                    },
+                    {
+                      "id": "97052b73-4bee-443f-96b3-b6ae8bb21d0e",
+                      "name": "Bad request - malformed body or missing required fields",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/annotation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "annotation"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-97052b73-4bee-443f-96b3-b6ae8bb21d0e"
+                    },
+                    {
+                      "id": "d4c96a85-31bf-4cfe-b200-974f9b4493c1",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/annotation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "annotation"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-d4c96a85-31bf-4cfe-b200-974f9b4493c1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:33.000Z",
+                  "updatedAt": "2026-07-28T03:06:33.000Z",
+                  "uid": "35240-009ae8e1-e848-439b-84f6-6199d0238f36"
+                },
+                {
+                  "name": "Update Annotation",
+                  "id": "436112a0-a03f-415e-ab41-8d902ad74743",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/annotation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        "annotation"
+                      ]
+                    },
+                    "description": "Updates an existing annotation's date or text."
+                  },
+                  "response": [
+                    {
+                      "id": "8182d970-9a83-418f-9aa9-47a2aea81f4e",
+                      "name": "Updated annotation",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/annotation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "annotation"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-8182d970-9a83-418f-9aa9-47a2aea81f4e"
+                    },
+                    {
+                      "id": "ebb6f011-37e2-46a8-97c1-bc5e3e9e8c3b",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<string>\",\n  \"pid\": \"<string>\",\n  \"date\": \"<date>\",\n  \"text\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/annotation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            "annotation"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:33.000Z",
+                      "updatedAt": "2026-07-28T03:06:33.000Z",
+                      "uid": "35240-ebb6f011-37e2-46a8-97c1-bc5e3e9e8c3b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:33.000Z",
+                  "updatedAt": "2026-07-28T03:06:33.000Z",
+                  "uid": "35240-436112a0-a03f-415e-ab41-8d902ad74743"
+                }
+              ],
+              "id": "f3aa052c-63c4-4e89-bfe9-356934c399cb",
+              "createdAt": "2026-07-28T03:06:33.000Z",
+              "updatedAt": "2026-07-28T03:06:33.000Z",
+              "uid": "35240-f3aa052c-63c4-4e89-bfe9-356934c399cb"
+            }
+          ],
+          "id": "febf36aa-27e2-46a0-b4f6-62f5fa1e2557",
+          "createdAt": "2026-07-28T03:06:33.000Z",
+          "updatedAt": "2026-07-28T03:06:33.000Z",
+          "uid": "35240-febf36aa-27e2-46a0-b4f6-62f5fa1e2557"
+        }
+      ],
+      "id": "2f9c0a57-2c25-45fa-8702-c664ca96a8b1",
+      "createdAt": "2026-07-28T03:06:33.000Z",
+      "updatedAt": "2026-07-28T03:06:33.000Z",
+      "uid": "35240-2f9c0a57-2c25-45fa-8702-c664ca96a8b1"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

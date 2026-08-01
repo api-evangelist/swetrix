@@ -1,0 +1,38 @@
+{
+  "provider": "swetrix",
+  "sources": [
+    "swetrix-annotations-api-openapi.yml",
+    "swetrix-custom-events-api-openapi.yml",
+    "swetrix-errors-api-openapi.yml",
+    "swetrix-events-api-openapi.yml",
+    "swetrix-feature-flags-api-openapi.yml",
+    "swetrix-funnels-api-openapi.yml",
+    "swetrix-organisations-api-openapi.yml",
+    "swetrix-performance-api-openapi.yml",
+    "swetrix-projects-api-openapi.yml",
+    "swetrix-revenue-api-openapi.yml",
+    "swetrix-sessions-api-openapi.yml",
+    "swetrix-traffic-api-openapi.yml",
+    "swetrix-views-api-openapi.yml"
+  ],
+  "outputs": [
+    "swetrix-annotations-api-openapi.yml",
+    "swetrix-custom-events-api-openapi.yml",
+    "swetrix-errors-api-openapi.yml",
+    "swetrix-events-api-openapi.yml",
+    "swetrix-feature-flags-api-openapi.yml",
+    "swetrix-funnels-api-openapi.yml",
+    "swetrix-organisations-api-openapi.yml",
+    "swetrix-performance-api-openapi.yml",
+    "swetrix-projects-api-openapi.yml",
+    "swetrix-revenue-api-openapi.yml",
+    "swetrix-sessions-api-openapi.yml",
+    "swetrix-traffic-api-openapi.yml",
+    "swetrix-views-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

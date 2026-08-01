@@ -1,0 +1,1020 @@
+openapi: 3.1.0
+info:
+  title: Swetrix Admin API
+  description: >-
+    The Swetrix Admin API manages analytics projects, funnels, annotations,
+    project views (segments), and organisations. Supports full CRUD operations
+    for all Swetrix account resources. All requests require authentication via
+    the X-Api-Key header. Rate limit is 600 requests/hour.
+  version: '1.0'
+  contact:
+    name: Swetrix Support
+    url: https://swetrix.com/contact
+  termsOfService: https://swetrix.com/privacy
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Swetrix/swetrix-api/blob/main/LICENSE
+externalDocs:
+  description: Swetrix Admin API Documentation
+  url: https://swetrix.com/docs/admin-api
+servers:
+  - url: https://api.swetrix.com
+    description: Swetrix Production API
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Projects
+    description: Manage analytics projects
+  - name: Funnels
+    description: Manage conversion funnels
+  - name: Annotations
+    description: Manage chart annotations
+  - name: Views
+    description: Manage saved dashboard views (segments)
+  - name: Organisations
+    description: Manage organisations and member access
+paths:
+  /v1/project:
+    get:
+      operationId: listProjects
+      summary: List Projects
+      description: Retrieves all analytics projects for the authenticated user.
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: Array of project objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProject
+      summary: Create Project
+      description: Creates a new analytics project. Returns 201 with the project object.
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+            example:
+              name: My Website
+              isCaptcha: false
+              isPasswordProtected: false
+      responses:
+        '201':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/{id}:
+    get:
+      operationId: getProject
+      summary: Get Project
+      description: Retrieves details for a specific analytics project.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Project object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update Project
+      description: >-
+        Modifies settings for an existing project including name, active
+        status, public visibility, allowed origins, IP blocklist, and
+        bot protection level.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProject
+      summary: Delete Project
+      description: Permanently removes a project and all its data.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        '204':
+          description: Project deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/project/{id}/pin:
+    post:
+      operationId: pinProject
+      summary: Pin Project
+      description: Pins a project to the top of the dashboard.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Project pinned
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: unpinProject
+      summary: Unpin Project
+      description: Removes a project from the pinned section.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: Project unpinned
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/funnels/{pid}:
+    get:
+      operationId: listFunnels
+      summary: List Funnels
+      description: Retrieves all saved funnels for a project.
+      tags:
+        - Funnels
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project ID
+      responses:
+        '200':
+          description: Array of funnels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Funnel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/funnel:
+    post:
+      operationId: createFunnel
+      summary: Create Funnel
+      description: Creates a new conversion funnel for a project.
+      tags:
+        - Funnels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFunnelRequest'
+            example:
+              name: Signup Funnel
+              pid: abc123projectid
+              steps:
+                - /
+                - /pricing
+                - /signup
+                - /dashboard
+      responses:
+        '201':
+          description: Funnel created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Funnel'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateFunnel
+      summary: Update Funnel
+      description: Updates an existing funnel's name or page steps.
+      tags:
+        - Funnels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFunnelRequest'
+      responses:
+        '200':
+          description: Updated funnel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Funnel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/funnel/{id}/{pid}:
+    delete:
+      operationId: deleteFunnel
+      summary: Delete Funnel
+      description: Removes a funnel from a project.
+      tags:
+        - Funnels
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Funnel ID
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project ID
+      responses:
+        '204':
+          description: Funnel deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/annotations/{pid}:
+    get:
+      operationId: listAnnotations
+      summary: List Annotations
+      description: Retrieves all chart annotations for a project.
+      tags:
+        - Annotations
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project ID
+      responses:
+        '200':
+          description: Array of annotations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annotation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/annotation:
+    post:
+      operationId: createAnnotation
+      summary: Create Annotation
+      description: Creates a new chart annotation for a project on a specific date.
+      tags:
+        - Annotations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnnotationRequest'
+            example:
+              pid: abc123projectid
+              date: '2026-05-01'
+              text: Launched v2.0
+      responses:
+        '201':
+          description: Annotation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateAnnotation
+      summary: Update Annotation
+      description: Updates an existing annotation's date or text.
+      tags:
+        - Annotations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnnotationRequest'
+      responses:
+        '200':
+          description: Updated annotation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/annotation/{id}/{pid}:
+    delete:
+      operationId: deleteAnnotation
+      summary: Delete Annotation
+      description: Removes an annotation from a project.
+      tags:
+        - Annotations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Annotation ID
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project ID
+      responses:
+        '204':
+          description: Annotation deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/{pid}/views:
+    get:
+      operationId: listViews
+      summary: List Project Views
+      description: >-
+        Returns all saved dashboard views (segments) for a project. Optional
+        X-Password header for password-protected projects.
+      tags:
+        - Views
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project ID
+      responses:
+        '200':
+          description: Array of saved views
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createView
+      summary: Create Project View
+      description: Creates a new saved dashboard view (segment) for a project.
+      tags:
+        - Views
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateViewRequest'
+      responses:
+        '201':
+          description: View created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectView'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/project/{pid}/views/{viewId}:
+    get:
+      operationId: getView
+      summary: Get Project View
+      description: Retrieves a single saved dashboard view configuration.
+      tags:
+        - Views
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: viewId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: View configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateView
+      summary: Update Project View
+      description: Updates an existing saved view's name, filters, or custom events.
+      tags:
+        - Views
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: viewId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateViewRequest'
+      responses:
+        '200':
+          description: Updated view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectView'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteView
+      summary: Delete Project View
+      description: Removes a saved dashboard view.
+      tags:
+        - Views
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: viewId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: View deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organisation:
+    get:
+      operationId: listOrganisations
+      summary: List Organisations
+      description: Retrieves all organisations the user is a member of.
+      tags:
+        - Organisations
+      responses:
+        '200':
+          description: Array of organisations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organisation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createOrganisation
+      summary: Create Organisation
+      description: Creates a new organisation.
+      tags:
+        - Organisations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+                  description: Organisation name
+      responses:
+        '201':
+          description: Organisation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organisation/{orgId}:
+    get:
+      operationId: getOrganisation
+      summary: Get Organisation
+      description: Retrieves details for a specific organisation.
+      tags:
+        - Organisations
+      parameters:
+        - $ref: '#/components/parameters/orgId'
+      responses:
+        '200':
+          description: Organisation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateOrganisation
+      summary: Update Organisation
+      description: Updates an organisation's name.
+      tags:
+        - Organisations
+      parameters:
+        - $ref: '#/components/parameters/orgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+      responses:
+        '200':
+          description: Updated organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteOrganisation
+      summary: Delete Organisation
+      description: Permanently deletes an organisation. Requires owner permission.
+      tags:
+        - Organisations
+      parameters:
+        - $ref: '#/components/parameters/orgId'
+      responses:
+        '204':
+          description: Organisation deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /v1/organisation/{orgId}/invite:
+    post:
+      operationId: inviteOrganisationMember
+      summary: Invite Organisation Member
+      description: Invites a user to join the organisation with a specified role.
+      tags:
+        - Organisations
+      parameters:
+        - $ref: '#/components/parameters/orgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - role
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email address of user to invite
+                role:
+                  type: string
+                  enum:
+                    - owner
+                    - admin
+                    - viewer
+                  description: Role to assign to the new member
+      responses:
+        '201':
+          description: Invitation sent
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organisation/member/{memberId}:
+    patch:
+      operationId: updateOrganisationMember
+      summary: Update Member Role
+      description: Updates the role of an existing organisation member.
+      tags:
+        - Organisations
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Member ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - role
+              properties:
+                role:
+                  type: string
+                  enum:
+                    - owner
+                    - admin
+                    - viewer
+      responses:
+        '200':
+          description: Member role updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: removeOrganisationMember
+      summary: Remove Organisation Member
+      description: Removes a member from the organisation.
+      tags:
+        - Organisations
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Member ID
+      responses:
+        '204':
+          description: Member removed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+  parameters:
+    projectId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    orgId:
+      name: orgId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Organisation ID
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+          description: Whether traffic collection is enabled
+        public:
+          type: boolean
+          description: Whether the dashboard is publicly visible
+        origins:
+          type: array
+          items:
+            type: string
+          description: Allowed domain origins
+        ipBlacklist:
+          type: array
+          items:
+            type: string
+          description: Blocked IP addresses
+        botsProtectionLevel:
+          type: string
+          enum:
+            - 'off'
+            - basic
+        organisationId:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateProjectRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+          description: Project display name
+        isCaptcha:
+          type: boolean
+          default: false
+          description: Enable CAPTCHA analytics tracking
+        isPasswordProtected:
+          type: boolean
+          default: false
+          description: Require password to view dashboard
+        password:
+          type: string
+          description: Dashboard password (required if isPasswordProtected is true)
+        organisationId:
+          type: string
+          description: Organisation to assign project to
+    UpdateProjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        active:
+          type: boolean
+        public:
+          type: boolean
+        origins:
+          type: array
+          items:
+            type: string
+        ipBlacklist:
+          type: array
+          items:
+            type: string
+        botsProtectionLevel:
+          type: string
+          enum:
+            - 'off'
+            - basic
+    Funnel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        pid:
+          type: string
+        steps:
+          type: array
+          items:
+            type: string
+    CreateFunnelRequest:
+      type: object
+      required:
+        - name
+        - pid
+        - steps
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        pid:
+          type: string
+        steps:
+          type: array
+          items:
+            type: string
+          description: Array of page paths defining funnel sequence
+    UpdateFunnelRequest:
+      type: object
+      required:
+        - id
+        - pid
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        name:
+          type: string
+          maxLength: 50
+        steps:
+          type: array
+          items:
+            type: string
+    Annotation:
+      type: object
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+        text:
+          type: string
+    CreateAnnotationRequest:
+      type: object
+      required:
+        - pid
+        - date
+        - text
+      properties:
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+          description: Date for the annotation (YYYY-MM-DD)
+        text:
+          type: string
+          maxLength: 120
+          description: Annotation text
+    UpdateAnnotationRequest:
+      type: object
+      required:
+        - id
+        - pid
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+        text:
+          type: string
+          maxLength: 120
+    ProjectView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - traffic
+            - performance
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
+    CreateViewRequest:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 20
+        type:
+          type: string
+          enum:
+            - traffic
+            - performance
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
+          maxItems: 3
+    UpdateViewRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 20
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
+    Organisation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum:
+            - owner
+            - admin
+            - viewer
+        members:
+          type: array
+          items:
+            type: object
+  responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Forbidden:
+      description: Forbidden - insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

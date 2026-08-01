@@ -1,0 +1,352 @@
+{
+  "info": {
+    "_postman_id": "72388f2f-7681-4125-92b9-d7114978aa9f",
+    "name": "Swetrix Admin Annotations Revenue API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:49.000Z",
+    "updatedAt": "2026-07-28T03:06:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-72388f2f-7681-4125-92b9-d7114978aa9f"
+  },
+  "item": [
+    {
+      "name": "log",
+      "item": [
+        {
+          "name": "revenue",
+          "item": [
+            {
+              "name": "Record Revenue Transaction",
+              "id": "da0129bf-f513-4dfa-ae13-35e8f7e69213",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Api-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"sale\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"nisi6\": \"<string>\",\n    \"nisi2\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/log/revenue",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "log",
+                    "revenue"
+                  ]
+                },
+                "description": "Records a revenue transaction (sale, refund, or subscription) for the specified project. Server-side only \u2014 requires API key authentication via X-Api-Key header. Amounts should always be positive (type field distinguishes refunds)."
+              },
+              "response": [
+                {
+                  "id": "5739a61c-946b-44db-bbb8-7fe7af82dc3d",
+                  "name": "Revenue transaction recorded successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"sale\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"nisi6\": \"<string>\",\n    \"nisi2\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/revenue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "revenue"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\",\n  \"transactionId\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:50.000Z",
+                  "updatedAt": "2026-07-28T03:06:50.000Z",
+                  "uid": "35240-5739a61c-946b-44db-bbb8-7fe7af82dc3d"
+                },
+                {
+                  "id": "5d74d500-d48e-43b3-9843-94f713343a32",
+                  "name": "Bad request - malformed body, missing required fields, or disabled project",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"sale\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"nisi6\": \"<string>\",\n    \"nisi2\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/revenue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "revenue"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:50.000Z",
+                  "updatedAt": "2026-07-28T03:06:50.000Z",
+                  "uid": "35240-5d74d500-d48e-43b3-9843-94f713343a32"
+                },
+                {
+                  "id": "b38f2039-284e-4074-be6e-e6999ef038b1",
+                  "name": "Forbidden - duplicate unique event, invalid API key, or insufficient permissions",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"sale\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"nisi6\": \"<string>\",\n    \"nisi2\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/revenue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "revenue"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:50.000Z",
+                  "updatedAt": "2026-07-28T03:06:50.000Z",
+                  "uid": "35240-b38f2039-284e-4074-be6e-e6999ef038b1"
+                },
+                {
+                  "id": "1c3d4d08-8043-4df6-bf66-3bfc79489318",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"sale\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"nisi6\": \"<string>\",\n    \"nisi2\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/log/revenue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "log",
+                        "revenue"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:50.000Z",
+                  "updatedAt": "2026-07-28T03:06:50.000Z",
+                  "uid": "35240-1c3d4d08-8043-4df6-bf66-3bfc79489318"
+                }
+              ],
+              "createdAt": "2026-07-28T03:06:50.000Z",
+              "updatedAt": "2026-07-28T03:06:50.000Z",
+              "uid": "35240-da0129bf-f513-4dfa-ae13-35e8f7e69213"
+            }
+          ],
+          "id": "d7e896f5-acb0-4d98-8758-2279e820d9cc",
+          "createdAt": "2026-07-28T03:06:50.000Z",
+          "updatedAt": "2026-07-28T03:06:50.000Z",
+          "uid": "35240-d7e896f5-acb0-4d98-8758-2279e820d9cc"
+        }
+      ],
+      "id": "b5ae534d-2c8a-4d3e-bee9-cb6f67cd9448",
+      "createdAt": "2026-07-28T03:06:50.000Z",
+      "updatedAt": "2026-07-28T03:06:50.000Z",
+      "uid": "35240-b5ae534d-2c8a-4d3e-bee9-cb6f67cd9448"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

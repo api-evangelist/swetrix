@@ -1,0 +1,495 @@
+{
+  "info": {
+    "_postman_id": "2b5f83db-15a4-4a08-a4bd-2e82a5dd2dbf",
+    "name": "Swetrix Admin Annotations Sessions API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:55.000Z",
+    "updatedAt": "2026-07-28T03:06:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2b5f83db-15a4-4a08-a4bd-2e82a5dd2dbf"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "log",
+          "item": [
+            {
+              "name": "sessions",
+              "item": [
+                {
+                  "name": "List Sessions",
+                  "id": "2e5d9978-2c32-47e3-b95c-b1506425dff7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/sessions?pid=<string>&period=12M&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&take=30&skip=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "sessions"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Time period for the query",
+                          "key": "period",
+                          "value": "12M"
+                        },
+                        {
+                          "description": "Custom range start date (YYYY-MM-DD)",
+                          "key": "from",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Custom range end date (YYYY-MM-DD)",
+                          "key": "to",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        },
+                        {
+                          "description": "JSON array of filter objects",
+                          "key": "filters",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Number of results to return (max 150)",
+                          "key": "take",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Number of results to skip for pagination",
+                          "key": "skip",
+                          "value": "0"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of individual visitor sessions for the specified project and time period. Maximum 150 sessions per request."
+                  },
+                  "response": [
+                    {
+                      "id": "113b83ee-a328-4134-892d-fb990bcf97e0",
+                      "name": "Paginated list of sessions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/sessions?pid=<string>&period=12M&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&take=30&skip=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "12M"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of results to return (max 150)",
+                              "key": "take",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Number of results to skip for pagination",
+                              "key": "skip",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"sessions\": [\n    {\n      \"psid\": \"<string>\",\n      \"browser\": \"<string>\",\n      \"os\": \"<string>\",\n      \"country\": \"<string>\",\n      \"device\": \"<string>\",\n      \"duration\": \"<integer>\",\n      \"pageviews\": \"<integer>\",\n      \"created\": \"<dateTime>\"\n    },\n    {\n      \"psid\": \"<string>\",\n      \"browser\": \"<string>\",\n      \"os\": \"<string>\",\n      \"country\": \"<string>\",\n      \"device\": \"<string>\",\n      \"duration\": \"<integer>\",\n      \"pageviews\": \"<integer>\",\n      \"created\": \"<dateTime>\"\n    }\n  ],\n  \"total\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T03:06:55.000Z",
+                      "updatedAt": "2026-07-28T03:06:55.000Z",
+                      "uid": "35240-113b83ee-a328-4134-892d-fb990bcf97e0"
+                    },
+                    {
+                      "id": "c31b65a2-5dc9-4a2f-8aed-daad2b18c6a5",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/sessions?pid=<string>&period=12M&from=<date>&to=<date>&timezone=Etc/GMT&filters=<string>&take=30&skip=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Time period for the query",
+                              "key": "period",
+                              "value": "12M"
+                            },
+                            {
+                              "description": "Custom range start date (YYYY-MM-DD)",
+                              "key": "from",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Custom range end date (YYYY-MM-DD)",
+                              "key": "to",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            },
+                            {
+                              "description": "JSON array of filter objects",
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of results to return (max 150)",
+                              "key": "take",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Number of results to skip for pagination",
+                              "key": "skip",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:55.000Z",
+                      "updatedAt": "2026-07-28T03:06:55.000Z",
+                      "uid": "35240-c31b65a2-5dc9-4a2f-8aed-daad2b18c6a5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:55.000Z",
+                  "updatedAt": "2026-07-28T03:06:55.000Z",
+                  "uid": "35240-2e5d9978-2c32-47e3-b95c-b1506425dff7"
+                }
+              ],
+              "id": "a0e089f1-51f6-4433-8017-b9dcd46d1f5f",
+              "createdAt": "2026-07-28T03:06:55.000Z",
+              "updatedAt": "2026-07-28T03:06:55.000Z",
+              "uid": "35240-a0e089f1-51f6-4433-8017-b9dcd46d1f5f"
+            },
+            {
+              "name": "session",
+              "item": [
+                {
+                  "name": "Get Session Details",
+                  "id": "ec78c8ec-ea44-4ae8-9ec9-01d70c885e8f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/log/session?pid=<string>&psid=<string>&timezone=Etc/GMT",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "log",
+                        "session"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Project ID",
+                          "key": "pid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Session identifier",
+                          "key": "psid",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "IANA timezone name (default Etc/GMT)",
+                          "key": "timezone",
+                          "value": "Etc/GMT"
+                        }
+                      ]
+                    },
+                    "description": "Returns detailed information for a single visitor session including all pages visited, session metadata, and chart data."
+                  },
+                  "response": [
+                    {
+                      "id": "5549afb5-cafc-4367-801d-2cd739a49fa4",
+                      "name": "Session details with pages visited",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/session?pid=<string>&psid=<string>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "session"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Session identifier",
+                              "key": "psid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"sessionDetails\": {},\n  \"chart\": {}\n}",
+                      "createdAt": "2026-07-28T03:06:55.000Z",
+                      "updatedAt": "2026-07-28T03:06:55.000Z",
+                      "uid": "35240-5549afb5-cafc-4367-801d-2cd739a49fa4"
+                    },
+                    {
+                      "id": "4f924a09-d4a5-4d33-9c69-89002afda3b7",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/log/session?pid=<string>&psid=<string>&timezone=Etc/GMT",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "log",
+                            "session"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Project ID",
+                              "key": "pid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Session identifier",
+                              "key": "psid",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "IANA timezone name (default Etc/GMT)",
+                              "key": "timezone",
+                              "value": "Etc/GMT"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:55.000Z",
+                      "updatedAt": "2026-07-28T03:06:55.000Z",
+                      "uid": "35240-4f924a09-d4a5-4d33-9c69-89002afda3b7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:55.000Z",
+                  "updatedAt": "2026-07-28T03:06:55.000Z",
+                  "uid": "35240-ec78c8ec-ea44-4ae8-9ec9-01d70c885e8f"
+                }
+              ],
+              "id": "529a3276-b5d9-44d2-a7a5-6563a1f6d637",
+              "createdAt": "2026-07-28T03:06:55.000Z",
+              "updatedAt": "2026-07-28T03:06:55.000Z",
+              "uid": "35240-529a3276-b5d9-44d2-a7a5-6563a1f6d637"
+            }
+          ],
+          "id": "8bd37c2a-9466-4100-92c1-838ee3ffcade",
+          "createdAt": "2026-07-28T03:06:55.000Z",
+          "updatedAt": "2026-07-28T03:06:55.000Z",
+          "uid": "35240-8bd37c2a-9466-4100-92c1-838ee3ffcade"
+        }
+      ],
+      "id": "06578944-ec31-4f20-b6ed-221b7f975487",
+      "createdAt": "2026-07-28T03:06:55.000Z",
+      "updatedAt": "2026-07-28T03:06:55.000Z",
+      "uid": "35240-06578944-ec31-4f20-b6ed-221b7f975487"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}

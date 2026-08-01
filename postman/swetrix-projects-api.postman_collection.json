@@ -1,0 +1,1351 @@
+{
+  "info": {
+    "_postman_id": "caf759f8-3be6-449e-8d99-0cdc6bdd9b4f",
+    "name": "Swetrix Admin Annotations Projects API",
+    "description": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:06:44.000Z",
+    "updatedAt": "2026-07-28T03:06:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-caf759f8-3be6-449e-8d99-0cdc6bdd9b4f"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "project",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "pin",
+                  "item": [
+                    {
+                      "name": "Pin Project",
+                      "id": "d15723ed-5c6d-4430-99a5-63a908907a86",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id/pin",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id",
+                            "pin"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9b06f4c9-2bf3-41c5-8461-9c4c70325e54",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) Project ID"
+                            }
+                          ]
+                        },
+                        "description": "Pins a project to the top of the dashboard."
+                      },
+                      "response": [
+                        {
+                          "id": "f7176092-0f1f-4f9b-bfb9-5d8343a3c009",
+                          "name": "Project pinned",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:id/pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":id",
+                                "pin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:06:44.000Z",
+                          "updatedAt": "2026-07-28T03:06:44.000Z",
+                          "uid": "35240-f7176092-0f1f-4f9b-bfb9-5d8343a3c009"
+                        },
+                        {
+                          "id": "fd328a51-03d5-4544-a302-79ff3d25c0c2",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:id/pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":id",
+                                "pin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:44.000Z",
+                          "updatedAt": "2026-07-28T03:06:44.000Z",
+                          "uid": "35240-fd328a51-03d5-4544-a302-79ff3d25c0c2"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-d15723ed-5c6d-4430-99a5-63a908907a86"
+                    },
+                    {
+                      "name": "Unpin Project",
+                      "id": "79c3847c-f12f-4c26-a549-b9eae1563c2e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id/pin",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id",
+                            "pin"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0069c658-8e05-49d4-b55e-3dbfe57366a5",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) Project ID"
+                            }
+                          ]
+                        },
+                        "description": "Removes a project from the pinned section."
+                      },
+                      "response": [
+                        {
+                          "id": "23ba9d50-4e72-4454-898e-9213bd33e889",
+                          "name": "Project unpinned",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:id/pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":id",
+                                "pin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:06:44.000Z",
+                          "updatedAt": "2026-07-28T03:06:44.000Z",
+                          "uid": "35240-23ba9d50-4e72-4454-898e-9213bd33e889"
+                        },
+                        {
+                          "id": "20c6775f-5d1d-4a85-b5b5-ac6425701fa1",
+                          "name": "Unauthorized - missing or invalid API key",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Api-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/project/:id/pin",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "project",
+                                ":id",
+                                "pin"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:06:44.000Z",
+                          "updatedAt": "2026-07-28T03:06:44.000Z",
+                          "uid": "35240-20c6775f-5d1d-4a85-b5b5-ac6425701fa1"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-79c3847c-f12f-4c26-a549-b9eae1563c2e"
+                    }
+                  ],
+                  "id": "82528498-3646-43b0-9731-e240abeed067",
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-82528498-3646-43b0-9731-e240abeed067"
+                },
+                {
+                  "name": "Get Project",
+                  "id": "1f90ee2f-4d99-4634-9451-66bcd995f10f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0e68cd2a-957e-40cc-b34d-b1f5ae23a6a9",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Project ID"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves details for a specific analytics project."
+                  },
+                  "response": [
+                    {
+                      "id": "de055db8-a790-4a0c-9667-500ba9d51818",
+                      "name": "Project object",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\",\n  \"organisationId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-de055db8-a790-4a0c-9667-500ba9d51818"
+                    },
+                    {
+                      "id": "a4490bfa-904d-48e8-af11-38e48db3567a",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-a4490bfa-904d-48e8-af11-38e48db3567a"
+                    },
+                    {
+                      "id": "41009cc4-83ae-44c5-a88d-76997d1f46c1",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-41009cc4-83ae-44c5-a88d-76997d1f46c1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-1f90ee2f-4d99-4634-9451-66bcd995f10f"
+                },
+                {
+                  "name": "Update Project",
+                  "id": "e1d2315b-99a4-447b-a9bc-25ee7d1a8941",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1f8de8ca-7aed-4d1f-9499-0addfa90546d",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Project ID"
+                        }
+                      ]
+                    },
+                    "description": "Modifies settings for an existing project including name, active status, public visibility, allowed origins, IP blocklist, and bot protection level."
+                  },
+                  "response": [
+                    {
+                      "id": "5785069c-77a9-4de3-87e8-2ed46dd8548f",
+                      "name": "Updated project",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\",\n  \"organisationId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-5785069c-77a9-4de3-87e8-2ed46dd8548f"
+                    },
+                    {
+                      "id": "f4f6fac8-6ce8-483f-ace0-7150bed6b00d",
+                      "name": "Bad request - malformed body or missing required fields",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-f4f6fac8-6ce8-483f-ace0-7150bed6b00d"
+                    },
+                    {
+                      "id": "1932276f-964f-41f6-88c5-92777bab08ed",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-1932276f-964f-41f6-88c5-92777bab08ed"
+                    },
+                    {
+                      "id": "1c825d3c-a63f-4607-93f5-8d3ad7f9e69c",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-1c825d3c-a63f-4607-93f5-8d3ad7f9e69c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-e1d2315b-99a4-447b-a9bc-25ee7d1a8941"
+                },
+                {
+                  "name": "Delete Project",
+                  "id": "3384a9b7-6d92-4e29-9d0d-3a21a9485ec7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f0f5d6e5-0863-4f42-a83a-e4b78210b278",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Project ID"
+                        }
+                      ]
+                    },
+                    "description": "Permanently removes a project and all its data."
+                  },
+                  "response": [
+                    {
+                      "id": "762017b0-6eba-48b7-afe7-8717872ec681",
+                      "name": "Project deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-762017b0-6eba-48b7-afe7-8717872ec681"
+                    },
+                    {
+                      "id": "e80332df-c2f0-4960-b224-1d45b6d50bcf",
+                      "name": "Unauthorized - missing or invalid API key",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-e80332df-c2f0-4960-b224-1d45b6d50bcf"
+                    },
+                    {
+                      "id": "dcce597e-a76b-41c3-8ce2-73986cead9b1",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/project/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "project",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:06:44.000Z",
+                      "updatedAt": "2026-07-28T03:06:44.000Z",
+                      "uid": "35240-dcce597e-a76b-41c3-8ce2-73986cead9b1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-3384a9b7-6d92-4e29-9d0d-3a21a9485ec7"
+                }
+              ],
+              "id": "5a053414-dd11-4ef3-89eb-71d3c02fa071",
+              "createdAt": "2026-07-28T03:06:44.000Z",
+              "updatedAt": "2026-07-28T03:06:44.000Z",
+              "uid": "35240-5a053414-dd11-4ef3-89eb-71d3c02fa071"
+            },
+            {
+              "name": "List Projects",
+              "id": "992c5138-4f98-46cd-a710-45c779fe2848",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/project",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "project"
+                  ]
+                },
+                "description": "Retrieves all analytics projects for the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "d3011e2a-17df-47b3-b0cf-477e383ead6b",
+                  "name": "Array of project objects",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"public\": \"<boolean>\",\n    \"origins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipBlacklist\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"botsProtectionLevel\": \"off\",\n    \"organisationId\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"public\": \"<boolean>\",\n    \"origins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipBlacklist\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"botsProtectionLevel\": \"basic\",\n    \"organisationId\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  }\n]",
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-d3011e2a-17df-47b3-b0cf-477e383ead6b"
+                },
+                {
+                  "id": "8cbfbcef-8f31-4497-9d20-d20ec14cb688",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-8cbfbcef-8f31-4497-9d20-d20ec14cb688"
+                }
+              ],
+              "createdAt": "2026-07-28T03:06:44.000Z",
+              "updatedAt": "2026-07-28T03:06:44.000Z",
+              "uid": "35240-992c5138-4f98-46cd-a710-45c779fe2848"
+            },
+            {
+              "name": "Create Project",
+              "id": "543ec48a-fbbe-4c67-92ad-880b48cd833e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"isCaptcha\": false,\n  \"isPasswordProtected\": false,\n  \"password\": \"<string>\",\n  \"organisationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/project",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "project"
+                  ]
+                },
+                "description": "Creates a new analytics project. Returns 201 with the project object."
+              },
+              "response": [
+                {
+                  "id": "bb08b9ee-df15-495d-806c-3e30545a306a",
+                  "name": "Project created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"isCaptcha\": false,\n  \"isPasswordProtected\": false,\n  \"password\": \"<string>\",\n  \"organisationId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"public\": \"<boolean>\",\n  \"origins\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipBlacklist\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"botsProtectionLevel\": \"off\",\n  \"organisationId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-bb08b9ee-df15-495d-806c-3e30545a306a"
+                },
+                {
+                  "id": "907e6a34-da20-4624-b414-e4df22a4bf14",
+                  "name": "Bad request - malformed body or missing required fields",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"isCaptcha\": false,\n  \"isPasswordProtected\": false,\n  \"password\": \"<string>\",\n  \"organisationId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-907e6a34-da20-4624-b414-e4df22a4bf14"
+                },
+                {
+                  "id": "f1c7e6c6-9895-4c6f-8bfc-d42e765eff87",
+                  "name": "Unauthorized - missing or invalid API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"isCaptcha\": false,\n  \"isPasswordProtected\": false,\n  \"password\": \"<string>\",\n  \"organisationId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/project",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "project"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:06:44.000Z",
+                  "updatedAt": "2026-07-28T03:06:44.000Z",
+                  "uid": "35240-f1c7e6c6-9895-4c6f-8bfc-d42e765eff87"
+                }
+              ],
+              "createdAt": "2026-07-28T03:06:44.000Z",
+              "updatedAt": "2026-07-28T03:06:44.000Z",
+              "uid": "35240-543ec48a-fbbe-4c67-92ad-880b48cd833e"
+            }
+          ],
+          "id": "5a6137ac-2f89-4a6a-80d0-0b757c3de3d2",
+          "createdAt": "2026-07-28T03:06:44.000Z",
+          "updatedAt": "2026-07-28T03:06:44.000Z",
+          "uid": "35240-5a6137ac-2f89-4a6a-80d0-0b757c3de3d2"
+        }
+      ],
+      "id": "95c2fc40-2de1-4926-8a13-25471fbb5cea",
+      "createdAt": "2026-07-28T03:06:44.000Z",
+      "updatedAt": "2026-07-28T03:06:44.000Z",
+      "uid": "35240-95c2fc40-2de1-4926-8a13-25471fbb5cea"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.swetrix.com"
+    }
+  ]
+}
