@@ -29,7 +29,7 @@ tags:
   - Web Analytics
 url: https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml
 created: '2026-03-26'
-modified: '2026-05-19'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: swetrix:swetrix-events-api
@@ -46,6 +46,12 @@ apis:
   - type: OpenAPI
     url: >-
       https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-events-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-events-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-events-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-events-api.opencollection.json
   tags:
   - Analytics
   - Cookieless Tracking
@@ -57,13 +63,19 @@ apis:
 - aid: swetrix:swetrix-annotations-api
   name: Swetrix Annotations API
   description: Manage chart annotations
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
   - Annotations
   properties:
   - type: OpenAPI
     url: openapi/swetrix-annotations-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-annotations-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-annotations-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-annotations-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -71,13 +83,19 @@ apis:
 - aid: swetrix:swetrix-custom-events-api
   name: Swetrix Custom Events API
   description: Custom event analytics
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/statistics-api
   baseURL: https://api.swetrix.com
   tags:
   - Custom Events
   properties:
   - type: OpenAPI
     url: openapi/swetrix-custom-events-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-custom-events-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-custom-events-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-custom-events-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -85,13 +103,19 @@ apis:
 - aid: swetrix:swetrix-errors-api
   name: Swetrix Errors API
   description: Record JavaScript error events
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/statistics-api
   baseURL: https://api.swetrix.com
   tags:
   - Errors
   properties:
   - type: OpenAPI
     url: openapi/swetrix-errors-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-errors-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-errors-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-errors-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -99,13 +123,19 @@ apis:
 - aid: swetrix:swetrix-feature-flags-api
   name: Swetrix Feature Flags API
   description: Feature flag evaluation statistics
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/statistics-api
   baseURL: https://api.swetrix.com
   tags:
   - Feature Flags
   properties:
   - type: OpenAPI
     url: openapi/swetrix-feature-flags-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-feature-flags-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-feature-flags-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-feature-flags-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -113,13 +143,19 @@ apis:
 - aid: swetrix:swetrix-funnels-api
   name: Swetrix Funnels API
   description: Manage conversion funnels
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
   - Funnels
   properties:
   - type: OpenAPI
     url: openapi/swetrix-funnels-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-funnels-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-funnels-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-funnels-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -127,13 +163,19 @@ apis:
 - aid: swetrix:swetrix-organisations-api
   name: Swetrix Organisations API
   description: Manage organisations and member access
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
   - Organisations
   properties:
   - type: OpenAPI
     url: openapi/swetrix-organisations-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-organisations-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-organisations-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-organisations-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -141,13 +183,19 @@ apis:
 - aid: swetrix:swetrix-performance-api
   name: Swetrix Performance API
   description: Frontend and backend performance metrics
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/statistics-api
   baseURL: https://api.swetrix.com
   tags:
   - Performance
   properties:
   - type: OpenAPI
     url: openapi/swetrix-performance-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-performance-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-performance-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-performance-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -155,13 +203,19 @@ apis:
 - aid: swetrix:swetrix-projects-api
   name: Swetrix Projects API
   description: Manage analytics projects
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
   - Projects
   properties:
   - type: OpenAPI
     url: openapi/swetrix-projects-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-projects-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-projects-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-projects-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -176,6 +230,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/swetrix-revenue-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-revenue-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-revenue-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-revenue-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -183,13 +243,19 @@ apis:
 - aid: swetrix:swetrix-sessions-api
   name: Swetrix Sessions API
   description: Individual visitor session data
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/statistics-api
   baseURL: https://api.swetrix.com
   tags:
   - Sessions
   properties:
   - type: OpenAPI
     url: openapi/swetrix-sessions-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-sessions-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-sessions-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-sessions-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -197,13 +263,19 @@ apis:
 - aid: swetrix:swetrix-traffic-api
   name: Swetrix Traffic API
   description: Aggregated traffic and pageview analytics
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/statistics-api
   baseURL: https://api.swetrix.com
   tags:
   - Traffic
   properties:
   - type: OpenAPI
     url: openapi/swetrix-traffic-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-traffic-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-traffic-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-traffic-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -211,13 +283,19 @@ apis:
 - aid: swetrix:swetrix-views-api
   name: Swetrix Views API
   description: Manage saved dashboard views (segments)
-  humanURL: https://swetrix.com/docs/events-api
+  humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
   - Views
   properties:
   - type: OpenAPI
     url: openapi/swetrix-views-api-openapi.yml
+  - type: Overlay
+    url: overlays/swetrix-views-api-overlay.yaml
+  - type: PostmanCollection
+    url: postman/swetrix-views-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/swetrix-views-api.opencollection.json
   - type: Documentation
     url: https://swetrix.com/docs/statistics-api
   - type: Documentation
@@ -255,22 +333,97 @@ common:
     url: https://swetrix.com/contact
   - type: OpenSource
     url: https://github.com/Swetrix/swetrix-api
-  - type: SDKs
-    url: https://github.com/Swetrix/swetrix-js
-  - type: SDKs
-    url: https://github.com/Swetrix/swetrix-nextjs
-  - type: SDKs
-    url: https://github.com/Swetrix/swetrix-browser
-  - type: SDKs
-    url: https://github.com/Swetrix/django-plugin
+  - type: JavaScript SDK
+    url: https://www.npmjs.com/package/swetrix
+  - type: Node.js SDK
+    url: https://www.npmjs.com/package/@swetrix/node
   - type: StatusPage
-    url: https://swetrix.com/status
+    url: https://status.swetrix.com/
   - type: TermsOfService
-    url: https://swetrix.com/privacy
+    url: https://swetrix.com/terms
   - type: PrivacyPolicy
     url: https://swetrix.com/privacy
   - type: LlmsText
     url: https://swetrix.com/llms.txt
+  - type: Packages
+    url: packages/swetrix-packages.yml
+  - type: SDKs
+    url: packages/swetrix-packages.yml
+  - type: LLMsTxt
+    url: llms/swetrix-llms.txt
+  - type: Conventions
+    url: conventions/swetrix-conventions.yml
+  - type: Idempotency
+    url: conventions/swetrix-conventions.yml
+  - type: ErrorCatalog
+    url: errors/swetrix-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/swetrix-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/swetrix-changelog.yml
+  - type: ChangeLog
+    url: https://github.com/Swetrix/swetrix/releases
+  - type: Conformance
+    url: conformance/swetrix-conformance.yml
+  - type: Compliance
+    url: https://swetrix.com/dpa
+  - type: Security
+    url: https://swetrix.com/security
+  - type: Sandbox
+    url: sandbox/swetrix-sandbox.yml
+  - type: Components
+    url: components/swetrix-components.yml
+  - type: DataModel
+    url: data-model/swetrix-data-model.yml
+  - type: Webhooks
+    url: asyncapi/swetrix-alerts-webhooks.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: RateLimits
+    url: rate-limits/swetrix-rate-limits.yml
+  - type: Plans
+    url: plans/swetrix-plans-pricing.yml
+  - type: FinOps
+    url: finops/swetrix-finops.yml
+  - type: Vocabulary
+    url: vocabulary/swetrix-vocabulary.yml
+  - type: SpectralRules
+    url: rules/swetrix-rules.yml
+  - type: SpectralRules
+    url: rules/swetrix-jsonschema-spectral-rules.yml
+  - type: JSONSchema
+    url: json-schema/swetrix-project-schema.json
+  - type: JSONSchema
+    url: json-schema/swetrix-session-schema.json
+  - type: JSONStructure
+    url: json-structure/swetrix-project-structure.json
+  - type: JSONLDContext
+    url: json-ld/swetrix-context.jsonld
+  - type: Examples
+    url: examples/swetrix-create-project-example.json
+  - type: Examples
+    url: examples/swetrix-record-pageview-example.json
+  - type: Examples
+    url: examples/swetrix-get-traffic-log-example.json
+  - type: DeveloperPortal
+    url: https://swetrix.com/docs
+  - type: APIReference
+    url: https://swetrix.com/docs/statistics-api
+  - type: GettingStarted
+    url: https://swetrix.com/docs/install-script
+  - type: Roadmap
+    url: https://github.com/Swetrix/swetrix/issues
+  - type: Discord
+    url: https://discord.gg/ZVK8Tw2E8j
+  - type: X (Twitter)
+    url: https://x.com/swetrix
+  - type: DataPolicy
+    url: https://swetrix.com/data-policy
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 31
+  pass: local-v1
