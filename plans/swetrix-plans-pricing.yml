@@ -4,8 +4,14 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Swetrix
 providerId: swetrix
 created: '2026-05-04'
-modified: '2026-05-05'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
 reconciled: true
+sources:
+  - https://swetrix.com/pricing
+  - https://swetrix.com/docs/exceeding-plan-limits
+  - https://swetrix.com/docs/statistics-api
 tags:
   - Analytics
   - Cookieless Tracking
@@ -14,18 +20,51 @@ tags:
   - Privacy
   - Real-Time Analytics
   - Web Analytics
-description: Swetrix uses a single-product tiered subscription model where each tier is differentiated
-  by the included monthly events quota. All tiers ship the same feature set (web analytics, sessions,
-  speed monitoring, error tracking, funnels, feature flags, A/B experiments, CAPTCHA alternative, API
-  access, team invites, up to 50 websites). Annual billing offers approximately a 17% discount. A 14-day
-  trial is available.
-sources:
-  - https://swetrix.com/#pricing
+plan_count: 3
+description: >-
+  Swetrix sells two self-serve subscription tiers plus a negotiated Enterprise
+  tier. Price is a function of TWO choices: the tier (Standard or Plus, which
+  decides the feature set, website count and API rate limit) and a monthly-event
+  volume selected from a slider (100K, 200K, 500K, 1M, 2M, 5M, 10M, 15M, 20M,
+  30M, 40M, 50M, 50M+). The prices captured below are the published entry price
+  at the 100,000-events step; prices at higher event volumes are rendered by the
+  slider and are not recorded here rather than guessed. Annual billing is
+  discounted 17%. There is no free cloud plan — the free option is the AGPL-3.0
+  Community Edition, self-hosted. A 14-day free trial requires a payment method.
+  This artifact REPLACES an earlier bulk-sweep version that described a
+  Starter/Professional/Business/Enterprise/Plus/Advanced ladder; Swetrix has since
+  restructured pricing and none of those tier names exist on the pricing page.
+billing:
+  currency: USD
+  tax: VAT added where applicable
+  periods: [month, year]
+  annual_discount: '17%'
+  processor: Paddle
+  trial:
+    length_days: 14
+    payment_method_required: true
+    cancel_anytime: true
+  free_plan: false
+  self_hosted_free: true
+  proration: >-
+    "You can upgrade or downgrade your plan anytime, and we will pro-rate your
+    subscription."
+  overage_policy: >-
+    No automatic upgrade and no overage charge. Swetrix may lock the dashboard
+    after 7 days notice if the plan is exceeded for two consecutive months or by
+    more than 30%, or after 5 failed billing attempts. While locked, new events
+    are not accepted; existing data is retained.
+event_volume_steps:
+  ['100K', '200K', '500K', '1M', '2M', '5M', '10M', '15M', '20M', '30M', '40M', '50M', '50M+']
 plans:
-  - id: swetrix-starter
-    name: Starter
+  - id: swetrix-standard
+    name: Standard
     type: subscription
-    description: 100k monthly events. $19/month or $228/year (17% annual discount).
+    description: >-
+      Entry tier. From $19/month at 100,000 monthly events, +VAT. Includes the
+      core analytics, funnels, error tracking, performance monitoring, revenue
+      tracking, SEO/GEO insights, alerts and API access. Excludes session
+      replays, feature flags and A/B testing.
     entries:
       - label: Base Subscription
         name: base_subscription
@@ -35,7 +74,7 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
-        price: '$19/month or $228/year'
+        price: 'from $19/month (100K events step); annual billing -17%'
         userMultiplied: false
       - label: Monthly Events
         name: monthly_events
@@ -45,105 +84,56 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
+        price: 'scales with the selected volume step, up to 50M'
+        userMultiplied: false
+      - label: API Requests
+        name: api_requests
+        type: quota
+        metric: request
+        limit: 300
+        timeFrame: hour
+        geo: global
+        unit: 1
         price: '0'
         userMultiplied: false
+    limits:
+      websites: 10
+      team_members: unlimited
+      monthly_events_max: 50000000
+      api_rate_limit: 300 requests/hour
     elements:
-      - name: Web Analytics
-      - name: Session Analysis
-      - name: Speed Monitoring
-      - name: Error Tracking
+      - name: Real-time dashboard
+      - name: Cookieless tracking
+      - name: No data sampling
+      - name: Public & shareable dashboards
+      - name: Google Analytics import
+      - name: Events & Goals
       - name: Funnels
-      - name: Feature Flags
-      - name: A/B Experiments
-      - name: CAPTCHA Alternative
-      - name: API Access
-      - name: Team Invitations
-      - name: Up to 50 Websites
-  - id: swetrix-professional
-    name: Professional
-    type: subscription
-    description: 200k monthly events. $29/month or $348/year.
-    entries:
-      - label: Base Subscription
-        name: base_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$29/month or $348/year'
-        userMultiplied: false
-      - label: Monthly Events
-        name: monthly_events
-        type: quota
-        metric: event
-        limit: 200000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
-  - id: swetrix-business
-    name: Business
-    type: subscription
-    description: 500k monthly events. $49/month or $588/year.
-    entries:
-      - label: Base Subscription
-        name: base_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$49/month or $588/year'
-        userMultiplied: false
-      - label: Monthly Events
-        name: monthly_events
-        type: quota
-        metric: event
-        limit: 500000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
-  - id: swetrix-enterprise
-    name: Enterprise
-    type: subscription
-    description: 1M monthly events. $79/month or $948/year.
-    entries:
-      - label: Base Subscription
-        name: base_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$79/month or $948/year'
-        userMultiplied: false
-      - label: Monthly Events
-        name: monthly_events
-        type: quota
-        metric: event
-        limit: 1000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
+      - name: User flow
+      - name: Segments / saved views
+      - name: Ask AI
+      - name: Session & User profile analysis
+      - name: Performance monitoring
+      - name: Error tracking
+      - name: SEO & GEO insights
+      - name: Revenue tracking
+      - name: Email reports
+      - name: Alerts & notifications
+      - name: Advanced bot detection
+      - name: Ad-blocker bypass
+      - name: reCAPTCHA alternative
+      - name: GDPR & privacy compliant
+      - name: Open source
+      - name: Two-factor authentication
+      - name: RESTful API & SDKs
+      - name: Human support
   - id: swetrix-plus
     name: Plus
     type: subscription
-    description: 2M monthly events. $119/month or $1,428/year.
+    description: >-
+      Marketed as "Best value". From $39/month at 100,000 monthly events, +VAT.
+      Everything in Standard plus session replays, feature flags, A/B testing,
+      100 websites, 20x higher API rate limits and priority support.
     entries:
       - label: Base Subscription
         name: base_subscription
@@ -153,24 +143,47 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
-        price: '$119/month or $1,428/year'
+        price: 'from $39/month (100K events step); annual billing -17%'
         userMultiplied: false
       - label: Monthly Events
         name: monthly_events
         type: quota
         metric: event
-        limit: 2000000
+        limit: 100000
         timeFrame: month
+        geo: global
+        unit: 1
+        price: 'scales with the selected volume step, up to 50M'
+        userMultiplied: false
+      - label: API Requests
+        name: api_requests
+        type: quota
+        metric: request
+        limit: 6000
+        timeFrame: hour
         geo: global
         unit: 1
         price: '0'
         userMultiplied: false
+    limits:
+      websites: 100
+      team_members: unlimited
+      monthly_events_max: 50000000
+      api_rate_limit: 6000 requests/hour
     elements:
-      - name: All Starter Features
-  - id: swetrix-advanced
-    name: Advanced
+      - name: Everything from Standard
+      - name: Session replays
+      - name: Feature flags
+      - name: A/B testing
+      - name: 20x higher API rate limits
+      - name: Priority support
+  - id: swetrix-enterprise
+    name: Enterprise
     type: subscription
-    description: 5M monthly events. $179/month or $2,148/year.
+    description: >-
+      Negotiated. No published price — "Custom / Contact us". Everything in Plus
+      plus custom event limits, on-premise or dedicated isolated instances,
+      SAML SSO, personal onboarding, manual invoicing and an Enterprise SLA.
     entries:
       - label: Base Subscription
         name: base_subscription
@@ -180,119 +193,44 @@ plans:
         timeFrame: month
         geo: global
         unit: 1
-        price: '$179/month or $2,148/year'
+        price: custom — contact sales
         userMultiplied: false
       - label: Monthly Events
         name: monthly_events
         type: quota
         metric: event
-        limit: 5000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
-  - id: swetrix-premium
-    name: Premium
-    type: subscription
-    description: 10M monthly events. $249/month or $2,988/year.
-    entries:
-      - label: Base Subscription
-        name: base_subscription
-        type: subscription
-        metric: month
         limit: -1
         timeFrame: month
         geo: global
         unit: 1
-        price: '$249/month or $2,988/year'
+        price: custom
         userMultiplied: false
-      - label: Monthly Events
-        name: monthly_events
+      - label: API Requests
+        name: api_requests
         type: quota
-        metric: event
-        limit: 10000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
-  - id: swetrix-elite
-    name: Elite
-    type: subscription
-    description: 15M monthly events. $349/month or $4,188/year.
-    entries:
-      - label: Base Subscription
-        name: base_subscription
-        type: subscription
-        metric: month
+        metric: request
         limit: -1
-        timeFrame: month
+        timeFrame: hour
         geo: global
         unit: 1
-        price: '$349/month or $4,188/year'
+        price: 'custom, and may be unlimited on demand'
         userMultiplied: false
-      - label: Monthly Events
-        name: monthly_events
-        type: quota
-        metric: event
-        limit: 15000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
+    limits:
+      websites: custom
+      team_members: unlimited
+      monthly_events_max: custom
+      api_rate_limit: custom
     elements:
-      - name: All Starter Features
-  - id: swetrix-mega
-    name: Mega
-    type: subscription
-    description: 20M monthly events. $419/month or $5,028/year.
-    entries:
-      - label: Base Subscription
-        name: base_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$419/month or $5,028/year'
-        userMultiplied: false
-      - label: Monthly Events
-        name: monthly_events
-        type: quota
-        metric: event
-        limit: 20000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0'
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
-  - id: swetrix-custom
-    name: Custom
-    type: enterprise
-    description: For volumes above 20M monthly events. Pricing via contact sales.
-    entries:
-      - label: Contract
-        name: contract
-        type: subscription
-        metric: event
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: All Starter Features
-      - name: Negotiated Volume
+      - name: Everything from Plus
+      - name: Dedicated account manager
+      - name: Custom event limits
+      - name: Custom features
+      - name: On-premise installation
+      - name: Dedicated isolated instance
+      - name: SAML-based single sign-on (SSO)
+      - name: Personal onboarding
+      - name: Manual invoicing
+      - name: Enterprise SLA
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

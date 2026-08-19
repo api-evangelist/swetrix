@@ -1,0 +1,142 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://swetrix.com/docs/statistics-api,
+  https://swetrix.com/docs/api/stats-v2,
+  https://swetrix.com/docs/events-api,
+  https://swetrix.com/docs/admin-api,
+  https://swetrix.com/docs/analytics-dashboard/revenue-tracking,
+  https://swetrix.com/docs/settings/api-keys
+description: >-
+  Cross-cutting request/response semantics for the Swetrix REST API, read from
+  the published developer documentation and cross-checked against the refined
+  OpenAPI in openapi/.
+authentication:
+  style: api-key
+  header: X-Api-Key
+  docs: https://swetrix.com/docs/settings/api-keys
+  anonymous_access: >-
+    Public projects can be queried without a key; every other request without a
+    valid API key fails.
+  artifact: authentication/swetrix-authentication.yml
+versioning:
+  scheme: uri-path
+  versions:
+    - version: v1
+      status: current
+      docs: https://swetrix.com/docs/statistics-api
+    - version: v2
+      status: current
+      docs: https://swetrix.com/docs/api/stats-v2
+      note: >-
+        Per-dimension read API, additive. The docs state "The v1 API keeps
+        working; v2 is additive."
+  implementation: >-
+    NestJS URI versioning (VersioningType.URI in
+    backend/apps/cloud/src/main.ts). Event-ingestion routes (POST /log, /log/custom,
+    /log/hb, /log/identify, /log/error, /log/revenue) are unversioned.
+idempotency:
+  supported: true
+  mechanism: caller-supplied stable identifier (not a generic Idempotency-Key header)
+  keys:
+    - operation: POST /log/revenue
+      field: transactionId
+      scope: project
+      semantics: >-
+        "Re-sending the same transactionId replaces the previous version
+        (idempotent). If omitted, a UUID is generated." The docs explicitly tell
+        integrators to pass a stable order ID so retried platform webhooks update
+        the existing transaction instead of creating a duplicate.
+      docs: https://swetrix.com/docs/analytics-dashboard/revenue-tracking
+    - operation: POST /log
+      field: unique
+      scope: session
+      semantics: >-
+        When `unique` is true the pageview is rejected with 403 if it has already
+        been recorded for the session — a server-side de-duplication guard rather
+        than a replay key.
+      docs: https://swetrix.com/docs/events-api
+  retention: not documented
+  header: none
+pagination:
+  v1:
+    style: none
+    note: >-
+      v1 statistics endpoints return whole aggregated documents; there are no
+      limit/offset parameters.
+  v2:
+    style: offset
+    params: [limit, offset]
+    default_limit: 30
+    response_fields: [meta.total]
+    sort:
+      param: sort
+      form: "field:direction"
+      fields: [value, "<any selected metric>"]
+      directions: [asc, desc]
+      default: first selected metric, descending
+    exceptions:
+      - dimension: seo
+        note: >-
+          The seo data type omits meta.total and offers no sort control, because
+          Google Search Console reports no row total and no sort.
+    docs: https://swetrix.com/docs/api/stats-v2
+response_envelope:
+  v1: >-
+    Bare resource documents — the traffic log returns {params, chart, customs,
+    properties, appliedFilters} with no wrapper.
+  v2:
+    shape: '{ "data": <payload>, "meta": { ... } }'
+    meta_fields: [pid, period, from, to, timezone, appliedFilters, total, allowedTimeBuckets]
+    note: >-
+      meta echoes the RESOLVED request parameters — the exact time bounds used,
+      the applied filters and the pagination — so a client never has to guess how
+      the API interpreted the query.
+error_envelope:
+  format: nest-http-exception
+  shape: '{ "statusCode": <int>, "message": <string|string[]>, "error": <string> }'
+  problem_json: false
+  note: >-
+    Not RFC 9457. `message` is an array of validation strings for 400s (observed
+    live: GET https://api.swetrix.com/v1/log returned {"message":["The provided
+    Project ID (pid) is incorrect","pid should not be empty"],"error":"Bad
+    Request","statusCode":400}).
+  artifact: errors/swetrix-problem-types.yml
+filtering:
+  param: filters
+  shape: '{ "column": "cc", "filter": "GB", "isExclusive": false, "isContains": false }'
+  columns: [cc, rg, ct, host, pg, lc, br, brv, os, osv, dv, ref, so, me, ca, te, co, isp, og, ut, ctp]
+  rejection: >-
+    v2 rejects unknown dimensions or operators with 422 and a message listing the
+    supported values.
+time_semantics:
+  time_buckets: [minute, hour, day, week, month, year]
+  v2_time_buckets: [minute, hour, day, month, year]
+  periods: ['1h', today, yesterday, '1d', '7d', '4w', '3M', '12M', '24M', all]
+  custom_range: from + to (ISO 8601, always together, mutually exclusive with period)
+  timezone: any IANA timezone, default Etc/GMT
+  measures: [median, average, p95, quantiles]
+request_tracing:
+  request_id_header: not documented
+rate_limit_signaling:
+  documented_headers: none
+  status_on_exhaustion: 429
+  note: >-
+    Swetrix publishes per-plan hourly quotas but documents no RateLimit-* /
+    X-RateLimit-* response headers, so an agent cannot read remaining budget at
+    runtime — only the plan number from the docs.
+  artifact: rate-limits/swetrix-rate-limits.yml
+metadata:
+  supported: true
+  note: >-
+    Custom events and revenue transactions accept an arbitrary string key/value
+    `metadata` object (revenue: max 100 keys, 2 KB total).
+field_expansion:
+  supported: false
+webhooks:
+  artifact: asyncapi/swetrix-alerts-webhooks.yml
+lifecycle:
+  artifact: lifecycle/swetrix-lifecycle.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

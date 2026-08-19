@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swetrix Admin Annotations Funnels API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Funnels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Funnels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/funnels/:pid",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Retrieves all saved funnels for a project."
+        },
+        {
+          "info": {
+            "name": "Create Funnel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project/funnel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new conversion funnel for a project."
+        },
+        {
+          "info": {
+            "name": "Update Funnel",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/project/funnel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing funnel's name or page steps."
+        },
+        {
+          "info": {
+            "name": "Delete Funnel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/funnel/:id/:pid",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Funnel ID"
+              },
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Removes a funnel from a project."
+        },
+        {
+          "info": {
+            "name": "Get Funnel Analysis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/funnel",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of page paths (e.g. [\"/\",\"/signup\",\"/dashboard\"])"
+              },
+              {
+                "name": "funnelId",
+                "value": "",
+                "type": "query",
+                "description": "Saved funnel ID"
+              }
+            ]
+          },
+          "docs": "Returns funnel conversion analysis for a specified sequence of pages. Shows conversion counts, dropoffs, and percentages at each step. Accepts either a saved funnel ID or an inline pages array."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

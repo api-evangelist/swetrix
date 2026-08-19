@@ -1,0 +1,322 @@
+{
+  "item": [
+    {
+      "id": "4a684185-e4da-4bcd-a0cf-4caa27eb93b3",
+      "name": "Revenue",
+      "description": {
+        "content": "Record revenue transactions (server-side only, requires API key)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6c5c9470-8bd2-492d-b961-5c4376986b85",
+          "name": "Record Revenue Transaction",
+          "request": {
+            "name": "Record Revenue Transaction",
+            "description": {
+              "content": "Records a revenue transaction (sale, refund, or subscription) for the specified project. Server-side only — requires API key authentication via X-Api-Key header. Amounts should always be positive (type field distinguishes refunds).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "log",
+                "revenue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a4475fd-60f5-4ad1-945e-dfbc719b00e0",
+              "name": "Revenue transaction recorded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log",
+                    "revenue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"transactionId\": \"txn_abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1036a8e8-1588-4227-a85b-384eccfe9450",
+              "name": "Bad request - malformed body, missing required fields, or disabled project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log",
+                    "revenue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d18baf8d-d377-4d6c-a99c-9e9c5a817bc9",
+              "name": "Forbidden - duplicate unique event, invalid API key, or insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log",
+                    "revenue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a4bb630-444c-480d-88e8-81c025b65e87",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log",
+                    "revenue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.swetrix.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7c652096-e46d-4aa6-baac-b3bffe32c463",
+    "name": "Swetrix Admin Annotations Revenue API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
+      "type": "text/plain"
+    }
+  }
+}

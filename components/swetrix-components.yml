@@ -1,0 +1,130 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://swetrix.com/docs/install-script,
+  https://swetrix.com/docs/swetrix-js-reference,
+  https://swetrix.com/docs/captcha/client-side-usage,
+  https://swetrix.com/docs/how-to-embed
+description: >-
+  Swetrix ships three client-side surfaces that are components rather than
+  server-side SDKs: the tracking script that runs in the visitor's browser, the
+  drop-in CAPTCHA widget, and the embeddable analytics dashboard iframe.
+families:
+  - id: tracking-script
+    name: Swetrix tracking script
+    kind: browser-javascript
+    docs: https://swetrix.com/docs/install-script
+    reference: https://swetrix.com/docs/swetrix-js-reference
+    loaders:
+      - kind: cdn
+        url: https://swetrix.org/swetrix.js
+        status: 200
+        pinned: false
+        note: Unpinned — the CDN build floats to the latest release.
+      - kind: npm
+        package: swetrix
+        version: 4.5.0
+        install: npm install swetrix
+    capabilities:
+      - init / trackPageViews — automatic pageview and error collection
+      - track — custom events with metadata
+      - identify / setTraits / reset — visitor profile identification (tracker-js 4.5.0+)
+      - startSessionReplay — session replay capture (tracker-js 4.3.0+)
+      - getSessionId / profileId — session and profile handles for revenue attribution
+    note: >-
+      Runs cookieless; no local storage, no browser cache, no device identifiers.
+  - id: captcha-widget
+    name: Swetrix CAPTCHA widget
+    kind: html-drop-in
+    docs: https://swetrix.com/docs/captcha/client-side-usage
+    loaders:
+      - kind: cdn
+        url: https://cdn.swetrixcaptcha.com/captcha-loader.js
+        status: 200
+        pinned: false
+        markup: '<script src="https://cdn.swetrixcaptcha.com/captcha-loader.js" defer></script>'
+      - kind: npm
+        package: "@swetrix/captcha"
+        version: 2.3.0
+        install: npm install @swetrix/captcha
+    mount: '<div class="swecaptcha" data-project-id="YOUR_PROJECT_ID"></div>'
+    attributes:
+      - name: data-project-id
+        type: string
+        required: true
+        description: The CAPTCHA project ID.
+      - name: data-theme
+        type: string
+        required: false
+        values: [auto, light, dark]
+        default: auto
+      - name: data-response-input-name
+        type: string
+        required: false
+        default: swetrix-captcha-response
+        description: Name of the hidden token input the widget writes into.
+      - name: data-api-url
+        type: string
+        required: false
+        default: https://api.swetrixcaptcha.com/v1/captcha
+        description: >-
+          Self-hosted CE installs point this at [BASE_URL]/backend/v1/captcha;
+          cloud users leave it as is.
+      - name: data-lang
+        type: string
+        required: false
+        description: Force a widget language.
+      - name: data-asset-url
+        type: string
+        required: false
+        default: https://cdn.swetrixcaptcha.com/dist/
+    globals:
+      - name: window.swetrixCaptchaForceLoad
+        description: Forcefully reloads the widget without reloading the page.
+    languages: [en, de, fr, pl, uk, hu]
+    server_side_pair:
+      endpoint: POST https://api.swetrixcaptcha.com/v1/captcha/validate
+      package: "@swetrix/captcha-validator"
+      docs: https://swetrix.com/docs/captcha/server-side-validation
+      note: >-
+        The token is only valid once it has been validated server-side; a token
+        can be validated exactly once.
+  - id: embedded-dashboard
+    name: Embedded analytics dashboard
+    kind: iframe
+    docs: https://swetrix.com/docs/how-to-embed
+    markup: >-
+      <iframe src="https://swetrix.com/projects/YOUR_PROJECT_ID?tab=traffic&theme=dark&embedded=true"
+      width="1200" height="700" title="Test"></iframe>
+    prerequisite: >-
+      The project's shareable link must be public or password-protected; get it
+      from the site settings page.
+    options:
+      - name: embedded
+        values: ['true']
+        description: Renders the dashboard in embed chrome.
+      - name: theme
+        values: [light, dark]
+      - name: lng
+        values: [en, uk, pl, de, fr]
+        default: visitor's browser language
+      - name: tab
+        values:
+          - traffic
+          - seo
+          - performance
+          - profiles
+          - funnels
+          - sessions
+          - replays
+          - errors
+          - goals
+          - experiments
+          - featureFlags
+    use_cases:
+      - Custom admin panels
+      - Per-customer analytics in a SaaS product
+      - Public stats pages
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

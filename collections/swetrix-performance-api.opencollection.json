@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swetrix Admin Annotations Performance API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Performance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Performance Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/performance",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Project ID"
+              },
+              {
+                "name": "timeBucket",
+                "value": "",
+                "type": "query",
+                "description": "Time bucket for data aggregation"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of filter objects"
+              },
+              {
+                "name": "measure",
+                "value": "",
+                "type": "query",
+                "description": "Statistical measure to apply to performance data"
+              }
+            ]
+          },
+          "docs": "Returns performance metrics including DNS lookup, TLS handshake, connection, response, render, DOM load, TTFB, and full page load times. Supports median, average, p95, and quantile aggregations."
+        },
+        {
+          "info": {
+            "name": "Get Birdseye Performance Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/log/performance/birdseye",
+            "params": [
+              {
+                "name": "pids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated project IDs"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for the query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Custom range start date (YYYY-MM-DD)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Custom range end date (YYYY-MM-DD)"
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA timezone name (default Etc/GMT)"
+              }
+            ]
+          },
+          "docs": "Returns performance metric summaries comparing current vs previous periods for frontend, backend, and network metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

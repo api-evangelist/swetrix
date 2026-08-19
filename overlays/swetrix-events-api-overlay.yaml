@@ -1,0 +1,64 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Swetrix Admin Annotations Events API
+  version: 1.0.0
+extends: openapi/swetrix-events-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+actions:
+- target: $.info
+  description: 'Correct the terms-of-service URL: the harvested value pointed at the privacy policy. Swetrix
+    publishes terms at https://swetrix.com/terms (HTTP 200, probed 2026-08-13).'
+  update:
+    termsOfService: https://swetrix.com/terms
+- target: $.info
+  description: Attach API Evangelist provenance and the real, per-plan rate limits published at https://swetrix.com/docs/statistics-api
+    and https://swetrix.com/pricing.
+  update:
+    x-apievangelist-source: Written from the published Swetrix developer reference; Swetrix publishes
+      no OpenAPI (the NestJS Swagger document is mounted only when isDevelopment is true).
+    x-apievangelist-artifacts:
+    - conventions/swetrix-conventions.yml
+    - errors/swetrix-problem-types.yml
+    - rate-limits/swetrix-rate-limits.yml
+    - authentication/swetrix-authentication.yml
+    - lifecycle/swetrix-lifecycle.yml
+    x-rate-limits:
+      standard: 300 requests/hour
+      plus: 6000 requests/hour
+      enterprise: custom
+      status_on_exhaustion: 429
+      headers: none documented
+      docs: https://swetrix.com/docs/statistics-api
+- target: $.info
+  description: Record the second, additive API version. The v2 statistics API is documented at https://swetrix.com/docs/api/stats-v2
+    and is not modelled in these specs.
+  update:
+    x-api-versions:
+    - version: v1
+      status: current
+      docs: https://swetrix.com/docs/statistics-api
+    - version: v2
+      status: current
+      docs: https://swetrix.com/docs/api/stats-v2
+      note: Per-dimension read API with a {data, meta} envelope, limit/offset pagination and sort. Additive
+        — v1 keeps working.
+- target: $.info
+  description: Record the error envelope. Swetrix does not emit RFC 9457 problem+json.
+  update:
+    x-error-envelope:
+      format: nest-http-exception
+      shape: '{ "statusCode": <int>, "message": <string|string[]>, "error": <string> }'
+      problem_json: false
+      catalog: errors/swetrix-problem-types.yml
+- target: $.externalDocs
+  description: Point external docs at the live developer index.
+  update:
+    x-apievangelist-docs-index: https://swetrix.com/docs
+- target: $.paths
+  description: 'Gap: POST /log/identify is documented at https://swetrix.com/docs/events-api but is not
+    yet modelled in this spec. Recorded rather than invented.'
+  update:
+    x-apievangelist-missing-operations:
+    - POST /log/identify — link an anonymous visitor to a caller-supplied profile id (usr_ prefix), with
+      optional merged traits

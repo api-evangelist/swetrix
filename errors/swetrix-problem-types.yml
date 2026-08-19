@@ -1,0 +1,137 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://swetrix.com/docs/events-api (Status and error codes),
+  https://swetrix.com/docs/api/stats-v2,
+  https://swetrix.com/docs/captcha/server-side-validation,
+  live probe of GET https://api.swetrix.com/v1/log (2026-08-13),
+  derived cross-check against openapi/*.yml 4xx/5xx responses
+format: nest-http-exception
+problem_json: false
+envelope:
+  media_type: application/json
+  shape: '{ "statusCode": <int>, "message": <string|string[]>, "error": <string> }'
+  note: >-
+    Swetrix does NOT emit RFC 9457 application/problem+json. Every error is the
+    default NestJS HttpException body. For validation failures `message` is an
+    ARRAY of human-readable strings, one per failed constraint; elsewhere it is a
+    single string. There is no machine-stable error `code` / `type` field, so an
+    agent has to branch on the HTTP status plus prose.
+  observed_example:
+    request: GET https://api.swetrix.com/v1/log
+    status: 400
+    body: >-
+      {"message":["The provided Project ID (pid) is incorrect","pid should not be
+      empty"],"error":"Bad Request","statusCode":400}
+problems:
+  - status: 400
+    title: Bad Request
+    description: >-
+      The request body or query is malformed — a required parameter such as `pid`
+      is missing or invalid, or the project is disabled. Also returned by
+      POST /log/identify when the supplied profile id is a reserved or empty
+      value (e.g. "guest" or ""), which would fuse unrelated visitors into one
+      profile.
+    remediation: >-
+      Read the `message` array; each entry names one failed constraint. Fix the
+      named parameter and retry — retrying unchanged will fail identically.
+    retryable: false
+    docs: https://swetrix.com/docs/events-api
+    source_operations: 14 operations in openapi/
+  - status: 401
+    title: Unauthorized
+    description: >-
+      Missing or invalid X-Api-Key. Applies to every non-public read and every
+      admin operation.
+    remediation: >-
+      Generate a key in Account Settings → Account → API key and send it as the
+      X-Api-Key header. Public projects can be read anonymously.
+    retryable: false
+    docs: https://swetrix.com/docs/settings/api-keys
+    source_operations: 44 operations in openapi/
+  - status: 402
+    title: Payment Required
+    description: >-
+      The project is not active — the subscription has expired, a bill failed, or
+      the monthly event quota has been exceeded. Swetrix stops accepting new
+      analytics events while a dashboard is locked; existing data is retained.
+    remediation: >-
+      Check the Plan and billing page. Collection resumes once the tier is raised
+      or the payment issue is resolved. Do not retry in a tight loop — this state
+      persists until a human acts.
+    retryable: false
+    docs: https://swetrix.com/docs/exceeding-plan-limits
+  - status: 403
+    title: Forbidden
+    description: >-
+      Two distinct meanings. On POST /log with `unique=true` it means the
+      pageview has already been recorded for this session and was intentionally
+      de-duplicated — an expected outcome, not a failure. On POST /log/revenue it
+      means the API key does not have permission to manage the target project.
+    remediation: >-
+      Treat 403 on POST /log with unique=true as success-by-deduplication. On
+      /log/revenue, use a key belonging to an account with admin rights on the
+      project.
+    retryable: false
+    docs: https://swetrix.com/docs/events-api
+  - status: 404
+    title: Not Found
+    description: The addressed project, funnel, annotation, view, organisation or error does not exist.
+    remediation: Verify the identifier; do not retry.
+    retryable: false
+  - status: 409
+    title: Conflict
+    description: >-
+      Returned by POST /log/revenue when a Stripe or Paddle key is already
+      connected for the project — sending revenue via the API as well would
+      double-count transactions.
+    remediation: >-
+      Disconnect the existing revenue source in Project Settings → Revenue, or
+      stop posting revenue through the API and let the payment-processor
+      integration carry it.
+    retryable: false
+    docs: https://swetrix.com/docs/events-api
+  - status: 422
+    title: Unprocessable Entity
+    description: >-
+      Statistics API v2 only. An unknown dimension, metric or filter operator was
+      supplied. The response message lists the supported values.
+    remediation: >-
+      Discover the legal dimensions and metrics for a data type from
+      GET /v2/projects/{pid}/dimensions before composing the query.
+    retryable: false
+    docs: https://swetrix.com/docs/api/stats-v2
+  - status: 429
+    title: Too Many Requests
+    description: >-
+      The plan's hourly request quota is exhausted (Standard 300/hour, Plus
+      6,000/hour, Enterprise custom).
+    remediation: >-
+      Back off exponentially with jitter and retry. Swetrix documents no
+      RateLimit-* or Retry-After response header, so the client must track its
+      own budget.
+    retryable: true
+    docs: https://swetrix.com/docs/statistics-api
+  - status: 500
+    title: Internal Server Error
+    description: >-
+      A temporary server-side problem (the docs cite database unavailability).
+    remediation: Retry later with backoff; contact support if it persists.
+    retryable: true
+    docs: https://swetrix.com/docs/events-api
+success_codes:
+  - status: 201
+    title: Created
+    description: The event was recorded. Event-ingestion endpoints return 201, not 200.
+related_surfaces:
+  - name: Swetrix CAPTCHA validation
+    endpoint: POST https://api.swetrixcaptcha.com/v1/captcha/validate
+    envelope: '{ "statusCode": 400, "message": "Could not decrypt token", "error": "Bad Request" }'
+    note: >-
+      Same NestJS envelope. Success is '{"success": true, "data": {challenge,
+      timestamp, pid}}'. A token can only be validated once — a second validation
+      of the same token always fails, by design, to block replay.
+    docs: https://swetrix.com/docs/captcha/server-side-validation
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

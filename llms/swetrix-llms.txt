@@ -1,0 +1,44 @@
+# Swetrix
+
+> Swetrix is an open source, privacy-focused and cookie-less alternative to Google Analytics. Designed to be easy to use while providing all the features you need to understand your website users, including traffic tracking, site speed monitoring, user session analysis, page flows, custom events, and error tracking.
+
+Swetrix is a comprehensive web analytics platform that respects user privacy by not using cookies for tracking. It provides GDPR-compliant analytics without requiring cookie banners. The platform offers real-time data, custom events tracking, user flow analysis, performance monitoring, funnels, session analysis, and integrations with popular platforms.
+
+Key differentiators:
+- **Privacy-first**: No cookies, GDPR compliant, anonymous data collection
+- **Open source**: Available under AGPL v3.0 license with self-hosting options
+- **Developer-friendly**: APIs, multiple integrations, extensive documentation
+- **Real-time analytics**: Live visitor monitoring and instant data updates
+- **Performance monitoring**: Page load times, real user monitoring
+- **Error tracking**: Simple, easy to set up, real-time error monitoring and reporting
+
+Swetrix is built with Nest.js backend (MySQL + ClickHouse databases) and Remix frontend with Tailwind CSS. It's registered in the UK and hosted in Germany (Hetzner).
+
+## Documentation
+
+- [Installation Guide](https://swetrix.com/docs/install-script): Complete guide to installing Swetrix tracking script on your website
+- [Self-hosting Documentation](https://swetrix.com/docs/selfhosting/how-to): How to self-host Swetrix on your own servers
+- [Statistics API Documentation](https://swetrix.com/docs/statistics-api): Public API for data aggregation and programmatic access
+- [Error Tracking Documentation](https://swetrix.com/docs/error-tracking): Guide for setting up error monitoring
+
+## Development
+
+- [Contributing Guide](https://raw.githubusercontent.com/Swetrix/swetrix/main/CONTRIBUTING.MD): How to contribute to Swetrix development, set up local environment
+- [Main Repository](https://github.com/Swetrix/swetrix): Full source code for both backend and frontend
+- [Public Roadmap](https://github.com/Swetrix/swetrix/issues): Current and planned features
+- [Live Demo](https://swetrix.com/demo): Swetrix's own analytics dashboard as a live demo
+
+## Integration Guides
+
+- [React Integration](https://swetrix.com/docs/integrations/react): Setting up Swetrix with React applications
+- [Vue.js Integration](https://swetrix.com/docs/integrations/vue): Vue.js setup guide
+- [WordPress Integration](https://swetrix.com/docs/integrations/wordpress): WordPress plugin and manual setup
+- [Google Tag Manager](https://swetrix.com/docs/integrations/gtm): Using Swetrix with GTM
+
+## Optional
+
+- [Privacy Policy](https://swetrix.com/privacy): Details on data handling and privacy practices
+- [Terms of Service](https://swetrix.com/terms): Legal terms and conditions
+- [Blog](https://swetrix.com/blog): Articles about web analytics, privacy, and performance optimisation
+- [Discord Community](https://discord.gg/ZVK8Tw2E8j): Community support and discussions
+- [Twitter](https://x.com/swetrix): Official Twitter account

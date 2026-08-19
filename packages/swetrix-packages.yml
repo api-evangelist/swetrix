@@ -1,0 +1,134 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org, proxy.golang.org, pypi.org, rubygems.org, crates.io,
+  packagist.org, api.wordpress.org, https://github.com/orgs/Swetrix/repositories,
+  https://swetrix.com/docs/captcha/client-side-usage
+note: >-
+  Swetrix consolidated its client libraries into the Swetrix/swetrix monorepo in
+  February 2026 — the standalone swetrix-js, swetrix-node, swetrix-nextjs and
+  swetrix-browser repositories are all archived and their npm packages now point
+  their repository field at github.com/Swetrix/swetrix. Only the browser tracker
+  (swetrix), the server-side tracker (@swetrix/node) and the CAPTCHA widget
+  (@swetrix/captcha) are actively released; the rest are dormant. Registry
+  metadata read 2026-08-13.
+packages:
+  - language: javascript
+    registry: npm
+    name: swetrix
+    url: https://www.npmjs.com/package/swetrix
+    install: npm install swetrix
+    official: true
+    version: 4.5.0
+    published: '2026-07-28'
+    repository: https://github.com/Swetrix/swetrix
+    note: >-
+      Browser tracking script. Also distributed unpinned from the provider CDN at
+      https://swetrix.org/swetrix.js (HTTP 200), which floats to latest — a
+      consumer of the CDN build cannot tell which version they are running.
+  - language: javascript
+    registry: npm
+    name: "@swetrix/node"
+    url: https://www.npmjs.com/package/@swetrix/node
+    install: npm install @swetrix/node
+    official: true
+    version: 3.3.1
+    published: '2026-07-28'
+    repository: https://github.com/Swetrix/swetrix
+    note: Server-side (Node.js) tracking module; wraps the Events API.
+  - language: javascript
+    registry: npm
+    name: "@swetrix/captcha"
+    url: https://www.npmjs.com/package/@swetrix/captcha
+    install: npm install @swetrix/captcha
+    official: true
+    version: 2.3.0
+    published: '2026-05-23'
+    repository: https://github.com/Swetrix/swetrix
+    note: >-
+      Swetrix CAPTCHA widget, npm distribution added in captcha@2.3.0
+      (2026-05-18 release).
+  - language: javascript
+    registry: npm
+    name: "@swetrix/captcha-validator"
+    url: https://www.npmjs.com/package/@swetrix/captcha-validator
+    install: npm install @swetrix/captcha-validator
+    official: true
+    version: 1.0.0
+    published: '2023-03-17'
+    repository: https://github.com/Swetrix/captcha-validator
+    note: >-
+      Server-side CAPTCHA token validator. Source repository is archived and the
+      package has not been republished since 2023 — dormant.
+  - language: javascript
+    registry: npm
+    name: "@swetrix/nextjs"
+    url: https://www.npmjs.com/package/@swetrix/nextjs
+    install: npm install @swetrix/nextjs
+    official: true
+    version: 1.0.1
+    published: '2022-05-03'
+    repository: https://github.com/Swetrix/swetrix-nextjs
+    note: >-
+      Abandoned. Source repository archived 2026-02-15 and the package has not
+      been published since 2022; the current Next.js guidance in
+      https://swetrix.com/docs/nextjs-integration uses the `swetrix` package
+      directly.
+  - language: javascript
+    registry: cdn
+    name: captcha-loader.js
+    url: https://cdn.swetrixcaptcha.com/captcha-loader.js
+    install: '<script src="https://cdn.swetrixcaptcha.com/captcha-loader.js" defer></script>'
+    official: true
+    version: null
+    published: null
+    note: >-
+      CDN-distributed CAPTCHA loader (HTTP 200, 5,190 bytes). The documented
+      script tag is unpinned and has no version in the URL and no CDN metadata
+      endpoint, so neither we nor a consumer can tell which build is served.
+      Recorded as null deliberately — checked, nothing to record.
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/swetrix/cq-source-swetrix
+    url: https://pkg.go.dev/github.com/swetrix/cq-source-swetrix
+    install: go get github.com/swetrix/cq-source-swetrix
+    official: true
+    version: v1.0.0
+    published: '2023-11-20'
+    repository: https://github.com/Swetrix/cq-source-swetrix
+    note: >-
+      CloudQuery source plugin for Swetrix. Version read from
+      proxy.golang.org/github.com/swetrix/cq-source-swetrix/@v/list; last commit
+      to the repository was 2023-11-20 — dormant.
+  - language: python
+    registry: null
+    name: swetrix-django-plugin
+    url: https://github.com/Swetrix/django-plugin
+    install: null
+    official: true
+    version: null
+    published: null
+    note: >-
+      Source-only. Swetrix links a Django plugin from apis.yml, but no matching
+      distribution exists on PyPI (pypi.org/pypi/swetrix/json, /django-swetrix,
+      /swetrix-django all returned 404 on 2026-08-13) and the repository has had
+      no commit since 2022-06-03. Checked, nothing to record.
+absent_registries:
+  - registry: pypi
+    checked: ['swetrix', 'django-swetrix', 'swetrix-django']
+    result: 404 — no first-party Python package published
+  - registry: rubygems
+    result: no match for "swetrix"
+  - registry: crates.io
+    result: no match for "swetrix"
+  - registry: packagist
+    result: >-
+      only a third-party package (falcon/swetrix-laravel-server-side-tracking);
+      not first-party, not recorded
+  - registry: wordpress.org
+    result: >-
+      no plugin named "swetrix"; the WordPress integration guide is a manual
+      script-tag install
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

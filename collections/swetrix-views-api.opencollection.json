@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Swetrix Admin Annotations Views API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Views",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Project Views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/:pid/views",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ]
+          },
+          "docs": "Returns all saved dashboard views (segments) for a project. Optional X-Password header for password-protected projects."
+        },
+        {
+          "info": {
+            "name": "Create Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.swetrix.com/v1/project/:pid/views",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new saved dashboard view (segment) for a project."
+        },
+        {
+          "info": {
+            "name": "Get Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.swetrix.com/v1/project/:pid/views/:viewId",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single saved dashboard view configuration."
+        },
+        {
+          "info": {
+            "name": "Update Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.swetrix.com/v1/project/:pid/views/:viewId",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing saved view's name, filters, or custom events."
+        },
+        {
+          "info": {
+            "name": "Delete Project View",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.swetrix.com/v1/project/:pid/views/:viewId",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a saved dashboard view."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

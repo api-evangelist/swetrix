@@ -1,0 +1,87 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of every Swetrix host on 2026-08-13
+result: none
+note: >-
+  Every /.well-known/ path probed on every Swetrix host returned 404. NO
+  WellKnown and NO SecurityTxt pointer is emitted in apis.yml, because this file
+  documents an absence, not a presence. api.swetrix.com answers with the NestJS
+  JSON 404 envelope ({"message":"Cannot GET ...","error":"Not Found",
+  "statusCode":404}); swetrix.com answers with the Remix HTML 404 page — neither
+  is a served discovery document. Swetrix does publish a security contact, but on
+  a human page (https://swetrix.com/security → security@swetrix.com) rather than
+  an RFC 9116 security.txt; that is captured in
+  security/swetrix-vulnerability-disclosure.yml.
+hosts:
+  - host: https://api.swetrix.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /security.txt
+        status: 404
+  - host: https://swetrix.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /security.txt
+        status: 404
+  - host: https://docs.swetrix.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 301
+        note: redirects to https://swetrix.com/docs/..., which 404s
+      - path: /.well-known/agent-card.json
+        status: 301
+      - path: /.well-known/agent.json
+        status: 301
+  - host: https://cdn.swetrixcaptcha.com
+    note: CAPTCHA asset CDN, discovered in the CAPTCHA client-side usage docs
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://api.swetrixcaptcha.com
+    note: >-
+      CAPTCHA validation API. Every anonymous GET, including the root, returns
+      403 — the host only answers the documented POST /v1/captcha/validate.
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+      - path: /.well-known/security.txt
+        status: 403
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

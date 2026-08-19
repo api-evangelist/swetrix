@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://swetrix.com/docs/statistics-api, https://swetrix.com/docs/api/stats-v2,
+  https://status.swetrix.com/, https://github.com/Swetrix/swetrix/releases,
+  https://swetrix.com/pricing
+versioning:
+  scheme: uri-path
+  current: v2
+  also_supported: v1
+  docs: https://swetrix.com/docs/api/stats-v2
+  policy: >-
+    Additive. The v2 statistics API was introduced alongside v1 rather than
+    replacing it; the v1 reference carries a standing banner stating "This v1 API
+    keeps working as documented below" and the v2 reference states "The v1 API
+    keeps working; v2 is additive." Event-ingestion routes (POST /log,
+    /log/custom, /log/hb, /log/identify, /log/error, /log/revenue) are unversioned
+    and have been stable across the v5.x platform line.
+  product_versioning:
+    scheme: semver
+    current: v5.4.1
+    released: '2026-08-04'
+    source: https://github.com/Swetrix/swetrix/releases
+    note: >-
+      Swetrix versions the whole open-source platform, and the tracker packages
+      independently (tracker-js@4.5.0, tracker-node@3.3.1, captcha@2.3.0). The
+      hosted cloud API itself carries no published version number.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: not documented
+  deprecation_header: not documented
+  note: >-
+    Swetrix publishes NO API deprecation or sunset policy — there is no page
+    stating a notice period, no RFC 8594 Sunset/Deprecation header contract, and
+    no deprecation notices in the API reference. The only lifecycle signalling is
+    the release-notes convention: breaking changes for self-hosted installations
+    are flagged with a GitHub "[!WARNING] This release includes breaking changes"
+    callout plus migration instructions (e.g. v5.3.0 on 2026-06-29 and v5.4.0 on
+    2026-08-04). Because there is no published policy, apis.yml deliberately
+    carries no `type: Deprecation` pointer.
+deprecated_operations: []
+status_page:
+  url: https://status.swetrix.com/
+  status: 200
+  probed: '2026-08-13'
+  scope: >-
+    Per-service current status, historical uptime percentages, daily
+    operational/downtime bars, incident history and a "Get in touch" channel.
+    Swetrix Website and the API are monitored as separate services precisely
+    because they are deployed separately — website downtime does not affect
+    incoming analytics data.
+  correction: >-
+    apis.yml previously pointed StatusPage at https://swetrix.com/status, which
+    returns HTTP 404 (probed 2026-08-13). Corrected to status.swetrix.com.
+sla:
+  url: https://swetrix.com/pricing
+  published_target: null
+  note: >-
+    No public uptime target. An "Enterprise SLA" is listed on the pricing
+    comparison table as an Enterprise-tier-only entitlement ("Not included" for
+    Standard and Plus); the SLA document itself is not published.
+support_lifecycle:
+  self_hosted: >-
+    Community Edition upgrades are user-driven; several releases require manual
+    database migrations, documented per release.
+  quota_enforcement:
+    docs: https://swetrix.com/docs/exceeding-plan-limits
+    note: >-
+      A dashboard may be locked if the plan is exceeded for two consecutive
+      months or by more than 30%, after 7 days notice, or after 5 failed billing
+      attempts. While locked, new analytics events are NOT accepted (API returns
+      402); existing data is retained and collection resumes on resolution.
+changelog:
+  artifact: changelog/swetrix-changelog.yml
+  url: https://github.com/Swetrix/swetrix/releases
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

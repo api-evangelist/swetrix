@@ -1,0 +1,283 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: openapi/*.yml (49 unique operations across 13 refined specs)
+note: >-
+  Swetrix ships NO MCP server. Probed 2026-08-13: POST tools/list against
+  https://api.swetrix.com/mcp returned the NestJS 404 envelope,
+  https://swetrix.com/mcp returned the Remix 404 page, and mcp.swetrix.com does
+  not resolve in DNS. Neither the docs (https://swetrix.com/docs), the llms.txt
+  (https://swetrix.com/llms.txt) nor the GitHub organisation lists an MCP server
+  or an @modelcontextprotocol package. The tools below are a DERIVED CANDIDATE
+  surface — one tool per unique OpenAPI operationId — offered as a starting point
+  for Swetrix, not a claim that any of it is deployed. Because nothing is
+  deployed, apis.yml deliberately carries NO `type: MCPServer` pointer: the
+  pointer asserts a reachable agent surface and there is none.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+server:
+  name: swetrix
+  transport: null
+  url: null
+  authentication:
+    scheme: apiKey
+    parameter: X-Api-Key
+    location: header
+    docs: https://swetrix.com/docs/settings/api-keys
+    note: >-
+      A real server would inherit the API-key model documented for the REST API;
+      public projects can be read without a key.
+tools:
+  - name: list_annotations
+    description: List Annotations
+    source_operation: openapi/swetrix-annotations-api-openapi.yml#listAnnotations
+    method: GET
+    path: /v1/project/annotations/{pid}
+  - name: create_annotation
+    description: Create Annotation
+    source_operation: openapi/swetrix-annotations-api-openapi.yml#createAnnotation
+    method: POST
+    path: /v1/project/annotation
+  - name: update_annotation
+    description: Update Annotation
+    source_operation: openapi/swetrix-annotations-api-openapi.yml#updateAnnotation
+    method: PATCH
+    path: /v1/project/annotation
+  - name: delete_annotation
+    description: Delete Annotation
+    source_operation: openapi/swetrix-annotations-api-openapi.yml#deleteAnnotation
+    method: DELETE
+    path: /v1/project/annotation/{id}/{pid}
+  - name: get_custom_events
+    description: Get Custom Events Data
+    source_operation: openapi/swetrix-custom-events-api-openapi.yml#getCustomEvents
+    method: GET
+    path: /v1/log/custom-events
+  - name: record_error
+    description: Record Error Event
+    source_operation: openapi/swetrix-errors-api-openapi.yml#recordError
+    method: POST
+    path: /log/error
+  - name: list_errors
+    description: List Error Events
+    source_operation: openapi/swetrix-errors-api-openapi.yml#listErrors
+    method: GET
+    path: /v1/log/errors
+  - name: get_error
+    description: Get Error Details
+    source_operation: openapi/swetrix-errors-api-openapi.yml#getError
+    method: GET
+    path: /v1/log/get-error
+  - name: get_error_overview
+    description: Get Error Statistics Overview
+    source_operation: openapi/swetrix-errors-api-openapi.yml#getErrorOverview
+    method: GET
+    path: /v1/log/error-overview
+  - name: record_pageview
+    description: Record Pageview Event
+    source_operation: openapi/swetrix-events-api-openapi.yml#recordPageview
+    method: POST
+    path: /log
+  - name: record_custom_event
+    description: Record Custom Event
+    source_operation: openapi/swetrix-events-api-openapi.yml#recordCustomEvent
+    method: POST
+    path: /log/custom
+  - name: record_heartbeat
+    description: Record Heartbeat Event
+    source_operation: openapi/swetrix-events-api-openapi.yml#recordHeartbeat
+    method: POST
+    path: /log/hb
+  - name: get_feature_flag_stats
+    description: Get Feature Flag Statistics
+    source_operation: openapi/swetrix-feature-flags-api-openapi.yml#getFeatureFlagStats
+    method: GET
+    path: /v1/feature-flag/{id}/stats
+  - name: list_funnels
+    description: List Funnels
+    source_operation: openapi/swetrix-funnels-api-openapi.yml#listFunnels
+    method: GET
+    path: /v1/project/funnels/{pid}
+  - name: create_funnel
+    description: Create Funnel
+    source_operation: openapi/swetrix-funnels-api-openapi.yml#createFunnel
+    method: POST
+    path: /v1/project/funnel
+  - name: update_funnel
+    description: Update Funnel
+    source_operation: openapi/swetrix-funnels-api-openapi.yml#updateFunnel
+    method: PATCH
+    path: /v1/project/funnel
+  - name: delete_funnel
+    description: Delete Funnel
+    source_operation: openapi/swetrix-funnels-api-openapi.yml#deleteFunnel
+    method: DELETE
+    path: /v1/project/funnel/{id}/{pid}
+  - name: get_funnel_analysis
+    description: Get Funnel Analysis
+    source_operation: openapi/swetrix-funnels-api-openapi.yml#getFunnelAnalysis
+    method: GET
+    path: /v1/log/funnel
+  - name: list_organisations
+    description: List Organisations
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#listOrganisations
+    method: GET
+    path: /v1/organisation
+  - name: create_organisation
+    description: Create Organisation
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#createOrganisation
+    method: POST
+    path: /v1/organisation
+  - name: get_organisation
+    description: Get Organisation
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#getOrganisation
+    method: GET
+    path: /v1/organisation/{orgId}
+  - name: update_organisation
+    description: Update Organisation
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#updateOrganisation
+    method: PATCH
+    path: /v1/organisation/{orgId}
+  - name: delete_organisation
+    description: Delete Organisation
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#deleteOrganisation
+    method: DELETE
+    path: /v1/organisation/{orgId}
+  - name: invite_organisation_member
+    description: Invite Organisation Member
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#inviteOrganisationMember
+    method: POST
+    path: /v1/organisation/{orgId}/invite
+  - name: update_organisation_member
+    description: Update Member Role
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#updateOrganisationMember
+    method: PATCH
+    path: /v1/organisation/member/{memberId}
+  - name: remove_organisation_member
+    description: Remove Organisation Member
+    source_operation: openapi/swetrix-organisations-api-openapi.yml#removeOrganisationMember
+    method: DELETE
+    path: /v1/organisation/member/{memberId}
+  - name: get_performance_log
+    description: Get Performance Metrics
+    source_operation: openapi/swetrix-performance-api-openapi.yml#getPerformanceLog
+    method: GET
+    path: /v1/log/performance
+  - name: get_performance_birdseye
+    description: Get Birdseye Performance Summary
+    source_operation: openapi/swetrix-performance-api-openapi.yml#getPerformanceBirdseye
+    method: GET
+    path: /v1/log/performance/birdseye
+  - name: list_projects
+    description: List Projects
+    source_operation: openapi/swetrix-projects-api-openapi.yml#listProjects
+    method: GET
+    path: /v1/project
+  - name: create_project
+    description: Create Project
+    source_operation: openapi/swetrix-projects-api-openapi.yml#createProject
+    method: POST
+    path: /v1/project
+  - name: get_project
+    description: Get Project
+    source_operation: openapi/swetrix-projects-api-openapi.yml#getProject
+    method: GET
+    path: /v1/project/{id}
+  - name: update_project
+    description: Update Project
+    source_operation: openapi/swetrix-projects-api-openapi.yml#updateProject
+    method: PUT
+    path: /v1/project/{id}
+  - name: delete_project
+    description: Delete Project
+    source_operation: openapi/swetrix-projects-api-openapi.yml#deleteProject
+    method: DELETE
+    path: /v1/project/{id}
+  - name: pin_project
+    description: Pin Project
+    source_operation: openapi/swetrix-projects-api-openapi.yml#pinProject
+    method: POST
+    path: /v1/project/{id}/pin
+  - name: unpin_project
+    description: Unpin Project
+    source_operation: openapi/swetrix-projects-api-openapi.yml#unpinProject
+    method: DELETE
+    path: /v1/project/{id}/pin
+  - name: record_revenue
+    description: Record Revenue Transaction
+    source_operation: openapi/swetrix-revenue-api-openapi.yml#recordRevenue
+    method: POST
+    path: /log/revenue
+  - name: list_sessions
+    description: List Sessions
+    source_operation: openapi/swetrix-sessions-api-openapi.yml#listSessions
+    method: GET
+    path: /v1/log/sessions
+  - name: get_session
+    description: Get Session Details
+    source_operation: openapi/swetrix-sessions-api-openapi.yml#getSession
+    method: GET
+    path: /v1/log/session
+  - name: get_traffic_log
+    description: Get Traffic Log
+    source_operation: openapi/swetrix-traffic-api-openapi.yml#getTrafficLog
+    method: GET
+    path: /v1/log
+  - name: get_birdseye_summary
+    description: Get Birdseye Traffic Summary
+    source_operation: openapi/swetrix-traffic-api-openapi.yml#getBirdseyeSummary
+    method: GET
+    path: /v1/log/birdseye
+  - name: get_live_visitors
+    description: Get Live Visitors
+    source_operation: openapi/swetrix-traffic-api-openapi.yml#getLiveVisitors
+    method: GET
+    path: /v1/log/live-visitors
+  - name: get_keywords
+    description: Get Search Keywords
+    source_operation: openapi/swetrix-traffic-api-openapi.yml#getKeywords
+    method: GET
+    path: /v1/log/keywords
+  - name: get_user_flow
+    description: Get User Navigation Flow
+    source_operation: openapi/swetrix-traffic-api-openapi.yml#getUserFlow
+    method: GET
+    path: /v1/log/user-flow
+  - name: get_filters
+    description: Get Available Filter Values
+    source_operation: openapi/swetrix-traffic-api-openapi.yml#getFilters
+    method: GET
+    path: /v1/log/filters
+  - name: list_views
+    description: List Project Views
+    source_operation: openapi/swetrix-views-api-openapi.yml#listViews
+    method: GET
+    path: /v1/project/{pid}/views
+  - name: create_view
+    description: Create Project View
+    source_operation: openapi/swetrix-views-api-openapi.yml#createView
+    method: POST
+    path: /v1/project/{pid}/views
+  - name: get_view
+    description: Get Project View
+    source_operation: openapi/swetrix-views-api-openapi.yml#getView
+    method: GET
+    path: /v1/project/{pid}/views/{viewId}
+  - name: update_view
+    description: Update Project View
+    source_operation: openapi/swetrix-views-api-openapi.yml#updateView
+    method: PATCH
+    path: /v1/project/{pid}/views/{viewId}
+  - name: delete_view
+    description: Delete Project View
+    source_operation: openapi/swetrix-views-api-openapi.yml#deleteView
+    method: DELETE
+    path: /v1/project/{pid}/views/{viewId}
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

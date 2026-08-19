@@ -1,0 +1,120 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/Swetrix/swetrix/releases
+scheme: semver
+current_version: v5.4.1
+current_released: '2026-08-04'
+window: '2026-05-18 → 2026-08-04 (10 most recent releases)'
+note: >-
+  Swetrix publishes no changelog page on swetrix.com — https://swetrix.com/changelog
+  and https://swetrix.com/docs/changelog both return 404 (probed 2026-08-13). The
+  dated release history lives entirely in GitHub Releases on the Swetrix/swetrix
+  monorepo, which tags three independent lines: the platform (vN.N.N), the browser
+  tracker (tracker-js@N.N.N), the server tracker (tracker-node@N.N.N) and the
+  CAPTCHA widget (captcha@N.N.N). Breaking changes are called out with a GitHub
+  [!WARNING] / [!IMPORTANT] callout plus migration instructions, but only for
+  self-hosted installations; the docs carry no cloud-API change history.
+release_lines:
+  - id: platform
+    tag_pattern: vN.N.N
+    description: The Swetrix Community Edition / cloud platform (backend + frontend).
+  - id: tracker-js
+    tag_pattern: tracker-js@N.N.N
+    description: Browser tracking script; published to npm as `swetrix`.
+  - id: tracker-node
+    tag_pattern: tracker-node@N.N.N
+    description: Server-side tracker; published to npm as `@swetrix/node`.
+  - id: captcha
+    tag_pattern: captcha@N.N.N
+    description: CAPTCHA widget; published to npm as `@swetrix/captcha`.
+entries:
+  - version: v5.4.1
+    line: platform
+    date: '2026-08-04'
+    breaking: false
+    highlights:
+      - Fix failing backend build.
+    note: Points at the v5.4.0 notes for the migration required when coming from v5.3.x.
+  - version: v5.4.0
+    line: platform
+    date: '2026-08-04'
+    breaking: true
+    breaking_scope: self-hosted (database migration required)
+    additions:
+      - >-
+        Visitor identification — identify() links anonymous activity to a
+        persistent `usr_` profile, merging pre-sign-in activity into the
+        identified profile.
+      - Profile traits — arbitrary key/value metadata attached to identified profiles.
+    api_impact:
+      - New event-ingestion endpoint POST /log/identify.
+      - Profiles surface added to the v2 statistics API (/v2/projects/{pid}/profiles).
+  - version: tracker-js@4.5.0
+    line: tracker-js
+    date: '2026-07-28'
+    breaking: false
+    additions:
+      - identify(), setTraits() and reset() for profile identification.
+    highlights:
+      - Analytics requests now sent with `keepalive`, so events fired right before page unload survive.
+  - version: tracker-node@3.3.1
+    line: tracker-node
+    date: '2026-07-28'
+    breaking: false
+    highlights:
+      - 'Fix: the returned profile ID was missing the `usr_` prefix.'
+  - version: tracker-node@3.3.0
+    line: tracker-node
+    date: '2026-07-28'
+    breaking: false
+    additions:
+      - 'identify(ip, userAgent, profileId, traits?) method.'
+    note: >-
+      Unlike the browser tracker this does not set a default profileId for
+      subsequent calls — profileId must be passed per track/trackPageView call.
+  - version: v5.3.1
+    line: platform
+    date: '2026-07-01'
+    breaking: false
+    highlights:
+      - Fix failing backend build.
+  - version: v5.3.0
+    line: platform
+    date: '2026-06-29'
+    breaking: true
+    breaking_scope: self-hosted (configuration update + database migration required)
+    additions:
+      - >-
+        SEO analytics — impressions-by-position breakdown and an organic
+        positions time series, plus period-over-period SEO comparison.
+      - CAPTCHA Auto mode, selecting challenge difficulty dynamically.
+    api_impact:
+      - SEO endpoints in the v2 statistics API (/v2/projects/{pid}/seo/*).
+  - version: tracker-js@4.4.0
+    line: tracker-js
+    date: '2026-06-05'
+    breaking: false
+    highlights:
+      - >-
+        Session Replay continuity across page loads and navigations using the
+        backend-provided replay ID and next chunk index.
+      - >-
+        Byte-based replay limits (maxBytesPerChunk, maxBytesPerEvent), safer
+        default rrweb sampling, slimmer DOM capture.
+      - New privacy controls — maskAllText and recordIframes.
+  - version: tracker-js@4.3.0
+    line: tracker-js
+    date: '2026-06-05'
+    breaking: false
+    additions:
+      - Session Replay via startSessionReplay().
+  - version: captcha@2.3.0
+    line: captcha
+    date: '2026-05-18'
+    breaking: false
+    additions:
+      - CAPTCHA can now be installed and used via npm (@swetrix/captcha).
+      - Hungarian language support.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

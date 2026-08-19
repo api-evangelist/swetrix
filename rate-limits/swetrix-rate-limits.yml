@@ -4,34 +4,96 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Swetrix
 providerId: swetrix
 created: '2026-05-04'
-modified: '2026-05-05'
-reconciled: false
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+reconciled: true
+sources:
+  - https://swetrix.com/docs/statistics-api
+  - https://swetrix.com/docs/api/stats-v2
+  - https://swetrix.com/pricing
+  - https://swetrix.com/docs/exceeding-plan-limits
 tags:
   - Analytics
   - Web Analytics
   - Rate Limiting
-description: Swetrix's pricing page does not publish per-second rate limits for the API. The primary
-  consumption ceiling is the monthly event quota tied to the subscribed plan. This artifact captures
-  the quota-based throttling envelope; per-second numbers should be sourced from the live API documentation
-  if/when published.
-sources:
-  - https://swetrix.com/#pricing
-  - https://swetrix.com/docs/api/
+description: >-
+  Swetrix publishes real, per-plan hourly request limits on both the Statistics
+  API reference and the pricing comparison table — Standard 300 requests/hour,
+  Plus 6,000 requests/hour (marketed as "20x higher API rate limits"), Enterprise
+  custom and potentially unlimited on request. Rate limits are identical for the
+  v1 and v2 statistics APIs. Separately, and independently of the request rate, a
+  plan's monthly EVENT quota governs ingestion. Swetrix documents NO rate-limit
+  response headers, which is the practical gap here: an agent can read the number
+  from the docs but cannot read its remaining budget at runtime.
+limit_count: 3
 responseCodes:
   throttled: 429
+responseHeaders:
+  documented: false
+  headers: []
+  retry_after: not documented
+  note: >-
+    Searched the Statistics API reference, the v2 reference and the pricing page
+    on 2026-08-13 — no RateLimit-*, X-RateLimit-* or Retry-After header is
+    documented. Clients must track their own consumption and back off blind.
 limits:
-  - name: Monthly Event Quota (Plan-Bound)
+  - name: Standard plan API requests
+    scope: account
+    metric: requests
+    limit: 300
+    window: hour
+    burst: not documented
+    plan: Standard
+    source: https://swetrix.com/docs/statistics-api
+  - name: Plus plan API requests
+    scope: account
+    metric: requests
+    limit: 6000
+    window: hour
+    burst: not documented
+    plan: Plus
+    source: https://swetrix.com/docs/statistics-api
+  - name: Enterprise plan API requests
+    scope: account
+    metric: requests
+    limit: null
+    window: hour
+    plan: Enterprise
+    notes: >-
+      "Custom, and may be unlimited on demand." Negotiated; contact Swetrix to
+      request more capacity.
+    source: https://swetrix.com/docs/statistics-api
+quotas:
+  - name: Monthly event quota (plan-bound)
     scope: account
     metric: events_per_month
-    limit: see plans/swetrix-plans-pricing.yml for the subscribed tier (100k Starter through 20M Mega)
-    notes: Swetrix's primary throttle is the monthly event volume tied to the subscribed plan; events
-      beyond the included quota require upgrading to a higher tier or to the Custom plan.
+    limit: see plans/swetrix-plans-pricing.yml — 100K through 50M+, selected per tier
+    counted_as: >-
+      An event is a pageview, a custom event or an error event sent to Swetrix by
+      the tracking script or the Events API.
+    enforcement: >-
+      Exceeding the quota does not trigger an automatic upgrade or an overage
+      charge. Swetrix may lock the dashboard after 7 days notice if the plan is
+      exceeded for two consecutive months or by more than 30%. While locked, new
+      analytics events are NOT accepted (the API returns 402 Payment Required);
+      existing data is retained and collection resumes once resolved.
+    source: https://swetrix.com/docs/exceeding-plan-limits
 policies:
-  - name: Quota-Based Throttling
-    description: Swetrix differentiates plans by monthly event quota rather than per-second request
-      limits. Customers approaching the quota should upgrade or contact sales for the Custom tier.
-  - name: Backoff Strategy
-    description: Clients receiving HTTP 429 should pause and retry with exponential backoff and jitter.
+  - name: Per-plan hourly request throttling
+    description: >-
+      The API rate limit is a property of the subscription tier, not of the
+      endpoint. v1 and v2 share the same budget.
+  - name: Backoff strategy
+    description: >-
+      Because no Retry-After or RateLimit-* header is published, clients
+      receiving HTTP 429 should pause and retry with exponential backoff and
+      jitter, and should pace long-running exports rather than bursting.
+  - name: Capacity on request
+    description: >-
+      "If you have special needs for more requests, please contact us to request
+      more capacity."
+    source: https://swetrix.com/docs/statistics-api
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

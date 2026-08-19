@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://swetrix.com/docs/captcha/testing,
+  https://swetrix.com/docs/captcha/server-side-validation,
+  https://swetrix.com/pricing, https://swetrix.com/demo,
+  https://swetrix.com/docs/selfhosting/how-to
+description: >-
+  Swetrix runs no test/live key separation on its analytics API — there is one
+  production API key per account and no sandbox mode. The only published magic
+  test values belong to the CAPTCHA product, which ships dummy project IDs and
+  dummy secret keys that force a deterministic pass or fail.
+test_live_separation:
+  supported: false
+  key_prefixes: none
+  note: >-
+    A Swetrix API key is a single opaque credential generated in Account
+    Settings → Account → API key. There is no test-mode key, no key prefix, and
+    no per-mode data partition. Analytics written with a key are real analytics.
+magic_test_values:
+  - product: CAPTCHA
+    kind: project_id
+    docs: https://swetrix.com/docs/captcha/testing
+    values:
+      - value: AP00000000000
+        behaviour: Always passes the captcha regardless of what is entered in the challenge input field.
+      - value: FAIL000000000
+        behaviour: Always fails the captcha.
+  - product: CAPTCHA
+    kind: secret_key
+    docs: https://swetrix.com/docs/captcha/testing
+    values:
+      - value: PASS000000000000000000
+        behaviour: Server-side validation always succeeds.
+      - value: FAIL000000000000000000
+        behaviour: Server-side validation always fails.
+      - value: USED000000000000000000
+        behaviour: >-
+          Server-side validation always fails with the "token already used"
+          outcome — lets an integrator exercise the single-use / replay path
+          without burning a real token.
+    note: >-
+      Published verbatim by Swetrix as dummy values. Real tokens can only be
+      validated once; a second validation of the same token always fails by
+      design.
+    validation_endpoint: POST https://api.swetrixcaptcha.com/v1/captcha/validate
+trial:
+  length_days: 14
+  payment_method_required: true
+  cancel_anytime: true
+  free_plan: false
+  docs: https://swetrix.com/pricing
+  note: >-
+    The 14-day trial is the closest thing to a hosted evaluation surface for the
+    analytics API — a payment method is required to start it, so it is not an
+    anonymous sandbox.
+local_environment:
+  supported: true
+  kind: self-hosted Community Edition
+  install: docker compose (https://github.com/Swetrix/selfhosting)
+  docs: https://swetrix.com/docs/selfhosting/how-to
+  note: >-
+    The AGPL-3.0 Community Edition is the practical way to exercise the API
+    against disposable data. It is also the only environment where the NestJS
+    Swagger UI is reachable — the backend mounts it at /api only when
+    isDevelopment is true.
+public_demo:
+  url: https://swetrix.com/demo
+  status: 200
+  note: >-
+    Swetrix's own analytics dashboard, public and read-only. A public project can
+    be queried through the statistics API without an API key, so the demo doubles
+    as an unauthenticated read target.
+time_simulation:
+  supported: false
+  note: No test clocks or time-travel fixtures — analytics are wall-clock bound.
+fixtures_and_triggers:
+  webhook_test:
+    supported: true
+    note: >-
+      Notification channels have a "Send test" button that dispatches a sample
+      message immediately, before verification. Custom webhook channels also
+      receive a verification ping with the smaller payload
+      { "type": "verification", "timestamp": "..." }.
+    docs: https://swetrix.com/docs/analytics-dashboard/alerts
+  data_import:
+    supported: true
+    note: Google Analytics import can seed a project with historical data.
+    docs: https://swetrix.com/docs/data-import
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

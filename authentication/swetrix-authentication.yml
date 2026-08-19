@@ -1,18 +1,89 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/swetrix-admin-api-openapi.yml, openapi/swetrix-events-api-openapi.yml, openapi/swetrix-statistics-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/*.yml (derived baseline)
+docs: https://swetrix.com/docs/settings/api-keys
+searched_sources:
+  - https://swetrix.com/docs/settings/api-keys
+  - https://swetrix.com/docs/statistics-api
+  - https://swetrix.com/docs/api/stats-v2
+  - https://swetrix.com/docs/events-api
+  - https://swetrix.com/security
 summary:
   types:
-  - apiKey
+    - apiKey
   api_key_in:
-  - header
+    - header
+  oauth2: false
+  oidc: false
+  note: >-
+    Swetrix is API-key only. There is no OAuth, no OIDC and no scope surface —
+    /.well-known/openid-configuration and /.well-known/oauth-authorization-server
+    return 404 on every host (probed 2026-08-13), so scopes/ is deliberately not
+    written for this provider.
 schemes:
-- name: ApiKeyAuth
-  type: apiKey
-  in: header
-  parameter: X-Api-Key
-  description: API key from Swetrix account settings (https://swetrix.com/user-settings)
-  sources:
-  - openapi/swetrix-admin-api-openapi.yml
-  - openapi/swetrix-events-api-openapi.yml
-  - openapi/swetrix-statistics-api-openapi.yml
+  - name: ApiKeyAuth
+    type: apiKey
+    in: header
+    parameter: X-Api-Key
+    description: API key from Swetrix account settings (https://swetrix.com/user-settings)
+    sources:
+      - openapi/swetrix-admin-api-openapi.yml
+      - openapi/swetrix-events-api-openapi.yml
+      - openapi/swetrix-statistics-api-openapi.yml
+key_management:
+  issuance: >-
+    Account Settings → Account tab → API key section → "Generate API key". The
+    key is displayed once on creation.
+  count_per_account: one
+  rotation: >-
+    Delete and regenerate. Deleting immediately breaks every application or
+    script using the key — there is no overlap window and no second active key,
+    so rotation is a hard cutover.
+  revocation: Account Settings → API key → "Delete API key" with modal confirmation.
+  scoping: >-
+    None. A key carries the full rights of the account that owns it, across every
+    project that account can reach. There is no read-only key, no per-project key
+    and no expiry.
+  prefix: none published
+  test_keys: >-
+    None — Swetrix has no test/live key separation. See
+    sandbox/swetrix-sandbox.yml.
+  guidance: >-
+    "Treat API keys like passwords. Keep them secret, do not hardcode them, and
+    do not share them."
+  docs: https://swetrix.com/docs/settings/api-keys
+anonymous_access:
+  supported: true
+  conditions:
+    - >-
+      Public projects can be queried through the Statistics API (v1 and v2)
+      without an API key. The v1 reference states requests without a valid key
+      fail "except for the publicly available API endpoints"; the v2 reference
+      states "Public projects can be queried without a key."
+    - >-
+      Event ingestion (POST /log, /log/custom, /log/hb, /log/error) is
+      unauthenticated by design — the tracking script runs in a visitor's
+      browser and carries only the project id.
+  exception: >-
+    POST /log/revenue is server-side only and REQUIRES an API key whose account
+    has rights on the target project; a key without them returns 403.
+account_security:
+  two_factor: supported (https://swetrix.com/docs/settings/2-factor-authentication)
+  sso:
+    supported: true
+    note: >-
+      Native SSO is referenced on the security page; SAML-based SSO is listed as
+      an Enterprise-tier entitlement on the pricing comparison.
+  password_storage: bcrypt (hashed and salted), per https://swetrix.com/security
+  token_storage: >-
+    Integration tokens (Google Search Console OAuth, Paddle/Stripe revenue keys)
+    are encrypted at rest with AES-256-CBC and Rabbit.
+transport:
+  https_required: true
+  hsts: true
+  hsts_max_age: 31536000
+  tls: TLSv1.3
+  evidence: security/swetrix-domain-security.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

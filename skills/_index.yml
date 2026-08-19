@@ -1,0 +1,29 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/*.yml (every operationId grepped and verified present) plus the
+  published Swetrix developer reference at https://swetrix.com/docs
+note: >-
+  Swetrix publishes no AGENTS.md and no first-party agent skills — these are API
+  Evangelist packaged operating instructions, grounded only in operationIds that
+  exist verbatim in openapi/.
+skills:
+  - file: swetrix-instrument-a-site.md
+    name: Instrument a site and send events to Swetrix
+    api: openapi/swetrix-events-api-openapi.yml
+    operations: [createProject, getProject, recordPageview, recordCustomEvent, recordHeartbeat, recordError]
+  - file: swetrix-pull-traffic-analytics.md
+    name: Pull traffic, performance and session analytics from Swetrix
+    api: openapi/swetrix-traffic-api-openapi.yml
+    operations: [getTrafficLog, getBirdseyeSummary, getLiveVisitors, getUserFlow, getKeywords, getFilters, getPerformanceLog, getPerformanceBirdseye, listSessions, getSession, listErrors, getError, getErrorOverview, getCustomEvents]
+  - file: swetrix-record-revenue-idempotently.md
+    name: Record revenue transactions in Swetrix idempotently
+    api: openapi/swetrix-revenue-api-openapi.yml
+    operations: [recordRevenue]
+  - file: swetrix-manage-projects-and-teams.md
+    name: Manage Swetrix projects, organisations, funnels, views and annotations
+    api: openapi/swetrix-projects-api-openapi.yml
+    operations: [listProjects, createProject, getProject, updateProject, deleteProject, pinProject, unpinProject, listOrganisations, createOrganisation, getOrganisation, updateOrganisation, deleteOrganisation, inviteOrganisationMember, updateOrganisationMember, removeOrganisationMember, listFunnels, createFunnel, updateFunnel, deleteFunnel, getFunnelAnalysis, listViews, createView, getView, updateView, deleteView, listAnnotations, createAnnotation, updateAnnotation, deleteAnnotation]
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

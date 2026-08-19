@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "cc00ee09-55b4-46f6-9f36-969f84510ace",
+      "id": "6d5fb927-4f89-4afa-8515-ee41c7346ce8",
       "name": "Events",
       "description": {
         "content": "Record analytics events (pageviews, custom events, heartbeats)",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "debba7df-9903-48ac-8ea3-72890f4aae94",
+          "id": "879159e9-6f7b-4101-854d-f32525b40465",
           "name": "Record Pageview Event",
           "request": {
             "name": "Record Pageview Event",
@@ -51,7 +51,7 @@
           },
           "response": [
             {
-              "id": "30d0c82d-b22f-4c4a-bf4d-f2d0ba83dcbe",
+              "id": "5ad81e24-0feb-4b1a-9100-e1d9c08ffa35",
               "name": "Pageview recorded successfully",
               "originalRequest": {
                 "url": {
@@ -65,6 +65,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -94,7 +102,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9127f5d2-b53e-4311-9875-2afa998d6ea9",
+              "id": "05dc63fb-81a6-4b4f-86a2-9623bc58a2f2",
               "name": "Bad request - malformed body, missing required fields, or disabled project",
               "originalRequest": {
                 "url": {
@@ -108,6 +116,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -137,7 +153,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6762ff08-f693-4bcb-900e-c2391bd965f7",
+              "id": "ffa62626-6295-4cf5-9a09-4671d070047e",
               "name": "Payment required - inactive project or quota exceeded",
               "originalRequest": {
                 "url": {
@@ -151,6 +167,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -180,7 +204,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "39a2efc6-302c-47b6-9e33-7d842f0e1441",
+              "id": "a2b6fa40-d5d8-47f4-8da3-a428df808cee",
               "name": "Internal server error",
               "originalRequest": {
                 "url": {
@@ -194,6 +218,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -229,7 +261,7 @@
           }
         },
         {
-          "id": "907496ca-c000-46e0-a4c9-64ac5f0120c1",
+          "id": "0f94043c-d8a4-45c0-881c-9560251f3c42",
           "name": "Record Custom Event",
           "request": {
             "name": "Record Custom Event",
@@ -262,7 +294,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"pid\": \"<string>\",\n  \"ev\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"ref\": \"<string>\",\n  \"so\": \"<string>\",\n  \"me\": \"<string>\",\n  \"ca\": \"<string>\",\n  \"unique\": \"<boolean>\",\n  \"meta\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"pid\": \"<string>\",\n  \"ev\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"ref\": \"<string>\",\n  \"so\": \"<string>\",\n  \"me\": \"<string>\",\n  \"ca\": \"<string>\",\n  \"unique\": \"<boolean>\",\n  \"meta\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -272,7 +304,7 @@
           },
           "response": [
             {
-              "id": "38b02dcd-5135-4a92-9c8c-b17dad2e8428",
+              "id": "14bea561-1425-45d2-bc5f-8f814f9c2381",
               "name": "Custom event recorded successfully",
               "originalRequest": {
                 "url": {
@@ -287,6 +319,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -316,7 +356,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "85bcf2a0-a950-4dc5-8c5b-b03c9bffdf35",
+              "id": "d12a6cd2-6ad0-4d9d-838a-66928552ac00",
               "name": "Bad request - malformed body, missing required fields, or disabled project",
               "originalRequest": {
                 "url": {
@@ -331,6 +371,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -360,7 +408,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d0bd8203-15d8-435c-b789-6e76901e0771",
+              "id": "60c4da41-32f7-490c-9eff-901d20d017fb",
               "name": "Payment required - inactive project or quota exceeded",
               "originalRequest": {
                 "url": {
@@ -375,6 +423,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -404,7 +460,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f8de1b7a-7b40-47b0-858c-cd516078ab5a",
+              "id": "f51c32fa-004c-44ff-9c20-31f2581c8002",
               "name": "Forbidden - duplicate unique event, invalid API key, or insufficient permissions",
               "originalRequest": {
                 "url": {
@@ -419,6 +475,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -448,7 +512,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "78123870-5144-4be8-94af-7f019f8bcd1e",
+              "id": "58a2a72e-5fd9-4708-bd29-4242758f46bc",
               "name": "Internal server error",
               "originalRequest": {
                 "url": {
@@ -463,6 +527,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -498,7 +570,7 @@
           }
         },
         {
-          "id": "2b4b81f8-71c7-43a8-ab24-f7c11f8441c5",
+          "id": "0e240670-51db-40c9-9cc8-8d3b3407c7d9",
           "name": "Record Heartbeat Event",
           "request": {
             "name": "Record Heartbeat Event",
@@ -541,7 +613,7 @@
           },
           "response": [
             {
-              "id": "d7fd7224-af3f-4d3b-a143-6d93c4bcc460",
+              "id": "dc8b9f4a-3463-4233-a48a-ddc26ce11d59",
               "name": "Heartbeat recorded successfully",
               "originalRequest": {
                 "url": {
@@ -557,6 +629,14 @@
                 },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
                   }
@@ -585,7 +665,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "676ec7fb-a43e-4c1c-ab58-484ea478d54a",
+              "id": "75d492b1-77e4-4800-8a81-d96e43f72a0c",
               "name": "Bad request - malformed body, missing required fields, or disabled project",
               "originalRequest": {
                 "url": {
@@ -600,6 +680,14 @@
                   "variable": []
                 },
                 "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
@@ -629,7 +717,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "81feeb47-0f79-43fc-9081-ff7d7116d66e",
+              "id": "54134cad-59ca-412e-8e37-691f657a1447",
               "name": "Internal server error",
               "originalRequest": {
                 "url": {
@@ -645,6 +733,14 @@
                 },
                 "header": [
                   {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
                   }
@@ -653,482 +749,6 @@
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"pid\": \"abc123projectid\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        }
-      ],
-      "event": []
-    },
-    {
-      "id": "2d2ab346-617d-4439-8638-a8f35efdcf1d",
-      "name": "Errors",
-      "description": {
-        "content": "Record JavaScript error events",
-        "type": "text/plain"
-      },
-      "item": [
-        {
-          "id": "13699e67-c3f6-448c-b220-24d05507697c",
-          "name": "Record Error Event",
-          "request": {
-            "name": "Record Error Event",
-            "description": {
-              "content": "Records a JavaScript error event for aggregation in the Errors tab of the dashboard. Captures error name, message, stack trace, source file, and location. Errors are grouped by name and message.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "log",
-                "error"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"pid\": \"<string>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\",\n  \"lineno\": \"<integer>\",\n  \"colno\": \"<integer>\",\n  \"stackTrace\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"tz\": \"<string>\",\n  \"pg\": \"<string>\",\n  \"lc\": \"<string>\",\n  \"meta\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "aa21508f-65a2-477d-b81a-3bf77afd67a5",
-              "name": "Error recorded successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "error"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"name\": \"TypeError\",\n  \"message\": \"Cannot read property 'foo' of undefined\",\n  \"lineno\": 42,\n  \"colno\": 15,\n  \"filename\": \"https://example.com/app.js\",\n  \"pg\": \"/dashboard\",\n  \"lc\": \"en-US\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "19445c23-aae1-4280-9030-2e3ce0abd5bb",
-              "name": "Bad request - malformed body, missing required fields, or disabled project",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "error"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"name\": \"TypeError\",\n  \"message\": \"Cannot read property 'foo' of undefined\",\n  \"lineno\": 42,\n  \"colno\": 15,\n  \"filename\": \"https://example.com/app.js\",\n  \"pg\": \"/dashboard\",\n  \"lc\": \"en-US\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "13edab76-4b12-43a9-b1a1-a5c130431d4f",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "error"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"name\": \"TypeError\",\n  \"message\": \"Cannot read property 'foo' of undefined\",\n  \"lineno\": 42,\n  \"colno\": 15,\n  \"filename\": \"https://example.com/app.js\",\n  \"pg\": \"/dashboard\",\n  \"lc\": \"en-US\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        }
-      ],
-      "event": []
-    },
-    {
-      "id": "2e33a5fa-95f4-46ba-8de4-5bc70649d95b",
-      "name": "Revenue",
-      "description": {
-        "content": "Record revenue transactions (server-side only, requires API key)",
-        "type": "text/plain"
-      },
-      "item": [
-        {
-          "id": "4c430f2f-37ec-4194-9a83-cc6681afd90e",
-          "name": "Record Revenue Transaction",
-          "request": {
-            "name": "Record Revenue Transaction",
-            "description": {
-              "content": "Records a revenue transaction (sale, refund, or subscription) for the specified project. Server-side only — requires API key authentication via X-Api-Key header. Amounts should always be positive (type field distinguishes refunds).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "log",
-                "revenue"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Api-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"pid\": \"<string>\",\n  \"type\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"transactionId\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "da28e13a-aa97-4377-9740-20bb51e46578",
-              "name": "Revenue transaction recorded successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "revenue"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"success\": true,\n  \"transactionId\": \"txn_abc123\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fd5888ba-03cf-4e8a-95cf-83624931a7f6",
-              "name": "Bad request - malformed body, missing required fields, or disabled project",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "revenue"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "73a6ba26-82e3-4fe5-a446-c00ebc95830c",
-              "name": "Forbidden - duplicate unique event, invalid API key, or insufficient permissions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "revenue"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "eddd44e9-c007-4c38-aeb9-b8aed32c6a8f",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "log",
-                    "revenue"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"pid\": \"abc123projectid\",\n  \"type\": \"sale\",\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"productId\": \"plan_pro_monthly\",\n  \"productName\": \"Pro Monthly Plan\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1166,12 +786,29 @@
       "key": "baseUrl"
     }
   ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
   "info": {
-    "_postman_id": "45589520-4d78-4f02-ba31-50ce687f4d48",
-    "name": "Swetrix Events API",
+    "_postman_id": "db0ebd99-e10b-4a66-8b57-c55540578f82",
+    "name": "Swetrix Admin Annotations Events API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Swetrix Events API provides endpoints for recording pageview events, custom events, heartbeat sessions, error events, and revenue transactions. Used to send analytics data from client or server-side applications to Swetrix analytics projects. Most endpoints are public (project ID only); the revenue endpoint requires an API key.\n\nContact Support:\n Name: Swetrix Support",
+      "content": "The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.\n\nContact Support:\n Name: Swetrix Support",
       "type": "text/plain"
     }
   }

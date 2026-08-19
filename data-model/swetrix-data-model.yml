@@ -1,0 +1,221 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml (components.schemas + path parameters), cross-checked against
+  https://swetrix.com/docs/admin-api, https://swetrix.com/docs/api/stats-v2 and
+  https://swetrix.com/docs/analytics-dashboard/revenue-tracking
+description: >-
+  Swetrix's object graph hangs off a single root: the Project. Almost every
+  identifier in the API is `pid`, the project id, and the analytics entities
+  (sessions, errors, custom events, transactions) are event-derived rather than
+  CRUD resources — they can be read but not created or updated through the API.
+root_entity: Project
+id_conventions:
+  - field: pid
+    entity: Project
+    note: >-
+      The project id. Required on nearly every read and on every event-ingestion
+      call. In the v2 API it is a path segment (/v2/projects/{pid}/...); in v1 it
+      is a query parameter.
+  - field: profileId
+    prefix: usr_
+    entity: Profile
+    note: >-
+      Persistent visitor profile created by POST /log/identify. Confirmed by the
+      tracker-node@3.3.1 release note ("Profile ID returned was missing the
+      `usr_` prefix").
+  - field: transactionId
+    entity: Transaction
+    note: Caller-supplied stable id; doubles as the idempotency key on POST /log/revenue.
+  - field: orgId
+    entity: Organisation
+  - field: psid
+    entity: Session
+    note: v2 path parameter for a single session (/v2/projects/{pid}/sessions/{psid}).
+  - field: eid
+    entity: Error
+    note: v2 path parameter for a single error (/v2/projects/{pid}/errors/{eid}).
+entities:
+  - name: Project
+    schema: Project
+    lifecycle: crud
+    operations: [listProjects, createProject, getProject, updateProject, deleteProject, pinProject, unpinProject]
+    note: The analytics container — one per website.
+  - name: Organisation
+    schema: Organisation
+    lifecycle: crud
+    operations: [listOrganisations, createOrganisation, getOrganisation, updateOrganisation, deleteOrganisation]
+  - name: OrganisationMember
+    lifecycle: crud
+    operations: [inviteOrganisationMember, updateOrganisationMember, removeOrganisationMember]
+    roles: [Admin, Viewer]
+  - name: Funnel
+    schema: Funnel
+    lifecycle: crud
+    operations: [listFunnels, createFunnel, updateFunnel, deleteFunnel, getFunnelAnalysis]
+    components: [FunnelStep]
+  - name: Annotation
+    schema: Annotation
+    lifecycle: crud
+    operations: [listAnnotations, createAnnotation, updateAnnotation, deleteAnnotation]
+  - name: ProjectView
+    schema: ProjectView
+    lifecycle: crud
+    operations: [listViews, createView, getView, updateView, deleteView]
+    note: Saved dashboard views / segments.
+  - name: PageviewEvent
+    schema: PageviewEvent
+    lifecycle: append-only
+    operations: [recordPageview]
+  - name: CustomEvent
+    schema: CustomEvent
+    lifecycle: append-only
+    operations: [recordCustomEvent, getCustomEvents]
+  - name: HeartbeatEvent
+    schema: HeartbeatEvent
+    lifecycle: append-only
+    operations: [recordHeartbeat]
+  - name: ErrorEvent
+    schema: ErrorEvent
+    lifecycle: append-only
+    operations: [recordError]
+  - name: Error
+    lifecycle: read-only
+    operations: [listErrors, getError, getErrorOverview]
+    note: The aggregated error group derived from ErrorEvents.
+  - name: RevenueEvent
+    schema: RevenueEvent
+    lifecycle: upsert
+    operations: [recordRevenue]
+    note: >-
+      Upsert, not append — re-posting the same transactionId replaces the
+      existing transaction.
+  - name: Session
+    schema: SessionDetail
+    lifecycle: read-only
+    operations: [listSessions, getSession]
+    note: >-
+      Derived from events; a session ends after 30 minutes of inactivity, so one
+      visitor can produce several per day.
+  - name: Profile
+    lifecycle: read-only-after-identify
+    operations: []
+    note: >-
+      Created by POST /log/identify, which is documented at
+      https://swetrix.com/docs/events-api but is NOT yet present in any file
+      under openapi/ — a known gap in our specs, recorded in
+      overlays/swetrix-events-api-overlay.yaml. Read via the v2 /profiles
+      endpoints. Traits merge per key; a null value removes one.
+  - name: PerformanceMetrics
+    schema: PerformanceMetrics
+    lifecycle: read-only
+    operations: [getPerformanceLog, getPerformanceBirdseye]
+  - name: LiveVisitor
+    schema: LiveVisitor
+    lifecycle: read-only
+    operations: [getLiveVisitors]
+  - name: FeatureFlag
+    lifecycle: read-only
+    operations: [getFeatureFlagStats]
+relationships:
+  - from: Project
+    to: Organisation
+    kind: belongs_to
+    via: orgId
+    evidence: PATCH /v1/project/{id}/organisation assigns a project to an organisation.
+  - from: Organisation
+    to: OrganisationMember
+    kind: has_many
+    via: orgId
+  - from: Organisation
+    to: Project
+    kind: has_many
+    via: orgId
+  - from: Project
+    to: Funnel
+    kind: has_many
+    via: pid
+  - from: Project
+    to: Annotation
+    kind: has_many
+    via: pid
+  - from: Project
+    to: ProjectView
+    kind: has_many
+    via: pid
+  - from: Project
+    to: PageviewEvent
+    kind: has_many
+    via: pid
+  - from: Project
+    to: CustomEvent
+    kind: has_many
+    via: pid
+  - from: Project
+    to: ErrorEvent
+    kind: has_many
+    via: pid
+  - from: Project
+    to: Session
+    kind: has_many
+    via: pid
+  - from: Project
+    to: FeatureFlag
+    kind: has_many
+    via: pid
+  - from: Funnel
+    to: FunnelStep
+    kind: has_many
+    via: embedded array
+  - from: Session
+    to: PageviewEvent
+    kind: has_many
+    via: sessionId
+  - from: Profile
+    to: Session
+    kind: has_many
+    via: profileId
+    evidence: GET /v2/projects/{pid}/profiles/{profileId}/sessions
+  - from: Error
+    to: Session
+    kind: has_many
+    via: eid
+    evidence: GET /v2/projects/{pid}/errors/{eid}/sessions
+  - from: RevenueEvent
+    to: Profile
+    kind: belongs_to
+    via: profileId
+  - from: RevenueEvent
+    to: Session
+    kind: belongs_to
+    via: sessionId
+dimensions:
+  note: >-
+    Analytics reads are sliced by a fixed dimension vocabulary rather than by
+    joins. The full list is discoverable at runtime via
+    GET /v2/projects/{pid}/dimensions.
+  columns:
+    cc: country code
+    rg: region
+    ct: city
+    host: hostname
+    pg: page
+    lc: locale
+    br: browser
+    brv: browser version
+    os: operating system
+    osv: OS version
+    dv: device
+    ref: referrer
+    so: source
+    me: medium
+    ca: campaign
+    te: UTM term
+    co: UTM content
+    isp: ISP
+    og: organisation (network)
+    ut: usage type
+    ctp: connection type
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

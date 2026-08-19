@@ -1,0 +1,164 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://swetrix.com/docs/analytics-dashboard/alerts,
+  https://swetrix.com/docs/teams-api-integrations
+spec_type: none
+note: >-
+  Swetrix publishes NO AsyncAPI document — there is no /asyncapi.yaml, no event
+  catalog page and nothing in the GitHub organisation. It DOES ship a real
+  outbound event surface: alert notification channels, one of which is a custom
+  webhook that POSTs JSON to a URL you own with an optional HMAC-SHA256
+  signature. This file is the webhook catalog read verbatim from the alerts
+  documentation; apis.yml therefore carries `type: Webhooks` and NOT
+  `type: AsyncAPI`.
+availability:
+  cloud: true
+  self_hosted: false
+  note: >-
+    "Alerts and notification channels are exclusively available on Swetrix Cloud.
+    They are not currently available for self-hosted instances."
+delivery:
+  direction: outbound
+  transport: HTTPS POST
+  content_type: application/json
+  destination: subscriber-supplied URL
+  retries: not documented
+  ordering: not documented
+security:
+  signature:
+    header: X-Swetrix-Signature
+    format: 'sha256=<hmac of the raw body>'
+    algorithm: HMAC-SHA256
+    key: subscriber-configured signing secret (optional)
+    verification: >-
+      "Compute HMAC-SHA256(secret, raw_request_body) and compare it to the value
+      after sha256= using a constant-time comparison." Swetrix explicitly frames
+      this as the guarantee against forgery, modification and replay.
+    note: The signing secret is optional; without it requests are unsigned.
+channels:
+  - id: webhook
+    type: custom-webhook
+    description: JSON POST to a URL of your choice with an optional HMAC-SHA256 signature.
+    verification: webhook ping
+  - id: email
+    type: email
+    description: Rich HTML email with a one-click unsubscribe link.
+    verification: confirmation email
+    note: >-
+      A recipient clicking unsubscribe marks the channel Unsubscribed and Swetrix
+      stops sending until it is re-verified.
+  - id: telegram
+    type: chat
+    description: Messages via the @swetrixbot bot to a private chat.
+    verification: linked through the bot
+  - id: discord
+    type: chat-incoming-webhook
+    description: Posts to a Discord channel via an incoming webhook URL.
+    verification: validated on save
+  - id: slack
+    type: chat-incoming-webhook
+    description: Posts to a Slack channel via an incoming webhook URL.
+    verification: validated on save
+  - id: web-push
+    type: browser-push
+    description: Native browser push notification for the subscribing device.
+    verification: verified on subscribe
+channel_scopes:
+  - scope: user
+    description: Personal channels, available across all of your projects.
+    managed_in: Account Settings → Communications → Notification channels
+  - scope: organisation
+    description: Shared with everyone in an organisation.
+    managed_in: Organisation Settings → Notification channels
+  - scope: project
+    description: Scoped to a single project.
+    managed_in: Project Settings → Notification channels
+messages:
+  - name: alert
+    description: Emitted when an alert's metric crosses its configured threshold within the time window.
+    payload_shape:
+      type: alert
+      subject: string
+      body: string
+      context:
+        alert_name: string
+        project_name: string
+        project_id: string
+        dashboard_url: string
+        value: number
+        threshold: number
+        condition: string
+        time_window: string
+        metric: string
+      timestamp: ISO 8601 string
+    example: |
+      {
+        "type": "alert",
+        "subject": "[Swetrix] High traffic alert triggered",
+        "body": "🔔 Alert *High traffic alert* triggered!\n\nProject: ...",
+        "context": {
+          "alert_name": "High traffic alert",
+          "project_name": "My website",
+          "project_id": "abcdef",
+          "dashboard_url": "https://swetrix.com/projects/abcdef",
+          "value": 1234,
+          "threshold": 1000,
+          "condition": "greater than",
+          "time_window": "1 hour",
+          "metric": "page_views"
+        },
+        "timestamp": "2026-04-24T10:00:00.000Z"
+      }
+  - name: verification
+    description: Sent once when a webhook channel is created, to prove the endpoint is reachable.
+    payload_shape:
+      type: verification
+      timestamp: ISO 8601 string
+    example: '{ "type": "verification", "timestamp": "..." }'
+triggers:
+  metrics:
+    - id: page_views
+      description: Total page views in the time window.
+    - id: unique_sessions
+      description: Number of distinct sessions in the time window.
+    - id: online_users
+      description: How many visitors are currently active on the site.
+    - id: custom_events
+      description: >-
+        A specific custom event by name, or every custom event. "Alert on every
+        custom event" fires per occurrence and skips the threshold/time-window
+        settings.
+    - id: errors
+      description: >-
+        JavaScript errors. "Alert on new errors only" fires just for the first
+        occurrence of each new error — the post-deploy regression case.
+  conditions: [greater than, greater than or equal to, less than, less than or equal to]
+  time_windows: ['15 minutes', '30 minutes', '1 hour', '4 hours', '24 hours', '48 hours']
+  evaluation: rolling window
+templating:
+  engine: Handlebars + a Markdown subset
+  common_variables:
+    - '{{alert_name}}'
+    - '{{project_name}}'
+    - '{{project_id}}'
+    - '{{dashboard_url}}'
+    - '{{value}}'
+    - '{{threshold}}'
+    - '{{condition}}'
+    - '{{time_window}}'
+  error_variables: ['{{error_name}}', '{{error_message}}', '{{errors_url}}']
+  note: >-
+    Swetrix normalises Markdown per destination — Telegram and Slack read single
+    *text* as bold while CommonMark reads it as italic — so the preview matches
+    what recipients see.
+management:
+  ui_only: true
+  note: >-
+    Alerts and notification channels are created and managed in the dashboard
+    (Project Settings → Alerts). No public REST endpoints for alert or channel
+    CRUD are documented, so the webhook surface cannot be provisioned
+    programmatically.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
