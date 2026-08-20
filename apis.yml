@@ -23,6 +23,14 @@ tags:
   - Analytics
   - Cookieless Tracking
   - GDPR Compliant
+  - Open-Source
+  - Privacy
+  - Real-Time Analytics
+  - Web Analytics
+tags_raw:
+  - Analytics
+  - Cookieless Tracking
+  - GDPR Compliant
   - Open Source
   - Privacy
   - Real-Time Analytics
@@ -53,6 +61,14 @@ apis:
   - type: OpenCollection
     url: collections/swetrix-events-api.opencollection.json
   tags:
+  - Analytics
+  - Cookieless Tracking
+  - Custom Events
+  - Error Tracking
+  - Event
+  - Page Views
+  - Revenue Tracking
+  tags_raw:
   - Analytics
   - Cookieless Tracking
   - Custom Events
@@ -206,6 +222,8 @@ apis:
   humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
