@@ -5,6 +5,18 @@ description: >-
   dashboards, and GDPR-compliant analytics without collecting personal data. It offers a fully-featured REST API for
   tracking events, querying statistics, managing projects, and integrating analytics into custom applications.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
