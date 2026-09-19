@@ -94,6 +94,8 @@ apis:
   humanURL: https://swetrix.com/docs/admin-api
   baseURL: https://api.swetrix.com
   tags:
+  - Annotation
+  tags_raw:
   - Annotations
   properties:
   - type: OpenAPI
