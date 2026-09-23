@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Swetrix Admin Annotations Views API
+  title: Swetrix Admin Views API
   description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
   version: '1.0'
   contact:
@@ -157,15 +157,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     BadRequest:
       description: Bad request - malformed body or missing required fields
       content:
@@ -175,7 +166,30 @@ components:
             properties:
               message:
                 type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   schemas:
+    UpdateViewRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 20
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
     ProjectView:
       type: object
       properties:
@@ -220,20 +234,6 @@ components:
           items:
             type: string
           maxItems: 3
-    UpdateViewRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 20
-        filters:
-          type: array
-          items:
-            type: object
-        customEvents:
-          type: array
-          items:
-            type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

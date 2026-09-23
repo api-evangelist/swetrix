@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Swetrix Admin Annotations Projects API
+  title: Swetrix Admin Projects API
   description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
   version: '1.0'
   contact:
@@ -154,58 +154,30 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   schemas:
-    CreateProjectRequest:
+    UpdateProjectRequest:
       type: object
-      required:
-      - name
       properties:
         name:
           type: string
           maxLength: 50
-          description: Project display name
-        isCaptcha:
+        active:
           type: boolean
-          default: false
-          description: Enable CAPTCHA analytics tracking
-        isPasswordProtected:
+        public:
           type: boolean
-          default: false
-          description: Require password to view dashboard
-        password:
+        origins:
+          type: array
+          items:
+            type: string
+        ipBlacklist:
+          type: array
+          items:
+            type: string
+        botsProtectionLevel:
           type: string
-          description: Dashboard password (required if isPasswordProtected is true)
-        organisationId:
-          type: string
-          description: Organisation to assign project to
+          enum:
+          - 'off'
+          - basic
     Project:
       type: object
       properties:
@@ -243,29 +215,57 @@ components:
         updatedAt:
           type: string
           format: date-time
-    UpdateProjectRequest:
+    CreateProjectRequest:
       type: object
+      required:
+      - name
       properties:
         name:
           type: string
           maxLength: 50
-        active:
+          description: Project display name
+        isCaptcha:
           type: boolean
-        public:
+          default: false
+          description: Enable CAPTCHA analytics tracking
+        isPasswordProtected:
           type: boolean
-        origins:
-          type: array
-          items:
-            type: string
-        ipBlacklist:
-          type: array
-          items:
-            type: string
-        botsProtectionLevel:
+          default: false
+          description: Require password to view dashboard
+        password:
           type: string
-          enum:
-          - 'off'
-          - basic
+          description: Dashboard password (required if isPasswordProtected is true)
+        organisationId:
+          type: string
+          description: Organisation to assign project to
+  responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   parameters:
     projectId:
       name: id

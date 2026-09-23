@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Swetrix Admin Annotations Traffic API
-  description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
+  title: Swetrix Statistics Traffic API
+  description: The Swetrix Statistics API enables querying aggregated analytics data for projects including traffic logs, performance metrics, session details, funnel analysis, user navigation flows, error statistics, keyword data, and feature flag evaluations. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
   version: '1.0'
   contact:
     name: Swetrix Support
@@ -190,12 +190,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    filters:
-      name: filters
-      in: query
-      schema:
-        type: string
-      description: JSON array of filter objects
     timeBucket:
       name: timeBucket
       in: query
@@ -210,20 +204,6 @@ components:
         - month
         - year
       description: Time bucket for data aggregation
-    pid:
-      name: pid
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Project ID
-    to:
-      name: to
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range end date (YYYY-MM-DD)
     period:
       name: period
       in: query
@@ -256,7 +236,59 @@ components:
         type: string
         default: Etc/GMT
       description: IANA timezone name (default Etc/GMT)
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    filters:
+      name: filters
+      in: query
+      schema:
+        type: string
+      description: JSON array of filter objects
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   schemas:
+    LiveVisitor:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        device:
+          type: string
+        browser:
+          type: string
+        os:
+          type: string
+        country:
+          type: string
     TrafficLogResponse:
       type: object
       properties:
@@ -277,38 +309,6 @@ components:
           items:
             type: object
           description: Applied filter objects
-    LiveVisitor:
-      type: object
-      properties:
-        sessionId:
-          type: string
-        device:
-          type: string
-        browser:
-          type: string
-        os:
-          type: string
-        country:
-          type: string
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -316,5 +316,5 @@ components:
       name: X-Api-Key
       description: API key from Swetrix account settings (https://swetrix.com/user-settings)
 externalDocs:
-  description: Swetrix Admin API Documentation
-  url: https://swetrix.com/docs/admin-api
+  description: Swetrix Statistics API Documentation
+  url: https://swetrix.com/docs/statistics-api

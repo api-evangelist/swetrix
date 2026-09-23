@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Swetrix Admin Annotations Events API
   description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
@@ -130,44 +130,69 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    PaymentRequired:
-      description: Payment required - inactive project or quota exceeded
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    ServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body, missing required fields, or disabled project
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   schemas:
+    PerformanceMetrics:
+      type: object
+      description: Frontend performance timings in seconds
+      properties:
+        dns:
+          type: number
+          description: DNS lookup time in seconds
+        tls:
+          type: number
+          description: TLS handshake time in seconds
+        conn:
+          type: number
+          description: Connection time in seconds
+        response:
+          type: number
+          description: Response time in seconds
+        render:
+          type: number
+          description: Page render time in seconds
+        dom_load:
+          type: number
+          description: DOM content loaded time in seconds
+        page_load:
+          type: number
+          description: Full page load time in seconds
+        ttfb:
+          type: number
+          description: Time to first byte in seconds
+    PageviewEvent:
+      type: object
+      required:
+      - pid
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        pg:
+          type: string
+          description: Page path (e.g. /home)
+        lc:
+          type: string
+          description: User locale (e.g. en-US)
+        ref:
+          type: string
+          description: Referrer URL
+        so:
+          type: string
+          description: UTM source parameter
+        me:
+          type: string
+          description: UTM medium parameter
+        ca:
+          type: string
+          description: UTM campaign parameter
+        tz:
+          type: string
+          description: Visitor timezone (e.g. America/New_York)
+        unique:
+          type: boolean
+          description: Track only unique visits
+        perf:
+          $ref: '#/components/schemas/PerformanceMetrics'
     CustomEvent:
       type: object
       required:
@@ -215,68 +240,43 @@ components:
         pid:
           type: string
           description: Project ID
-    PageviewEvent:
-      type: object
-      required:
-      - pid
-      properties:
-        pid:
-          type: string
-          description: Project ID
-        pg:
-          type: string
-          description: Page path (e.g. /home)
-        lc:
-          type: string
-          description: User locale (e.g. en-US)
-        ref:
-          type: string
-          description: Referrer URL
-        so:
-          type: string
-          description: UTM source parameter
-        me:
-          type: string
-          description: UTM medium parameter
-        ca:
-          type: string
-          description: UTM campaign parameter
-        tz:
-          type: string
-          description: Visitor timezone (e.g. America/New_York)
-        unique:
-          type: boolean
-          description: Track only unique visits
-        perf:
-          $ref: '#/components/schemas/PerformanceMetrics'
-    PerformanceMetrics:
-      type: object
-      description: Frontend performance timings in seconds
-      properties:
-        dns:
-          type: number
-          description: DNS lookup time in seconds
-        tls:
-          type: number
-          description: TLS handshake time in seconds
-        conn:
-          type: number
-          description: Connection time in seconds
-        response:
-          type: number
-          description: Response time in seconds
-        render:
-          type: number
-          description: Page render time in seconds
-        dom_load:
-          type: number
-          description: DOM content loaded time in seconds
-        page_load:
-          type: number
-          description: Full page load time in seconds
-        ttfb:
-          type: number
-          description: Time to first byte in seconds
+  responses:
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    PaymentRequired:
+      description: Payment required - inactive project or quota exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Forbidden:
+      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

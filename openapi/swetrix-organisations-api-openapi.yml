@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Swetrix Admin Annotations Organisations API
+  title: Swetrix Admin Organisations API
   description: The Swetrix Admin API manages analytics projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for all Swetrix account resources. All requests require authentication via the X-Api-Key header. Rate limit is 600 requests/hour.
   version: '1.0'
   contact:
@@ -218,6 +218,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
     Forbidden:
       description: Forbidden - insufficient permissions
       content:
@@ -229,15 +238,6 @@ components:
                 type: string
     Unauthorized:
       description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
       content:
         application/json:
           schema:

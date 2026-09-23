@@ -1,38 +1,52 @@
 {
   "provider": "swetrix",
   "sources": [
-    "swetrix-annotations-api-openapi.yml",
-    "swetrix-custom-events-api-openapi.yml",
+    "_original/swetrix-admin-api-openapi.yml",
+    "_original/swetrix-statistics-api-openapi.yml",
     "swetrix-errors-api-openapi.yml",
     "swetrix-events-api-openapi.yml",
-    "swetrix-feature-flags-api-openapi.yml",
-    "swetrix-funnels-api-openapi.yml",
-    "swetrix-organisations-api-openapi.yml",
-    "swetrix-performance-api-openapi.yml",
-    "swetrix-projects-api-openapi.yml",
-    "swetrix-revenue-api-openapi.yml",
-    "swetrix-sessions-api-openapi.yml",
-    "swetrix-traffic-api-openapi.yml",
-    "swetrix-views-api-openapi.yml"
+    "swetrix-revenue-api-openapi.yml"
   ],
   "outputs": [
     "swetrix-annotations-api-openapi.yml",
-    "swetrix-custom-events-api-openapi.yml",
-    "swetrix-errors-api-openapi.yml",
-    "swetrix-events-api-openapi.yml",
-    "swetrix-feature-flags-api-openapi.yml",
     "swetrix-funnels-api-openapi.yml",
     "swetrix-organisations-api-openapi.yml",
-    "swetrix-performance-api-openapi.yml",
     "swetrix-projects-api-openapi.yml",
-    "swetrix-revenue-api-openapi.yml",
+    "swetrix-views-api-openapi.yml",
+    "swetrix-custom-events-api-openapi.yml",
+    "swetrix-errors-api-openapi.yml",
+    "swetrix-feature-flags-api-openapi.yml",
+    "swetrix-performance-api-openapi.yml",
     "swetrix-sessions-api-openapi.yml",
     "swetrix-traffic-api-openapi.yml",
-    "swetrix-views-api-openapi.yml"
+    "swetrix-events-api-openapi.yml",
+    "swetrix-revenue-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "swetrix-errors-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /log/error post); its other 3 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "swetrix-events-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /log post, /log/custom post, /log/hb post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "swetrix-revenue-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /log/revenue post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "swetrix-admin-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "swetrix-statistics-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Funnels' spans 2 source specs (swetrix-admin-api-openapi.yml, swetrix-statistics-api-openapi.yml): per-path servers applied",
+    "tag 'Errors' spans 2 source specs (swetrix-statistics-api-openapi.yml, swetrix-errors-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "swetrix-annotations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-custom-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-feature-flags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-funnels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-organisations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-performance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-traffic-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "swetrix-views-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
