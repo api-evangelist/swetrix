@@ -157,15 +157,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     Unauthorized:
       description: Unauthorized - missing or invalid API key
       content:
@@ -175,21 +166,16 @@ components:
             properties:
               message:
                 type: string
-  schemas:
-    UpdateViewRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 20
-        filters:
-          type: array
-          items:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
             type: object
-        customEvents:
-          type: array
-          items:
-            type: string
+            properties:
+              message:
+                type: string
+  schemas:
     ProjectView:
       type: object
       properties:
@@ -202,6 +188,20 @@ components:
           enum:
           - traffic
           - performance
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
+    UpdateViewRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 20
         filters:
           type: array
           items:

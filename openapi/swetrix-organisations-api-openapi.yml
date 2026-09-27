@@ -218,15 +218,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     Forbidden:
       description: Forbidden - insufficient permissions
       content:
@@ -245,14 +236,15 @@ components:
             properties:
               message:
                 type: string
-  parameters:
-    orgId:
-      name: orgId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Organisation ID
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   schemas:
     Organisation:
       type: object
@@ -271,6 +263,14 @@ components:
           type: array
           items:
             type: object
+  parameters:
+    orgId:
+      name: orgId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Organisation ID
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

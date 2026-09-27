@@ -6,16 +6,22 @@ description: >-
   tracking events, querying statistics, managing projects, and integrating analytics into custom applications.
 type: Index
 deliveryModel:
-  model: saas
-  open_source: false
+  model: open-core
+  license: AGPL-3.0
+  license_evidence:
+    repo: swetrix/swetrix
+    spdx: AGPL-3.0
+    stars: 1202
+  open_source: true
   commercial: true
   callable_host: true
-  label: Hosted service · you call their endpoint
-  confidence: high
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: medium
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: paid
@@ -35,7 +41,7 @@ tags:
   - Analytics
   - Cookieless Tracking
   - GDPR Compliant
-  - Open-Source
+  - Open Source
   - Privacy
   - Real-Time Analytics
   - Web Analytics
@@ -47,6 +53,7 @@ tags_raw:
   - Privacy
   - Real-Time Analytics
   - Web Analytics
+  - Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml
 created: '2026-03-26'
 modified: '2026-08-13'

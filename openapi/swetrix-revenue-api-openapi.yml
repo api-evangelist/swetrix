@@ -113,15 +113,6 @@ components:
           additionalProperties:
             type: string
   responses:
-    BadRequest:
-      description: Bad request - malformed body, missing required fields, or disabled project
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     Forbidden:
       description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
       content:
@@ -133,6 +124,15 @@ components:
                 type: string
     ServerError:
       description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
       content:
         application/json:
           schema:

@@ -178,6 +178,29 @@ components:
           enum:
           - 'off'
           - basic
+    CreateProjectRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+          description: Project display name
+        isCaptcha:
+          type: boolean
+          default: false
+          description: Enable CAPTCHA analytics tracking
+        isPasswordProtected:
+          type: boolean
+          default: false
+          description: Require password to view dashboard
+        password:
+          type: string
+          description: Dashboard password (required if isPasswordProtected is true)
+        organisationId:
+          type: string
+          description: Organisation to assign project to
     Project:
       type: object
       properties:
@@ -215,39 +238,15 @@ components:
         updatedAt:
           type: string
           format: date-time
-    CreateProjectRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          maxLength: 50
-          description: Project display name
-        isCaptcha:
-          type: boolean
-          default: false
-          description: Enable CAPTCHA analytics tracking
-        isPasswordProtected:
-          type: boolean
-          default: false
-          description: Require password to view dashboard
-        password:
-          type: string
-          description: Dashboard password (required if isPasswordProtected is true)
-        organisationId:
-          type: string
-          description: Organisation to assign project to
+  parameters:
+    projectId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Project ID
   responses:
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     Unauthorized:
       description: Unauthorized - missing or invalid API key
       content:
@@ -266,14 +265,15 @@ components:
             properties:
               message:
                 type: string
-  parameters:
-    projectId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Project ID
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

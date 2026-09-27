@@ -98,6 +98,27 @@ components:
         - month
         - year
       description: Time bucket for data aggregation
+    timezone:
+      name: timezone
+      in: query
+      schema:
+        type: string
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
     period:
       name: period
       in: query
@@ -116,6 +137,12 @@ components:
         - 24M
         - all
       description: Time period for the query
+    filters:
+      name: filters
+      in: query
+      schema:
+        type: string
+      description: JSON array of filter objects
     from:
       name: from
       in: query
@@ -123,36 +150,9 @@ components:
         type: string
         format: date
       description: Custom range start date (YYYY-MM-DD)
-    timezone:
-      name: timezone
-      in: query
-      schema:
-        type: string
-        default: Etc/GMT
-      description: IANA timezone name (default Etc/GMT)
-    to:
-      name: to
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range end date (YYYY-MM-DD)
-    pid:
-      name: pid
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Project ID
-    filters:
-      name: filters
-      in: query
-      schema:
-        type: string
-      description: JSON array of filter objects
   responses:
-    BadRequest:
-      description: Bad request - invalid parameters
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
       content:
         application/json:
           schema:
@@ -160,8 +160,8 @@ components:
             properties:
               message:
                 type: string
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
+    BadRequest:
+      description: Bad request - invalid parameters
       content:
         application/json:
           schema:
