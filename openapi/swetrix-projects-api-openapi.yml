@@ -155,29 +155,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    UpdateProjectRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        active:
-          type: boolean
-        public:
-          type: boolean
-        origins:
-          type: array
-          items:
-            type: string
-        ipBlacklist:
-          type: array
-          items:
-            type: string
-        botsProtectionLevel:
-          type: string
-          enum:
-          - 'off'
-          - basic
     CreateProjectRequest:
       type: object
       required:
@@ -201,6 +178,29 @@ components:
         organisationId:
           type: string
           description: Organisation to assign project to
+    UpdateProjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        active:
+          type: boolean
+        public:
+          type: boolean
+        origins:
+          type: array
+          items:
+            type: string
+        ipBlacklist:
+          type: array
+          items:
+            type: string
+        botsProtectionLevel:
+          type: string
+          enum:
+          - 'off'
+          - basic
     Project:
       type: object
       properties:
@@ -238,26 +238,9 @@ components:
         updatedAt:
           type: string
           format: date-time
-  parameters:
-    projectId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Project ID
   responses:
     Unauthorized:
       description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    NotFound:
-      description: Resource not found
       content:
         application/json:
           schema:
@@ -274,6 +257,23 @@ components:
             properties:
               message:
                 type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  parameters:
+    projectId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Project ID
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

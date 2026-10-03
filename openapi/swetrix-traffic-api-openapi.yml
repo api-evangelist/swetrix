@@ -190,6 +190,51 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    filters:
+      name: filters
+      in: query
+      schema:
+        type: string
+      description: JSON array of filter objects
+    period:
+      name: period
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - 1h
+        - today
+        - yesterday
+        - 1d
+        - 7d
+        - 4w
+        - 3M
+        - 12M
+        - 24M
+        - all
+      description: Time period for the query
     timeBucket:
       name: timeBucket
       in: query
@@ -211,71 +256,20 @@ components:
         type: string
         default: Etc/GMT
       description: IANA timezone name (default Etc/GMT)
-    pid:
-      name: pid
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Project ID
-    to:
-      name: to
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range end date (YYYY-MM-DD)
-    period:
-      name: period
-      in: query
-      required: true
-      schema:
-        type: string
-        enum:
-        - 1h
-        - today
-        - yesterday
-        - 1d
-        - 7d
-        - 4w
-        - 3M
-        - 12M
-        - 24M
-        - all
-      description: Time period for the query
-    filters:
-      name: filters
-      in: query
-      schema:
-        type: string
-      description: JSON array of filter objects
-    from:
-      name: from
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range start date (YYYY-MM-DD)
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - invalid parameters
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   schemas:
+    LiveVisitor:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        device:
+          type: string
+        browser:
+          type: string
+        os:
+          type: string
+        country:
+          type: string
     TrafficLogResponse:
       type: object
       properties:
@@ -296,19 +290,25 @@ components:
           items:
             type: object
           description: Applied filter objects
-    LiveVisitor:
-      type: object
-      properties:
-        sessionId:
-          type: string
-        device:
-          type: string
-        browser:
-          type: string
-        os:
-          type: string
-        country:
-          type: string
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

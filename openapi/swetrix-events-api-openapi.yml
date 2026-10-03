@@ -130,44 +130,41 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    ServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    PaymentRequired:
-      description: Payment required - inactive project or quota exceeded
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body, missing required fields, or disabled project
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   schemas:
+    PageviewEvent:
+      type: object
+      required:
+      - pid
+      properties:
+        pid:
+          type: string
+          description: Project ID
+        pg:
+          type: string
+          description: Page path (e.g. /home)
+        lc:
+          type: string
+          description: User locale (e.g. en-US)
+        ref:
+          type: string
+          description: Referrer URL
+        so:
+          type: string
+          description: UTM source parameter
+        me:
+          type: string
+          description: UTM medium parameter
+        ca:
+          type: string
+          description: UTM campaign parameter
+        tz:
+          type: string
+          description: Visitor timezone (e.g. America/New_York)
+        unique:
+          type: boolean
+          description: Track only unique visits
+        perf:
+          $ref: '#/components/schemas/PerformanceMetrics'
     CustomEvent:
       type: object
       required:
@@ -215,40 +212,6 @@ components:
         pid:
           type: string
           description: Project ID
-    PageviewEvent:
-      type: object
-      required:
-      - pid
-      properties:
-        pid:
-          type: string
-          description: Project ID
-        pg:
-          type: string
-          description: Page path (e.g. /home)
-        lc:
-          type: string
-          description: User locale (e.g. en-US)
-        ref:
-          type: string
-          description: Referrer URL
-        so:
-          type: string
-          description: UTM source parameter
-        me:
-          type: string
-          description: UTM medium parameter
-        ca:
-          type: string
-          description: UTM campaign parameter
-        tz:
-          type: string
-          description: Visitor timezone (e.g. America/New_York)
-        unique:
-          type: boolean
-          description: Track only unique visits
-        perf:
-          $ref: '#/components/schemas/PerformanceMetrics'
     PerformanceMetrics:
       type: object
       description: Frontend performance timings in seconds
@@ -277,6 +240,43 @@ components:
         ttfb:
           type: number
           description: Time to first byte in seconds
+  responses:
+    PaymentRequired:
+      description: Payment required - inactive project or quota exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Forbidden:
+      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

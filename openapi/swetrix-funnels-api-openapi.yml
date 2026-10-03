@@ -167,43 +167,7 @@ paths:
     - url: https://api.swetrix.com
       description: Swetrix Production API
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   schemas:
-    CreateFunnelRequest:
-      type: object
-      required:
-      - name
-      - pid
-      - steps
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        pid:
-          type: string
-        steps:
-          type: array
-          items:
-            type: string
-          description: Array of page paths defining funnel sequence
     UpdateFunnelRequest:
       type: object
       required:
@@ -234,13 +198,23 @@ components:
           type: array
           items:
             type: string
-    FunnelResponse:
+    CreateFunnelRequest:
       type: object
+      required:
+      - name
+      - pid
+      - steps
       properties:
+        name:
+          type: string
+          maxLength: 50
+        pid:
+          type: string
         steps:
           type: array
           items:
-            $ref: '#/components/schemas/FunnelStep'
+            type: string
+          description: Array of page paths defining funnel sequence
     FunnelStep:
       type: object
       properties:
@@ -253,21 +227,33 @@ components:
         conversionRate:
           type: number
           format: float
+    FunnelResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunnelStep'
+  responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   parameters:
-    timezone:
-      name: timezone
-      in: query
-      schema:
-        type: string
-        default: Etc/GMT
-      description: IANA timezone name (default Etc/GMT)
-    from:
-      name: from
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range start date (YYYY-MM-DD)
     to:
       name: to
       in: query
@@ -275,6 +261,20 @@ components:
         type: string
         format: date
       description: Custom range end date (YYYY-MM-DD)
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
     period:
       name: period
       in: query
@@ -293,13 +293,13 @@ components:
         - 24M
         - all
       description: Time period for the query
-    pid:
-      name: pid
+    timezone:
+      name: timezone
       in: query
-      required: true
       schema:
         type: string
-      description: Project ID
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

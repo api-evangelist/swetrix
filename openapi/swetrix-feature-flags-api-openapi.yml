@@ -48,13 +48,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    timezone:
-      name: timezone
-      in: query
-      schema:
-        type: string
-        default: Etc/GMT
-      description: IANA timezone name (default Etc/GMT)
     to:
       name: to
       in: query
@@ -62,6 +55,13 @@ components:
         type: string
         format: date
       description: Custom range end date (YYYY-MM-DD)
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
     period:
       name: period
       in: query
@@ -80,13 +80,13 @@ components:
         - 24M
         - all
       description: Time period for the query
-    from:
-      name: from
+    timezone:
+      name: timezone
       in: query
       schema:
         type: string
-        format: date
-      description: Custom range start date (YYYY-MM-DD)
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
   responses:
     Unauthorized:
       description: Unauthorized - missing or invalid API key

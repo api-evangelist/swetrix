@@ -63,6 +63,34 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  responses:
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Forbidden:
+      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   schemas:
     RevenueEvent:
       type: object
@@ -112,34 +140,6 @@ components:
           description: Custom key-value pairs (max 100 keys, 2000 chars)
           additionalProperties:
             type: string
-  responses:
-    Forbidden:
-      description: Forbidden - duplicate unique event, invalid API key, or insufficient permissions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    ServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body, missing required fields, or disabled project
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -156,26 +156,31 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   schemas:
+    CreateViewRequest:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 20
+        type:
+          type: string
+          enum:
+          - traffic
+          - performance
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
+          maxItems: 3
     ProjectView:
       type: object
       properties:
@@ -210,30 +215,25 @@ components:
           type: array
           items:
             type: string
-    CreateViewRequest:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 20
-        type:
-          type: string
-          enum:
-          - traffic
-          - performance
-        filters:
-          type: array
-          items:
+  responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
             type: object
-        customEvents:
-          type: array
-          items:
-            type: string
-          maxItems: 3
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

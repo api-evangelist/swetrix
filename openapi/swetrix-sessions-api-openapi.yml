@@ -71,27 +71,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    skip:
-      name: skip
-      in: query
-      schema:
-        type: integer
-        default: 0
-      description: Number of results to skip for pagination
-    timezone:
-      name: timezone
-      in: query
-      schema:
-        type: string
-        default: Etc/GMT
-      description: IANA timezone name (default Etc/GMT)
-    from:
-      name: from
+    to:
+      name: to
       in: query
       schema:
         type: string
         format: date
-      description: Custom range start date (YYYY-MM-DD)
+      description: Custom range end date (YYYY-MM-DD)
     take:
       name: take
       in: query
@@ -100,13 +86,26 @@ components:
         default: 30
         maximum: 150
       description: Number of results to return (max 150)
-    to:
-      name: to
+    from:
+      name: from
       in: query
       schema:
         type: string
         format: date
-      description: Custom range end date (YYYY-MM-DD)
+      description: Custom range start date (YYYY-MM-DD)
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    filters:
+      name: filters
+      in: query
+      schema:
+        type: string
+      description: JSON array of filter objects
     period:
       name: period
       in: query
@@ -125,40 +124,21 @@ components:
         - 24M
         - all
       description: Time period for the query
-    filters:
-      name: filters
+    timezone:
+      name: timezone
       in: query
       schema:
         type: string
-      description: JSON array of filter objects
-    pid:
-      name: pid
+        default: Etc/GMT
+      description: IANA timezone name (default Etc/GMT)
+    skip:
+      name: skip
       in: query
-      required: true
       schema:
-        type: string
-      description: Project ID
+        type: integer
+        default: 0
+      description: Number of results to skip for pagination
   schemas:
-    SessionDetail:
-      type: object
-      properties:
-        pages:
-          type: array
-          items:
-            type: object
-        sessionDetails:
-          type: object
-        chart:
-          type: object
-    SessionListResponse:
-      type: object
-      properties:
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/SessionSummary'
-        total:
-          type: integer
     SessionSummary:
       type: object
       properties:
@@ -181,6 +161,26 @@ components:
         created:
           type: string
           format: date-time
+    SessionListResponse:
+      type: object
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionSummary'
+        total:
+          type: integer
+    SessionDetail:
+      type: object
+      properties:
+        pages:
+          type: array
+          items:
+            type: object
+        sessionDetails:
+          type: object
+        chart:
+          type: object
   responses:
     Unauthorized:
       description: Unauthorized - missing or invalid API key
