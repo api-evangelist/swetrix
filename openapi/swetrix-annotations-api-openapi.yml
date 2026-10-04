@@ -132,22 +132,6 @@ components:
           format: date
         text:
           type: string
-    UpdateAnnotationRequest:
-      type: object
-      required:
-      - id
-      - pid
-      properties:
-        id:
-          type: string
-        pid:
-          type: string
-        date:
-          type: string
-          format: date
-        text:
-          type: string
-          maxLength: 120
     CreateAnnotationRequest:
       type: object
       required:
@@ -165,9 +149,25 @@ components:
           type: string
           maxLength: 120
           description: Annotation text
+    UpdateAnnotationRequest:
+      type: object
+      required:
+      - id
+      - pid
+      properties:
+        id:
+          type: string
+        pid:
+          type: string
+        date:
+          type: string
+          format: date
+        text:
+          type: string
+          maxLength: 120
   responses:
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
       content:
         application/json:
           schema:
@@ -175,8 +175,8 @@ components:
             properties:
               message:
                 type: string
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
       content:
         application/json:
           schema:

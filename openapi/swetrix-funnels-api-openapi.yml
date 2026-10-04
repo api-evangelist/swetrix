@@ -168,6 +168,23 @@ paths:
       description: Swetrix Production API
 components:
   schemas:
+    CreateFunnelRequest:
+      type: object
+      required:
+      - name
+      - pid
+      - steps
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        pid:
+          type: string
+        steps:
+          type: array
+          items:
+            type: string
+          description: Array of page paths defining funnel sequence
     UpdateFunnelRequest:
       type: object
       required:
@@ -198,23 +215,6 @@ components:
           type: array
           items:
             type: string
-    CreateFunnelRequest:
-      type: object
-      required:
-      - name
-      - pid
-      - steps
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        pid:
-          type: string
-        steps:
-          type: array
-          items:
-            type: string
-          description: Array of page paths defining funnel sequence
     FunnelStep:
       type: object
       properties:
@@ -235,15 +235,6 @@ components:
           items:
             $ref: '#/components/schemas/FunnelStep'
   responses:
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     Unauthorized:
       description: Unauthorized - missing or invalid API key
       content:
@@ -253,28 +244,16 @@ components:
             properties:
               message:
                 type: string
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   parameters:
-    to:
-      name: to
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range end date (YYYY-MM-DD)
-    from:
-      name: from
-      in: query
-      schema:
-        type: string
-        format: date
-      description: Custom range start date (YYYY-MM-DD)
-    pid:
-      name: pid
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Project ID
     period:
       name: period
       in: query
@@ -300,6 +279,27 @@ components:
         type: string
         default: Etc/GMT
       description: IANA timezone name (default Etc/GMT)
+    to:
+      name: to
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range end date (YYYY-MM-DD)
+    pid:
+      name: pid
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Project ID
+    from:
+      name: from
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Custom range start date (YYYY-MM-DD)
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

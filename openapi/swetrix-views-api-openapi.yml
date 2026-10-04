@@ -157,6 +157,40 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    UpdateViewRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 20
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
+    ProjectView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - traffic
+          - performance
+        filters:
+          type: array
+          items:
+            type: object
+        customEvents:
+          type: array
+          items:
+            type: string
     CreateViewRequest:
       type: object
       required:
@@ -181,43 +215,9 @@ components:
           items:
             type: string
           maxItems: 3
-    ProjectView:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - traffic
-          - performance
-        filters:
-          type: array
-          items:
-            type: object
-        customEvents:
-          type: array
-          items:
-            type: string
-    UpdateViewRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 20
-        filters:
-          type: array
-          items:
-            type: object
-        customEvents:
-          type: array
-          items:
-            type: string
   responses:
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
       content:
         application/json:
           schema:
@@ -225,8 +225,8 @@ components:
             properties:
               message:
                 type: string
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
       content:
         application/json:
           schema:
