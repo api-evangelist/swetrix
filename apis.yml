@@ -340,6 +340,9 @@ apis:
   - type: Documentation
     url: https://swetrix.com/docs/admin-api
 common:
+  - type: CapabilityMap
+    url: capabilities/swetrix-capability-edges.yml
+    name: Swetrix Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/swetrix/overview
   - type: AgenticAccess

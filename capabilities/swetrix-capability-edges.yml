@@ -1,0 +1,65 @@
+slug: swetrix
+provider: Swetrix
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Traffic
+  spec_file: swetrix-traffic-api-openapi.yml
+  capability_id: BC-4280.30
+  capability_id_l1: BC-4280
+  capability_name: Product Usage Analytics
+  confidence: 0.85
+  evidence: GET /v1/log/user-flow  getUserFlow  Get User Navigation Flow; GET /v1/log/live-visitors  Get
+    Live Visitors; "querying aggregated analytics data for projects including traffic logs"
+  reason: Swetrix is a web/product analytics platform; the Traffic tag exposes aggregated usage telemetry
+    views (traffic log, live visitors, navigation flow, keywords), which is product usage analytics.
+- tag: Events
+  spec_file: swetrix-events-api-openapi.yml
+  capability_id: BC-4280.10
+  capability_id_l1: BC-4280
+  capability_name: Product Telemetry Instrumentation
+  confidence: 0.8
+  evidence: POST /log recordPageview "Record Pageview Event"; POST /log/custom "Record Custom Event";
+    schemas PageviewEvent, CustomEvent, HeartbeatEvent
+  reason: Write-side ingestion of usage events from client runtimes against defined event schemas — product
+    telemetry instrumentation. Title mentioning Annotations is unreliable; operations are event capture.
+- tag: Funnels
+  spec_file: swetrix-funnels-api-openapi.yml
+  capability_id: BC-4280.30
+  capability_id_l1: BC-4280
+  capability_name: Product Usage Analytics
+  confidence: 0.8
+  evidence: POST /v1/project/funnel createFunnel; GET /v1/log/funnel getFunnelAnalysis "Get Funnel Analysis";
+    schemas FunnelStep, FunnelResponse
+  reason: Definition and analysis of conversion funnels over product usage data, which the capability
+    explicitly names ("funnels, retention cohorts, and feature engagement").
+- tag: Custom Events
+  spec_file: swetrix-custom-events-api-openapi.yml
+  capability_id: BC-4280.30
+  capability_id_l1: BC-4280
+  capability_name: Product Usage Analytics
+  confidence: 0.75
+  evidence: GET /v1/log/custom-events getCustomEvents "Get Custom Events Data"; "querying aggregated analytics
+    data for projects"
+  reason: Read-side query of aggregated custom product/site events — analytical views of usage, i.e. product
+    usage analytics rather than instrumentation itself.
+- tag: Sessions
+  spec_file: swetrix-sessions-api-openapi.yml
+  capability_id: BC-4280.30
+  capability_id_l1: BC-4280
+  capability_name: Product Usage Analytics
+  confidence: 0.7
+  evidence: GET /v1/log/sessions listSessions; GET /v1/log/session "Get Session Details"; schemas SessionSummary,
+    SessionDetail
+  reason: Querying visitor session summaries and details from the analytics store — analytical views of
+    product/site usage. Not authentication sessions, which the read-only statistics context rules out.
