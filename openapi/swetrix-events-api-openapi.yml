@@ -131,14 +131,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    HeartbeatEvent:
-      type: object
-      required:
-      - pid
-      properties:
-        pid:
-          type: string
-          description: Project ID
     PageviewEvent:
       type: object
       required:
@@ -201,6 +193,14 @@ components:
         ttfb:
           type: number
           description: Time to first byte in seconds
+    HeartbeatEvent:
+      type: object
+      required:
+      - pid
+      properties:
+        pid:
+          type: string
+          description: Project ID
     CustomEvent:
       type: object
       required:
@@ -241,8 +241,8 @@ components:
           additionalProperties:
             type: string
   responses:
-    ServerError:
-      description: Internal server error
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
       content:
         application/json:
           schema:
@@ -268,8 +268,8 @@ components:
             properties:
               message:
                 type: string
-    BadRequest:
-      description: Bad request - malformed body, missing required fields, or disabled project
+    ServerError:
+      description: Internal server error
       content:
         application/json:
           schema:

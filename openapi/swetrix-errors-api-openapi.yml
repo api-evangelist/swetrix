@@ -143,6 +143,20 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   parameters:
+    timeBucket:
+      name: timeBucket
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+        - minute
+        - hour
+        - day
+        - week
+        - month
+        - year
+      description: Time bucket for data aggregation
     skip:
       name: skip
       in: query
@@ -150,24 +164,6 @@ components:
         type: integer
         default: 0
       description: Number of results to skip for pagination
-    period:
-      name: period
-      in: query
-      required: true
-      schema:
-        type: string
-        enum:
-        - 1h
-        - today
-        - yesterday
-        - 1d
-        - 7d
-        - 4w
-        - 3M
-        - 12M
-        - 24M
-        - all
-      description: Time period for the query
     filters:
       name: filters
       in: query
@@ -202,20 +198,24 @@ components:
         type: string
         format: date
       description: Custom range start date (YYYY-MM-DD)
-    timeBucket:
-      name: timeBucket
+    period:
+      name: period
       in: query
       required: true
       schema:
         type: string
         enum:
-        - minute
-        - hour
-        - day
-        - week
-        - month
-        - year
-      description: Time bucket for data aggregation
+        - 1h
+        - today
+        - yesterday
+        - 1d
+        - 7d
+        - 4w
+        - 3M
+        - 12M
+        - 24M
+        - all
+      description: Time period for the query
     take:
       name: take
       in: query
@@ -234,8 +234,8 @@ components:
             properties:
               message:
                 type: string
-    ServerError:
-      description: Internal server error
+    BadRequest:
+      description: Bad request - malformed body, missing required fields, or disabled project
       content:
         application/json:
           schema:
@@ -243,8 +243,8 @@ components:
             properties:
               message:
                 type: string
-    BadRequest:
-      description: Bad request - malformed body, missing required fields, or disabled project
+    ServerError:
+      description: Internal server error
       content:
         application/json:
           schema:

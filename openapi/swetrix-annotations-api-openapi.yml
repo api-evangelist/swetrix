@@ -119,9 +119,31 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   schemas:
-    Annotation:
+    UpdateAnnotationRequest:
       type: object
+      required:
+      - id
+      - pid
       properties:
         id:
           type: string
@@ -132,6 +154,7 @@ components:
           format: date
         text:
           type: string
+          maxLength: 120
     CreateAnnotationRequest:
       type: object
       required:
@@ -149,11 +172,8 @@ components:
           type: string
           maxLength: 120
           description: Annotation text
-    UpdateAnnotationRequest:
+    Annotation:
       type: object
-      required:
-      - id
-      - pid
       properties:
         id:
           type: string
@@ -164,26 +184,6 @@ components:
           format: date
         text:
           type: string
-          maxLength: 120
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -156,41 +156,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Bad request - malformed body or missing required fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Unauthorized - missing or invalid API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
   schemas:
-    UpdateViewRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 20
-        filters:
-          type: array
-          items:
-            type: object
-        customEvents:
-          type: array
-          items:
-            type: string
-    ProjectView:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - traffic
-          - performance
-        filters:
-          type: array
-          items:
-            type: object
-        customEvents:
-          type: array
-          items:
-            type: string
     CreateViewRequest:
       type: object
       required:
@@ -215,25 +200,40 @@ components:
           items:
             type: string
           maxItems: 3
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API key
-      content:
-        application/json:
-          schema:
+    ProjectView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - traffic
+          - performance
+        filters:
+          type: array
+          items:
             type: object
-            properties:
-              message:
-                type: string
-    BadRequest:
-      description: Bad request - malformed body or missing required fields
-      content:
-        application/json:
-          schema:
+        customEvents:
+          type: array
+          items:
+            type: string
+    UpdateViewRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 20
+        filters:
+          type: array
+          items:
             type: object
-            properties:
-              message:
-                type: string
+        customEvents:
+          type: array
+          items:
+            type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
