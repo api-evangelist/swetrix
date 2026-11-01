@@ -1,4 +1,4 @@
-# Swetrix (swetrix)
+# Swetrix
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,132 +66,248 @@
 
 Swetrix is an open source, privacy-focused web analytics platform that provides cookieless tracking, real-time dashboards, and GDPR-compliant analytics without collecting personal data. It offers a fully-featured REST API for tracking events, querying statistics, managing projects, and integrating analytics into custom applications.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/apis.yml)
+**Areas:** Analytics · Cookieless Tracking · GDPR Compliant · Open Source · Privacy · Real-Time Analytics · Web Analytics
 
-## Scope
+## Swetrix on APIs.io
 
-- **Type:** Index
+Everything profiled for Swetrix is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/swetrix/](https://apis.io/providers/swetrix/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (13)
 
-- Analytics
-- Cookieless Tracking
-- GDPR Compliant
-- Open Source
-- Privacy
-- Real-Time Analytics
-- Web Analytics
+- [Swetrix Events API](https://apis.io/apis/swetrix/swetrix-events-api/) — The Swetrix Events API provides endpoints for recording pageview events, custom events, heartbeat events, error events, and revenue transactions. Used for…
+- [Swetrix Annotations API](https://apis.io/apis/swetrix/swetrix-annotations-api/) — Manage chart annotations
+- [Swetrix Custom Events API](https://apis.io/apis/swetrix/swetrix-custom-events-api/) — Custom event analytics
+- [Swetrix Errors API](https://apis.io/apis/swetrix/swetrix-errors-api/) — Record JavaScript error events
+- [Swetrix Feature Flags API](https://apis.io/apis/swetrix/swetrix-feature-flags-api/) — Feature flag evaluation statistics
+- [Swetrix Funnels API](https://apis.io/apis/swetrix/swetrix-funnels-api/) — Manage conversion funnels
+- [Swetrix Organisations API](https://apis.io/apis/swetrix/swetrix-organisations-api/) — Manage organisations and member access
+- [Swetrix Performance API](https://apis.io/apis/swetrix/swetrix-performance-api/) — Frontend and backend performance metrics
+- [Swetrix Projects API](https://apis.io/apis/swetrix/swetrix-projects-api/) — Manage analytics projects
+- [Swetrix Revenue API](https://apis.io/apis/swetrix/swetrix-revenue-api/) — Record revenue transactions (server-side only, requires API key)
+- [Swetrix Sessions API](https://apis.io/apis/swetrix/swetrix-sessions-api/) — Individual visitor session data
+- [Swetrix Traffic API](https://apis.io/apis/swetrix/swetrix-traffic-api/) — Aggregated traffic and pageview analytics
+- [Swetrix Views API](https://apis.io/apis/swetrix/swetrix-views-api/) — Manage saved dashboard views (segments)
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Swetrix Events API
+Event-driven and webhook contracts.
 
-The Swetrix Events API provides endpoints for recording pageview events, custom events, heartbeat events, error events, and revenue transactions. Used for sending analytics data from client or server-side applications to Swetrix analytics projects.
+- [Swetrix Alerts Webhooks](https://apis.io/asyncapis/swetrix/swetrix-alerts-webhooks/)
 
-- **Human URL:** [https://swetrix.com/docs/events-api](https://swetrix.com/docs/events-api)
-- **Base URL:** `https://api.swetrix.com`
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Analytics
-- Cookieless Tracking
-- Custom Events
-- Error Tracking
-- Events
-- Pageviews
-- Revenue Tracking
+- [swetrix](https://apis.io/servers/swetrix/swetrix/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://swetrix.com/docs/events-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-events-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/swetrix-admin-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-admin-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/swetrix-events-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-events-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/swetrix-statistics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-statistics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Swetrix Statistics API
+- [Swetrix Agentic Access](https://apis.io/agentic-access/swetrix/swetrix-agentic-access/)
 
-The Swetrix Statistics API enables querying aggregated analytics data including traffic logs, performance metrics, session details, funnel analysis, user flows, error overviews, and feature flag statistics. Authenticated with an X-Api-Key header.
+#### JSON Schema (2)
 
-- **Human URL:** [https://swetrix.com/docs/statistics-api](https://swetrix.com/docs/statistics-api)
-- **Base URL:** `https://api.swetrix.com`
+The data models the API reads and writes.
 
-#### Tags
+- [Swetrix Project](https://apis.io/schemas/swetrix/swetrix-project/)
+- [Swetrix Session](https://apis.io/schemas/swetrix/swetrix-session/)
 
-- Analytics
-- Funnels
-- Performance
-- Statistics
-- Traffic
+#### JSON Structure (1)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Documentation](https://swetrix.com/docs/statistics-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-statistics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/swetrix-admin-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-admin-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/swetrix-events-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-events-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/swetrix-statistics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-statistics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Swetrix Project Structure](https://apis.io/json-structure/swetrix/swetrix-project-structure/)
 
-### Swetrix Admin API
+#### JSON-LD (1)
 
-The Swetrix Admin API manages projects, funnels, annotations, project views (segments), and organisations. Supports full CRUD operations for analytics project management. Authenticated with an X-Api-Key header.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://swetrix.com/docs/admin-api](https://swetrix.com/docs/admin-api)
-- **Base URL:** `https://api.swetrix.com`
+- [Swetrix Context](https://apis.io/jsonld/swetrix/swetrix-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Administration
-- Analytics
-- Organisations
-- Project Management
-- Projects
+The provider's domain terms, defined.
 
-#### Properties
+- [Swetrix Vocabulary](https://apis.io/vocabularies/swetrix/swetrix-vocabulary/)
 
-- [Documentation](https://swetrix.com/docs/admin-api)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/swetrix/refs/heads/main/openapi/swetrix-admin-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/swetrix-admin-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-admin-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/swetrix-events-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-events-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/swetrix-statistics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/swetrix-statistics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Examples (3)
 
-## Common Properties
+Example requests and responses.
 
-- [LinkedIn](https://www.linkedin.com/company/swetrix)
+- [Swetrix Create Project Example](https://apis.io/examples/swetrix/swetrix-create-project-example/)
+- [Swetrix Get Traffic Log Example](https://apis.io/examples/swetrix/swetrix-get-traffic-log-example/)
+- [Swetrix Record Pageview Example](https://apis.io/examples/swetrix/swetrix-record-pageview-example/)
+
+#### Collections (27)
+
+Postman and Open Collection request collections.
+
+- [Swetrix Admin API](https://apis.io/collections/swetrix/open-swetrix-admin-api/)
+- [Swetrix Admin Annotations API](https://apis.io/collections/swetrix/open-swetrix-annotations-api/)
+- [Swetrix Admin Annotations Custom Events API](https://apis.io/collections/swetrix/open-swetrix-custom-events-api/)
+- [Swetrix Admin Annotations Errors API](https://apis.io/collections/swetrix/open-swetrix-errors-api/)
+- [Swetrix Admin Annotations Events API](https://apis.io/collections/swetrix/open-swetrix-events-api/)
+- [Swetrix Admin Annotations Feature Flags API](https://apis.io/collections/swetrix/open-swetrix-feature-flags-api/)
+- [Swetrix Admin Annotations Funnels API](https://apis.io/collections/swetrix/open-swetrix-funnels-api/)
+- [Swetrix Admin Annotations Organisations API](https://apis.io/collections/swetrix/open-swetrix-organisations-api/)
+- [Swetrix Admin Annotations Performance API](https://apis.io/collections/swetrix/open-swetrix-performance-api/)
+- [Swetrix Admin Annotations Projects API](https://apis.io/collections/swetrix/open-swetrix-projects-api/)
+- [Swetrix Admin Annotations Revenue API](https://apis.io/collections/swetrix/open-swetrix-revenue-api/)
+- [Swetrix Admin Annotations Sessions API](https://apis.io/collections/swetrix/open-swetrix-sessions-api/)
+- [Swetrix Statistics API](https://apis.io/collections/swetrix/open-swetrix-statistics-api/)
+- [Swetrix Admin Annotations Traffic API](https://apis.io/collections/swetrix/open-swetrix-traffic-api/)
+- [Swetrix Admin Annotations Views API](https://apis.io/collections/swetrix/open-swetrix-views-api/)
+- [Swetrix Admin Annotations API](https://apis.io/collections/swetrix/postman-swetrix-annotations-api/)
+- [Swetrix Admin Annotations Custom Events API](https://apis.io/collections/swetrix/postman-swetrix-custom-events-api/)
+- [Swetrix Admin Annotations Errors API](https://apis.io/collections/swetrix/postman-swetrix-errors-api/)
+- [Swetrix Admin Annotations Feature Flags API](https://apis.io/collections/swetrix/postman-swetrix-feature-flags-api/)
+- [Swetrix Admin Annotations Funnels API](https://apis.io/collections/swetrix/postman-swetrix-funnels-api/)
+- [Swetrix Admin Annotations Organisations API](https://apis.io/collections/swetrix/postman-swetrix-organisations-api/)
+- [Swetrix Admin Annotations Performance API](https://apis.io/collections/swetrix/postman-swetrix-performance-api/)
+- [Swetrix Admin Annotations Projects API](https://apis.io/collections/swetrix/postman-swetrix-projects-api/)
+- [Swetrix Admin Annotations Revenue API](https://apis.io/collections/swetrix/postman-swetrix-revenue-api/)
+- [Swetrix Admin Annotations Sessions API](https://apis.io/collections/swetrix/postman-swetrix-sessions-api/)
+- …and 2 more published on APIs.io
+
+#### Overlays (26)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Swetrix Annotations Api Overlay](https://apis.io/overlays/swetrix/swetrix-annotations-api-overlay/)
+- [Swetrix Annotations Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-annotations-api-phrasing-overlay/)
+- [Swetrix Custom Events Api Overlay](https://apis.io/overlays/swetrix/swetrix-custom-events-api-overlay/)
+- [Swetrix Custom Events Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-custom-events-api-phrasing-overlay/)
+- [Swetrix Errors Api Overlay](https://apis.io/overlays/swetrix/swetrix-errors-api-overlay/)
+- [Swetrix Errors Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-errors-api-phrasing-overlay/)
+- [Swetrix Events Api Overlay](https://apis.io/overlays/swetrix/swetrix-events-api-overlay/)
+- [Swetrix Events Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-events-api-phrasing-overlay/)
+- [Swetrix Feature Flags Api Overlay](https://apis.io/overlays/swetrix/swetrix-feature-flags-api-overlay/)
+- [Swetrix Feature Flags Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-feature-flags-api-phrasing-overlay/)
+- [Swetrix Funnels Api Overlay](https://apis.io/overlays/swetrix/swetrix-funnels-api-overlay/)
+- [Swetrix Funnels Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-funnels-api-phrasing-overlay/)
+- [Swetrix Organisations Api Overlay](https://apis.io/overlays/swetrix/swetrix-organisations-api-overlay/)
+- [Swetrix Organisations Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-organisations-api-phrasing-overlay/)
+- [Swetrix Performance Api Overlay](https://apis.io/overlays/swetrix/swetrix-performance-api-overlay/)
+- [Swetrix Performance Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-performance-api-phrasing-overlay/)
+- [Swetrix Projects Api Overlay](https://apis.io/overlays/swetrix/swetrix-projects-api-overlay/)
+- [Swetrix Projects Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-projects-api-phrasing-overlay/)
+- [Swetrix Revenue Api Overlay](https://apis.io/overlays/swetrix/swetrix-revenue-api-overlay/)
+- [Swetrix Revenue Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-revenue-api-phrasing-overlay/)
+- [Swetrix Sessions Api Overlay](https://apis.io/overlays/swetrix/swetrix-sessions-api-overlay/)
+- [Swetrix Sessions Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-sessions-api-phrasing-overlay/)
+- [Swetrix Traffic Api Overlay](https://apis.io/overlays/swetrix/swetrix-traffic-api-overlay/)
+- [Swetrix Traffic Api Phrasing Overlay](https://apis.io/overlays/swetrix/swetrix-traffic-api-phrasing-overlay/)
+- [Swetrix Views Api Overlay](https://apis.io/overlays/swetrix/swetrix-views-api-overlay/)
+- …and 1 more published on APIs.io
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Swetrix — jsonschema rules](https://apis.io/rules/swetrix/swetrix-jsonschema-spectral-rules/)
+- [Swetrix API Rules](https://apis.io/rules/swetrix/swetrix-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Swetrix Authentication](https://apis.io/security/swetrix/swetrix-authentication/)
+- [Swetrix Domain Security](https://apis.io/security/swetrix/swetrix-domain-security/)
+- [Swetrix Vulnerability Disclosure](https://apis.io/security/swetrix/swetrix-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Swetrix Plans Pricing](https://apis.io/plans/swetrix/swetrix-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Swetrix Rate Limits](https://apis.io/rate-limits/swetrix/swetrix-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Swetrix Finops](https://apis.io/finops/swetrix/swetrix-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://swetrix.com)
 - [Documentation](https://docs.swetrix.com)
-- [Blog](https://swetrix.com/blog)
+- [Getting started](https://swetrix.com/docs/install-script)
+- [API reference](https://swetrix.com/docs/statistics-api)
 - [Pricing](https://swetrix.com/pricing)
-- [Git Hub](https://github.com/Swetrix/swetrix)
-- [GitHub Organization](https://github.com/Swetrix)
-- [Login](https://swetrix.com/login)
-- [Sign Up](https://swetrix.com/signup)
 - [Support](https://swetrix.com/contact)
-- [Open Source](https://github.com/Swetrix/swetrix-api)
-- [SDK](https://github.com/Swetrix/swetrix-js)
-- [SDK](https://github.com/Swetrix/swetrix-nextjs)
-- [SDK](https://github.com/Swetrix/swetrix-browser)
-- [SDK](https://github.com/Swetrix/django-plugin)
-- [Status Page](https://swetrix.com/status)
-- [Terms of Service](https://swetrix.com/privacy)
-- [Privacy Policy](https://swetrix.com/privacy)
-- [L L Ms Txt](https://swetrix.com/llms.txt)
+- [Changelog](https://github.com/Swetrix/swetrix/releases)
+- [Blog](https://swetrix.com/blog)
+- [Security](https://swetrix.com/security)
+- [Compliance](https://swetrix.com/dpa)
+- [Terms of service](https://swetrix.com/terms)
+- [Privacy policy](https://swetrix.com/privacy)
+- [GitHub](https://github.com/Swetrix)
+- [Status](https://status.swetrix.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 75.5** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 69.8 |
+| Contract governance | 45.5 |
+| Operational transparency | 81.6 |
+| Developer ergonomics | 83.9 |
+| Access clarity | 77.6 |
+
+**Agent readiness 33.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/swetrix/](https://apis.io/providers/swetrix/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Swetrix: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/swetrix/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
